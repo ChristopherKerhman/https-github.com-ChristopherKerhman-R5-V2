@@ -1,7 +1,7 @@
 <?php
 session_start();
-$titre = "Titre";
-$sousTitre = "Sous Titre";
+$titre = "R5";
+$sousTitre = "Le jeu d'escarmouche avec des figurines recyclées";
 function filter($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -35,22 +35,25 @@ $idNav = $dataNav[0]['idNav'];
 <html lang="fr" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="boardgame, jeu d'escarmouche, figurines, 28mm">
     <link rel="stylesheet" href="css/master.css">
     <script src="<?php echo $vueJSCDN; ?>"></script>
     <title><?=$titre?></title>
   </head>
   <body>
   <header>
-    <h1><?=$titre?></h1>
-      <h2><?=$sousTitre?></h2>
-        <nav>
-          <ul class="listNav">
-            <?php
-              foreach ($dataNav as $key) {
-                echo '<li><a class="lienSite" href="index.php?idNav='.$key['idNav'].'">'.$key['nomLien'].'</a></li>';
-
-              }
-             ?>
-          </ul>
-        </nav>
+    <div id="titrePrincipal">
+      <h1 class="titre"><?=$titre?></h1>
+        <h2 class="sousTitre"><?=$sousTitre?></h2>
+  </div>
+  <nav>
+    <ul class="flex-center">
+      <?php
+        foreach ($dataNav as $key) {
+          echo '<li><a href="index.php?idNav='.$key['idNav'].'">'.$key['nomLien'].'</a></li>';
+        }
+       ?>
+    </ul>
+  </nav>
   </header>

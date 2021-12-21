@@ -14,13 +14,19 @@ if ($_SESSION['role'] != 3) {
   $valide = filter($_POST['valide']);
   $levelAdmi = filter($_POST['levelAdmi']);
   $ordre = filter($_POST['ordre']);
+  $centrale = filter($_POST['centrale']);
+  $classement = filter($_POST['classement']);
+
+  $idNavigation = filter($_POST['idNavigation']);
   $requetteSQL = "UPDATE `nav`
   SET
   `nomLien`= :nomLien,
   `cheminNav`=:cheminNav,
   `valide`= :valide,
   `levelAdmi`= :levelAdmi,
-  `ordre`= :ordre
+  `ordre`= :ordre,
+  `centrale` = :centrale,
+  `classement` = :classement
   WHERE `idNav` = :idNav";
     $prepare = [
       ['prep'=> ':idNav', 'variable' => $idNav],
@@ -29,10 +35,12 @@ if ($_SESSION['role'] != 3) {
       ['prep'=> ':valide', 'variable' => $valide],
       ['prep'=> ':levelAdmi', 'variable' => $levelAdmi],
       ['prep'=> ':ordre', 'variable' => $ordre],
+      ['prep'=> ':centrale', 'variable' => $centrale],
+      ['prep'=> ':classement', 'variable' => $classement],
   ];
   $updateLien = new CurDB($requetteSQL, $prepare);
   $updateLien->actionDB();
-  header('location:../../index.php?message=Menu '.$nomLien.' modifié');
+  header('location:../../index.php?idNav='.$idNavigation.' &message=Menu '.$nomLien.' modifié');
   } else {
   header('location:../../index.php?message=Erreur');
   }

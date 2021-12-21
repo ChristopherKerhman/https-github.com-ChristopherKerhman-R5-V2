@@ -1,5 +1,5 @@
 <?php include 'environnement/header.php' ?>
-      <?php if(isset($_GET['message'])){ echo '<h3>'.filter($_GET['message']).'</h3>'; } ?>
+      <?php if(isset($_GET['message'])){ echo '<h3 class="titreArticle">'.filter($_GET['message']).'</h3>'; } ?>
         <?php
         if (isset($_GET['idNav'])) {
           $idNav = filter($_GET['idNav']);
