@@ -21,8 +21,7 @@ if ($stop == 1) {
   $controle = new readDB($requetteSQL, $prepare);
   $doublon = $controle->read();
   if (empty($doublon[0]['mailSecurite'])) {
-
-    $requetteSQL = "UPDATE `users` SET `mailSecurite`= :mail WHERE `idUser`= :idUser";
+    $requetteSQL = "UPDATE `users` SET `mailSecurite`= :mail, `universLibre` = 1 WHERE `idUser`= :idUser";
       $prepare = [['prep'=> ':idUser', 'variable' => $idUser],
         ['prep'=> ':mail', 'variable' => $mail]];
         $dataUser = new CurDB($requetteSQL, $prepare);

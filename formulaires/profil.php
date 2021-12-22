@@ -13,7 +13,7 @@ $affichage = new ficheUser ($dataUser);
   <?php $affichage->fiche(); ?>
   <?php $affichage->modUserFiche(); ?>
   <?php
-    if ($dataUser[0]['mailSecurite'] == 0) {
+    if ($dataUser[0]['mailSecurite'] === NULL) {
       $affichage->mailSecurite($idUser);
     }
    ?>
