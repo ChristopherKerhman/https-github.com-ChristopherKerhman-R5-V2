@@ -21,7 +21,7 @@
     border: 2px solid white;
  }
  nav a {
-   height: auto;
+    height: auto;
     color: #75511Fff;
     font-family: 'Quantico', sans-serif;
     font-size: 0.5em;
@@ -73,7 +73,10 @@
    color:#F6FBFFff;
    transition: background-color 1s;
  }
-
+ label {
+   margin-top: 0.5em;
+   font-weight: bold;
+ }
  /*Titre + Presentation générale*/
  .titre {
    font-family: 'Black Ops One', cursive;
@@ -124,6 +127,21 @@
      justify-content: space-evenly;
      align-items: center;
  }
+ .flex-colonne {
+   display: flex;
+   flex-direction: column;
+   width: 15%;
+   margin-right: 0.5em;
+   margin-left: 0.5em;
+
+ }
+ .flex-ligne {
+   margin: 1em 1em 1em 1em;;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+ }
  /* id */
  #titrePrincipal {
      display: flex;
@@ -132,6 +150,27 @@
      justify-content: flex-start;
      align-content: stretch;
  }
+ /* Lien bouton*/
+ .lienBoutton {
+   height: auto;
+   font-family: 'Quantico', sans-serif;
+   font-size: 1.5em;
+   text-decoration: none;
+   background-color: #75511Fff;
+   color: #F6FBFFff;
+   border: #1C1B20ff solid 2px;
+   border-radius: 5px;
+   padding: 0px 10px 0px 10px;
+   transition: background-color 1s;
+ }
+ .lienBoutton:hover {
+   background-color: #1C1B20ff;
+   color:#F6FBFFff;
+   transition: background-color 1s;
+ }
+
+ /* Lien bouton*/
+
  /* mobile */
  @media (max-width: 800px ), screen and (orientation: landscape) {
    .flex-center {
