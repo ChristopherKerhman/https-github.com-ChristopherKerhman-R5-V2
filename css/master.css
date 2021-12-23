@@ -71,11 +71,18 @@
  button:hover {
    background-color: #1C1B20ff;
    color:#F6FBFFff;
-   transition: background-color 1s;
+   transition: background-color 3s;
  }
  label {
    margin-top: 0.5em;
    font-weight: bold;
+ }
+section {
+  display: flow-root;
+  align-items: center;
+  justify-content: center;
+  margin: 0em 1em 1em 1em;
+  font-size: 1.3em;
  }
  /*Titre + Presentation générale*/
  .titre {
@@ -102,6 +109,10 @@
    text-align: center;
    font-family: 'Quantico', sans-serif;
  }
+ .articleContexte {
+   text-align: justify;
+ }
+ /* formulaires*/
  .formulaire {
      display: flex;
      flex-direction: column;
@@ -118,6 +129,7 @@
 .line button {
   margin-right: 0.5em;
 }
+ /* formulaires*/
  /*Flex box*/
  .flex-center {
      position: inherit;
@@ -168,11 +180,9 @@
    color:#F6FBFFff;
    transition: background-color 1s;
  }
-
  /* Lien bouton*/
-
  /* mobile */
- @media (max-width: 800px ), screen and (orientation: landscape) {
+ @media (max-width: 800px ), (orientation: landscape) {
    .flex-center {
        font-size: 1.5em;
    }
@@ -189,9 +199,8 @@
      nav a {
        font-size: 1em;
      }
-
  }
-@media (max-width: 400px ), screen and (orientation: portrait) {
+@media (max-width: 800px ), screen and (orientation: portrait) {
    nav {
     padding-bottom: 1em;
     margin-bottom: 1em;
@@ -199,7 +208,6 @@
    nav a {
      font-size: 1em;
    }
-
   .titre {
     margin-bottom: 0;
      margin-top: 0;

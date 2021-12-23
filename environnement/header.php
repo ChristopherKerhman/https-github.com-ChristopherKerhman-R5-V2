@@ -56,4 +56,7 @@ $idNav = $dataNav[0]['idNav'];
        ?>
     </ul>
   </nav>
+  <?php if(isset($_GET['message'])){ echo '<h3 class="titreArticle">'.filter($_GET['message']).'</h3>'; } ?>
   </header>
+<section>
+  

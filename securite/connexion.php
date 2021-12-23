@@ -24,6 +24,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['role'] = $dataUser[0]['role'];
     $_SESSION['login']= $dataUser[0]['login'];
     $_SESSION['valide'] = $dataUser[0]['valide'];
+    $_SESSION['RGPD'] = 1;
     header('location:../index.php?message="Bienvenu '.$dataUser[0]['login'].'"');
   } else {
       header('location:../index.php?message="Login ou mot de passe incorrecte"');
