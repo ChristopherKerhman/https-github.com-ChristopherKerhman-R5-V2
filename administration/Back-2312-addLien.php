@@ -2,7 +2,6 @@
 include 'administration/securite.php';
 //$yes = ['non', 'oui'];
 $admin = ['Visiteur', 'Utilisateur', 'Createur', 'Administrateur' ];
-$centrale = ['Bandeau haut', 'Admin User', 'Createur Univers'];
  ?>
 <form class="colonne" action="CUD/Create/lien.php" method="post">
   <h4 class="sousTitre">Ajouter un lien sur le site</h4>
@@ -22,13 +21,7 @@ $centrale = ['Bandeau haut', 'Admin User', 'Createur Univers'];
       <input id="ordre" type="number" min="0" max="10" name="ordre" value="0">
     <p>Pour le menus bandeau laisser ces éléments à 0</p>
     <label for="centrale">Lien au centre de la page</label>
-      <select id="centrale" type="number"name="centrale">
-        <?php
-        for ($i=0; $i < count($centrale)  ; $i++) {
-        echo '<option value="'.$i.'">'.$centrale[$i].'</option>';
-        }
-        ?>
-      </select>
+      <input id="centrale" type="number" min="0" max="10" name="centrale" value="0">
     <label for="classement">Classement du lien au centre de la page</label>
       <input id="classement" type="number" min="0" max="10" name="classement" value="0">
       <input type="hidden" name="idNavigation" value="<?=$idNav?>">

@@ -22,11 +22,11 @@ class lienNav {
     }
   }
   public function formulaire ($dataNav, $levelA, $idNavigation) {
-    echo '<ul>';
+
     foreach ($dataNav as $key) {
       if ($key['levelAdmi'] == $levelA) {
-      echo '<li class="line">
-        <form action="CUD/Update/lien.php" method="post">
+      echo '<li>
+        <form  class="colonne" action="CUD/Update/lien.php" method="post">
           <input type="hidden" name="idNav" value="'.$key['idNav'].'">
           <label for="nomLien">Nom Lien</label>
           <input id="nomLien" type="text" name="nomLien" value="'.$key['nomLien'].'">
@@ -81,6 +81,5 @@ class lienNav {
       </li>';
       }
     }
-    echo '</ul>';
   }
 }

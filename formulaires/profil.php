@@ -9,6 +9,7 @@ $dataUser = $readFicheUser->read();
 require 'objets/ficheUser.php';
 $affichage = new ficheUser ($dataUser);
 ?>
+<h4 class="sousTitre">Profil de <?=$dataUser[0]['login']?></h4>
 <div class="flex-ligne">
   <?php $affichage->fiche(); ?>
   <?php $affichage->modUserFiche(); ?>

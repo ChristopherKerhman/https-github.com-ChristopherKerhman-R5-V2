@@ -11,9 +11,9 @@ include $cheminCUD.'fonctionsDB.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
   $login = filter($_POST['login']);
   $moria = $_POST['motDePasse'];
-  $requetteSQL = "SELECT `idUser`, `login`, `mdp`, `valide`, `role`
+  $requetteSQL = "SELECT `idUser`, `login`, `mdp`, `valide`, `role`, `universLibre`
   FROM `users`
-  WHERE `login` = :login";
+  WHERE `login` = :login AND `valide` = 1";
   $prepare = [['prep'=> ':login', 'variable' => $login]];
   $readLogin = new readDB($requetteSQL, $prepare);
   $dataUser = $readLogin->read();
@@ -25,6 +25,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['login']= $dataUser[0]['login'];
     $_SESSION['valide'] = $dataUser[0]['valide'];
     $_SESSION['RGPD'] = 1;
+    $_SESSION['univers'] = $dataUser[0]['universLibre'];
     header('location:../index.php?message="Bienvenu '.$dataUser[0]['login'].'"');
   } else {
       header('location:../index.php?message="Login ou mot de passe incorrecte"');
