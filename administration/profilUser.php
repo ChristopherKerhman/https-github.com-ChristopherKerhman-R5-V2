@@ -4,7 +4,6 @@ require 'objets/ficheUser.php';
 require 'objets/ficheUserAdmin.php';
 $idUser = filter($_GET['idUser']);
 $idNav = filter($_GET['idNav']);
-print_r($idUser);
 $requetteSQL = "SELECT `idUser`, `nom`, `prenom`, `login`, `valide`, `role`, `universLibre`, `mailSecurite`
 FROM `users`
 WHERE `idUser` = :idUser";
@@ -16,5 +15,4 @@ $ficheUser = new FicheUserAdmin($dataUser);
  <div class="flex-ligne">
    <?php $ficheUser->fiche(); ?>
    <?php $ficheUser->modUserFicheAdmin($idNav); ?>
-
  </div>
