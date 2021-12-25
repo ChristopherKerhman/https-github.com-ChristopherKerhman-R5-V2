@@ -21,7 +21,7 @@ class LienCentrale {
  }
  public function affichageLien($data) {
    foreach ($data as $key) {
-     echo '<li><a class="lienBoutton" href="index.php?idNav='.$key['idNav'].'">'.$key['nomLien'].'</a></li>';
+     echo '<li><a class="lienCentrale" href="index.php?idNav='.$key['idNav'].'">'.$key['nomLien'].'</a></li>';
    }
  }
 }

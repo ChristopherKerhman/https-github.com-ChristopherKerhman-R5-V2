@@ -1,4 +1,3 @@
-<?php print_r($idNav); ?>
 <article>
   <h3 class="titreArticle">Le projet R-5</h3>
 <p class="articleContexte">

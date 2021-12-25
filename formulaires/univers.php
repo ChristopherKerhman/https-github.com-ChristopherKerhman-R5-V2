@@ -1,8 +1,12 @@
-<?php
-//include 'securite/securiterUtilisateur.php';
- ?>
+<?php include 'securite/securiterUtilisateur.php'; ?>
 <h3 class="titreArticle">Creation univers</h3>
-<form class="formulaire" action="CUD/Create/univers.php" method="post">
+<?php if($_SESSION['univers'] <= 0) {
+  echo '<form class="formulaire" action="index.php?message=Plus d\'univers a créer disponible." method="post">';
+} else {
+  echo '<form class="formulaire" action="CUD/Create/univers.php" method="post">';
+}
+ ?>
+
   <p>Vous avez <?=$_SESSION['univers']?> univers a créer.</p>
       <label for="nom">Nom de votre univers</label>
       <input id="nom" type="text" name="nomUnivers" required>
@@ -20,7 +24,7 @@
       </select>
       <input type="hidden" name="idNav" value="<?php echo $idNav; ?>">
       <?php if($_SESSION['univers'] <= 0) {
-        echo '<button type="button" name="button">Impossible de créer un univers</button>';
+        echo '<button type="submit" name="button">Impossible de créer un univers</button>';
       } else {
         echo '<button type="submit" name="button">Créer un univers</button>';
       }
@@ -36,7 +40,7 @@ include 'stockageData/yes.php';
   $univers = new readDB($select, $data);
   $dataUnivers = $univers->read();
  ?>
-<ul>
+  <ul class="flex-center">
   <?php
   foreach ($dataUnivers as $key) {
   echo '<li>
@@ -45,9 +49,9 @@ include 'stockageData/yes.php';
     echo '<li class="line">
     <form action="CUD/Update/univers.php" method="post">
       <label for="nom">Nom de votre univers</label>
-      <input id="nom" class="inputFormulaire" type="text" name="nomUnivers" value="'.$key['nomUnivers'].'">
+      <input id="nom" type="text" name="nomUnivers" value="'.$key['nomUnivers'].'">
       <label for="partager">Partager la création ?</label>
-      <select class="inputFormulaire" name="partager">
+      <select name="partager">
         <option value="0" selected>Non</option>
         <option value="1">Oui</option>
       </select>

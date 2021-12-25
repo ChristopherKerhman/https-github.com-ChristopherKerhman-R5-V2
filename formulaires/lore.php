@@ -1,0 +1,2 @@
+coucou Lore !
+<?=$idNav?>
