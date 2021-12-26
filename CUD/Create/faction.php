@@ -2,6 +2,7 @@
 session_start();
 require '../../objets/paramDB.php';
 require '../../objets/cud.php';
+require '../../objets/preparationRequette.php';
 include '../fonctionsDB.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
   $idNav = filter($_POST['idNav']);
