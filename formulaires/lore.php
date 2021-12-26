@@ -11,7 +11,7 @@
   <label for="titre">Titre</label>
   <input id="titre" type="text" name="titreLore" required>
   <label for="texte">Texte de Lore</label>
-  <textarea id="texte" name="texteLore" rows="8" cols="80">
+  <textarea id="texte" name="texteLore" rows="8" cols="80" required>
     Votre texte ici...
   </textarea>
   <label for="partager">Partager votre texte</label>
