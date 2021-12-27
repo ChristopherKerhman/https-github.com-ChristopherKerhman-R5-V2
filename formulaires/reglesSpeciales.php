@@ -15,7 +15,6 @@ include 'stockageData/typeRules.php';
     <label for="type">Application de la règle spéciales</label>
     <select  id="type" class="" name="typeRules">
       <?php
-
         for ($i=0; $i < count($typeRules) ; $i++) {
           echo '<option value="'.$i.'">'.$typeRules[$i].'</option>';
         }
@@ -52,31 +51,14 @@ include 'stockageData/typeRules.php';
         </li>';
       }
   }
-  }
-
+}
 ?>
-<h3 class="sousTitre">Armes</h3>
-<ul>
 <?php
-  regles($dataListe, 0, $idNav);
+for ($i=0; $i < count($typeRules) ; $i++) {
+  echo'<h3 class="sousTitre">'.$typeRules[$i].'</h3>';
+  echo '<ul>';
+    regles($dataListe, $i, $idNav);
+  echo '</ul>';
+}
  ?>
-</ul>
-<h3 class="sousTitre">Figurines</h3>
-<ul>
-<?php
-  regles($dataListe, 1, $idNav);
- ?>
-</ul>
-<h3 class="sousTitre">Véicules</h3>
-<ul>
-<?php
-  regles($dataListe, 2, $idNav);
- ?>
-</ul>
-<h3 class="sousTitre">Listes</h3>
-<ul>
-<?php
-  regles($dataListe, 3, $idNav);
- ?>
-</ul>
 </article>
