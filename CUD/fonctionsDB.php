@@ -10,4 +10,10 @@ function haschage($data) {
   $data = password_hash($data, PASSWORD_BCRYPT, $option);
   return $data;
 }
+function doublePOP($data) {
+  array_pop($data);
+  array_pop($data);
+  return $data;
+}
+
  ?>

@@ -8,8 +8,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 // On récupére la nav
 $idNav = $_POST['idNav'];
 // On supprime les deux dernière entre de $_POST
-array_pop($_POST);
-array_pop($_POST);
+$_POST = doublePOP($_POST);
 // On contrôle que le titre et le texte ne soit pas vide
 if (empty($_POST['texteLore']) || empty($_POST['titreLore']) || strlen($_POST['texteLore']) < 180) {
   header('location:../../index.php?idNav='.$idNav.'&message=Titre ou texte manquant ou pas assez long.');

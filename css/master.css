@@ -120,6 +120,12 @@ section {
  .articleContexte {
    text-align: justify;
  }
+ .articleContexte::first-letter {
+   font-size: 1.2em;
+ }
+ .gras {
+   font-weight: bolder;
+ }
  /* formulaires*/
  .formulaire {
      display: flex;

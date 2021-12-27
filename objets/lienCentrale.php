@@ -11,7 +11,7 @@ class LienCentrale {
  public function NavCentrale() {
    $requetteSQL = "SELECT `idNav`, `nomLien`, `cheminNav`, `valide`, `levelAdmi`, `ordre`, `centrale`, `classement`
    FROM `nav`
-  WHERE `levelAdmi` = :role AND `centrale`= :centrale
+  WHERE `levelAdmi` = :role AND `centrale`= :centrale AND `valide` = 1
   ORDER BY `classement` ASC";
   $prepare = [['prep'=> ':role', 'variable' => $this->role],
   ['prep'=> ':centrale', 'variable' => $this->centrale]];
