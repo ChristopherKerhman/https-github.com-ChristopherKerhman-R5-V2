@@ -6,7 +6,7 @@ require '../../objets/preparationRequette.php';
 include '../fonctionsDB.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 $idNav = filter($_POST['idNav']);
-$_POST = doublePOP($_POST);
+$_POST = doublePOP($_POST, $idNav);
 $preparation = new Preparation();
 $prepare = $preparation->creationPrep($_POST);
 $requetteSQL = "INSERT INTO `rules`( `nomRules`, `descriptionRules`, `modification`, `typeRules`)
