@@ -31,48 +31,12 @@ $dataUnivers = $readUnivers->read();
     echo '<button type="submit" name="button">Enregistrer</button>';
   }
    ?>
-
 </form>
-<?php
-$triUnivers = "SELECT `idUnivers`, `nomUnivers`, `NTUnivers` FROM `univers` WHERE `idProprietaire` = :idUser AND `valide` = 1";
-$preparation = [['prep' => ':idUser', 'variable' => $_SESSION['idUser']]];
-$listUniversUser = new readDB($triUnivers, $preparation);
-$dataListe = $listUniversUser->read();
-
- ?>
 <article class="centrage">
   <h4 class="sousTitre">Les factions existantes</h4>
   <?php
-  foreach ($dataListe as $index) {
-    $idUnivers = $index['idUnivers'];
-    $triFaction = "SELECT `idFaction`, `nomFaction`, `valide`, `partager` FROM `factions` WHERE `idUnivers` = :idUnivers";
-    $preparationFaction = [['prep' => ':idUnivers', 'variable' => $idUnivers]];
-    $listeFaction = new readDB($triFaction, $preparationFaction);
-    $dataFaction = $listeFaction->read();
-    echo '<h4>Univers : '.$index['nomUnivers'].'</h4><ul>';
-    foreach ($dataFaction as $key) {
-      echo '
-      <li>
-        <form action="CUD/Update/factions.php" method="post">
-          <label for="nom">Nom Faction :</label>
-          <input id="nom" type="text" name="nomFaction" value="'.$key['nomFaction'].'">
-          <label for="share">Partager cette faction</label>
-          <select id="share" name="partager">
-              <option value="0" selected>Non</option>
-              <option value="1">Oui</option>
-          </select>
-          <input type="hidden" name="idFaction" value="'.$key['idFaction'].'" />
-          <input type="hidden" name="idNav" value="'.$idNav.'">
-          <button type="submit" name="button">Modifier</button>
-        </form>
-          <form  action="CUD/Delette/factions.php" method="post">
-            <input type="hidden" name="idNav" value="'.$idNav.'">
-            <input type="hidden" name="idFaction" value="'.$key['idFaction'].'" />
-          <button class="buttonDescription" type="submit" name="button">Effacer '.$key['nomFaction'].'</button>
-          </form>
-      </li>';
-    }
-    echo '</ul>';
-  }
+    require 'objets/factions.php';
+    $dataListeFaction = new Factions ($_SESSION['idUser'], $idNav);
+    $dataListeFaction->adminFaction();
    ?>
 </article>
