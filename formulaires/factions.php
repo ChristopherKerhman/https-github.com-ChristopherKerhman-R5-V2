@@ -33,27 +33,27 @@ $dataUnivers = $readUnivers->read();
    ?>
 
 </form>
+<?php
+$triUnivers = "SELECT `idUnivers`, `nomUnivers`, `NTUnivers` FROM `univers` WHERE `idProprietaire` = :idUser AND `valide` = 1";
+$preparation = [['prep' => ':idUser', 'variable' => $_SESSION['idUser']]];
+$listUniversUser = new readDB($triUnivers, $preparation);
+$dataListe = $listUniversUser->read();
+
+ ?>
 <article class="centrage">
   <h4 class="sousTitre">Les factions existantes</h4>
-  <ul class="flex-center">
   <?php
-  $requetteSQL = "SELECT `idFaction`, `idCreateur`, `nomUnivers`, `nomFaction`, `factions`.`partager`
-  FROM `factions`
-  INNER JOIN `univers` ON `factions`.`idUnivers` = `univers`.`idUnivers`
-  WHERE `idCreateur` = :idUser AND `factions`.`valide` = 1 ORDER BY `factions`.`idUnivers` AND `nomFaction`";
-  $prepare = [['prep'=> ':idUser', 'variable' => $_SESSION['idUser']]];
-  $readFactions = new readDB($requetteSQL, $prepare);
-  $dataFactions = $readFactions->read();
-
-  if (empty($dataFactions)) {
-    echo '<li>Aucune faction créé actuellement.</li>';
-  } else {
-
-    foreach ($dataFactions as $key) {
+  foreach ($dataListe as $index) {
+    $idUnivers = $index['idUnivers'];
+    $triFaction = "SELECT `idFaction`, `nomFaction`, `valide`, `partager` FROM `factions` WHERE `idUnivers` = :idUnivers";
+    $preparationFaction = [['prep' => ':idUnivers', 'variable' => $idUnivers]];
+    $listeFaction = new readDB($triFaction, $preparationFaction);
+    $dataFaction = $listeFaction->read();
+    echo '<h4>Univers : '.$index['nomUnivers'].'</h4><ul>';
+    foreach ($dataFaction as $key) {
       echo '
       <li>
         <form action="CUD/Update/factions.php" method="post">
-          <h4>Univers : '.$key['nomUnivers'].'</h4>
           <label for="nom">Nom Faction :</label>
           <input id="nom" type="text" name="nomFaction" value="'.$key['nomFaction'].'">
           <label for="share">Partager cette faction</label>
@@ -72,8 +72,7 @@ $dataUnivers = $readUnivers->read();
           </form>
       </li>';
     }
-
+    echo '</ul>';
   }
-  ?>
-  </ul>
+   ?>
 </article>
