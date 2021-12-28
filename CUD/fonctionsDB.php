@@ -20,5 +20,4 @@ function doublePOP($data, $idNav) {
   }
   return $data;
 }
-
  ?>

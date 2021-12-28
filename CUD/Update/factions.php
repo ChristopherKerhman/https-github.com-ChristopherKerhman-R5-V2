@@ -7,7 +7,6 @@ include '../fonctionsDB.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
   $idNav = filter($_POST['idNav']);
   $_POST = doublePOP($_POST, $idNav);
-  print_r($_POST);
   $prep = new Preparation ();
   $prepare = $prep->creationPrepIdUser($_POST);
   $requetteSQL = "UPDATE `factions` SET `nomFaction`= :nomFaction,`partager`=:partager

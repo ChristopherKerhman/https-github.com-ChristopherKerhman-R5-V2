@@ -9,14 +9,12 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
   $_POST = doublePOP($_POST, $idNav);
   $prep = new Preparation ();
   $prepare = $prep->creationPrepIdUser($_POST);
-  $requetteSQL = "INSERT INTO `factions`( `idUnivers`, `partager`, `nomFaction`, `idCreateur`, `valide`)
-  VALUES (:idUnivers, :partager, :nomFaction, :idUser, 1 )";
-  print_r($_POST);
-  echo '<br />';
-  print_r($prepare);
-  $dataUser = new CurDB($requetteSQL, $prepare);
-  $dataUser->actionDB();
-  header('location:../../index.php?idNav='.$idNav.'&message=Faction enregistrée.');
+  $requetteSQL = "INSERT INTO `armes`( `idCreateur`, `nom`, `description`, `typeArme`, `puissance`, `surPuissance`, `sort`, `valide`)
+  VALUES (:idUser, :nom, :description, :typeArme, :puissance, :surPuissance, :sort , 1)";
+  $action = new CurDB ($requetteSQL, $prepare);
+  $action->actionDB();
+  header('location:../../index.php?idNav='.$idNav.'&message=Arme '.filter($_POST['nom']).' enregistrée.');
 } else {
   header('location:../../index.php?message=Erreur de traitement.');
 }
+ ?>

@@ -76,7 +76,10 @@
  }
  label {
    margin-top: 0.5em;
+   margin-right: 0.5em;
+   margin-left: 0.5em;
    font-weight: bold;
+   align-items: baseline;
  }
 section {
   display: flow-root;
@@ -169,7 +172,7 @@ section {
    margin: 1em 1em 1em 1em;;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
  }
  .colonne {
