@@ -7,6 +7,14 @@ include 'stockageData/yes.php';
 <article>
   <h3 class="sousTitre">Création arme de mêlée</h3>
   <form class="formulaire" action="CUD/Create/armesCC.php" method="post">
+    <label for="Univers">Univers</label>
+    <select id="Univers" name="id_Univers">
+      <?php
+      require 'objets/univers.php';
+      $univers = new Univers ($_SESSION['idUser']);
+      $dataUnivers = $univers->readUniversUser();
+      ?>
+    </select>
     <label for="nom">Nom de l'arme :</label>
     <input id="nom" type="text" name="nom" required>
     <label for="des">Description</label>

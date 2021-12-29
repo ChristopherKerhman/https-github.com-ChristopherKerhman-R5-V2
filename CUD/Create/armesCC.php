@@ -9,8 +9,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
   $_POST = doublePOP($_POST, $idNav);
   $prep = new Preparation ();
   $prepare = $prep->creationPrepIdUser($_POST);
-  $requetteSQL = "INSERT INTO `armes`( `idCreateur`, `nom`, `description`, `typeArme`, `puissance`, `surPuissance`, `sort`, `valide`)
-  VALUES (:idUser, :nom, :description, :typeArme, :puissance, :surPuissance, :sort , 1)";
+  $requetteSQL = "INSERT INTO `armes`( `id_Univers`,`nom`, `description`, `typeArme`, `puissance`, `surPuissance`, `sort`, `valide`, `idCreateur`)
+  VALUES (:id_Univers, :nom, :description, :typeArme, :puissance, :surPuissance, :sort , 1, :idUser)";
   $action = new CurDB ($requetteSQL, $prepare);
   $action->actionDB();
   header('location:../../index.php?idNav='.$idNav.'&message=Arme '.filter($_POST['nom']).' enregistrée.');

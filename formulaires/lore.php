@@ -1,6 +1,6 @@
 <form class="formulaire" action="CUD/Create/lore.php" method="post">
   <label for="Univers">Univers</label>
-  <select id="Univers" name="idUnivers">
+  <select id="Univers" name="id_Univers">
     <?php
     require 'objets/univers.php';
     $univers = new Univers ($_SESSION['idUser']);
