@@ -25,6 +25,11 @@ include 'stockageData/yes.php';
     <div class="flex-ligne">
     <label for="P">Puissance :</label>
     <input id="O" type="number" name="puissance" min="1" max="5" value="1" required>
+    <div id="RANGE">
+      <label for="range">Portée maximal de votre armes :</label>
+        <input type="range" name="maxRange" v-bind:value="rangeActuel" v-model="rangeActuel" min="3" max="50">
+        {{rangeActuel}} pouces {{Math.floor(rangeActuel * 2.54)}} cm
+    </div>
       <label for="SP">Sur-puissance :</label>
       <select id="SP" name="surPuissance">
         <?php
@@ -84,3 +89,4 @@ include 'stockageData/yes.php';
   <button type="submit" name="button">Enregistrer</button>
   </form>
 </article>
+<?php include 'javascript/range.php'; ?>
