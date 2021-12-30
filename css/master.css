@@ -129,6 +129,9 @@ section {
  .gras {
    font-weight: bolder;
  }
+ .maj::first-letter {
+   font-size: 1.3em;
+ }
  /* formulaires*/
  .formulaire {
      display: flex;
@@ -143,15 +146,42 @@ section {
   display: flex;
   flex-direction: row;
   width: 100%;
+  align-content: space-between;
+  text-align: left;
+  align-items: center;
+  justify-content: left;
+  flex-wrap: nowrap;
 }
 .line button {
   margin-right: 0.5em;
+  margin-left: 0.5em;
 }
 .buttonDescription {
   font-size: 0.7em;
 }
  /* formulaires*/
  /*Flex box*/
+ .mosaique {
+  padding: 20px 0px 20px 0px;
+  border-radius: 5px;
+  max-width:100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 300px);
+  grid-gap: 5px;
+  justify-content: center;
+  background: linear-gradient(270deg, hsla(207, 100%, 98%, 0.8) 70%, hsla(47, 44%, 87%, 1) 100%);
+  background: -moz-linear-gradient(270deg, hsla(207, 100%, 98%, 0.8) 70%, hsla(47, 44%, 87%, 1) 100%);
+  background: -webkit-linear-gradient(270deg, hsla(207, 100%, 98%, 0.8) 70%, hsla(47, 44%, 87%, 1) 100%);
+ }
+ .item {
+  min-height: 2vh;
+  min-width: 15vh;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+
  .flex-center {
      position: inherit;
      display: flex;
@@ -190,16 +220,17 @@ section {
  }
  /* Lien bouton*/
  .lienBoutton {
-   height: auto;
-   font-family: 'Quantico', sans-serif;
-   font-size: 1.5em;
    text-decoration: none;
+   font-family: 'Quantico', sans-serif;
+   font-size: 1.1em;
    background-color: #75511Fff;
    color: #F6FBFFff;
+   transition: background-color 1s;
+   margin-top: 0.5em;
+   padding-left: 0.4em;
+   padding-right: 0.4em;
    border: #1C1B20ff solid 2px;
    border-radius: 5px;
-   padding: 0px 10px 0px 10px;
-   transition: background-color 1s;
  }
  .lienBoutton:hover {
    background-color: #1C1B20ff;

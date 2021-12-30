@@ -6,7 +6,7 @@ include '../fonctionsDB.php';
   if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idNav = filter($_POST['idNav']);
     $idLore = filter($_POST['idLore']);
-    $_POST = doublePOP($_POST);
+    $_POST = doublePOP($_POST, $idNav);
     if (empty($_POST['texteLore']) || empty($_POST['titreLore']) || strlen($_POST['texteLore']) < 180) {
       header('location:../../index.php?idNav='.$idNav.'&idLore='.$idLore.'&message=Titre ou texte manquant ou pas assez long.');
     } else {
