@@ -10,19 +10,21 @@ class Armes {
     $this->dice = ['D6', 'D8', 'D10', 'D12'];
     $this->gabarit = ['pas de gabarit', 'petit', 'moyen', 'grand', 'cône'];
     $this->adressFiche = 53;
+    $this->adressFicheFixer = 54;
   }
   public function listeArmes ($fixer) {
     // Paramètre pour fixer, 0 -> Non fixer, 1 -> fixer
-    $SQL = "SELECT `idArmes`, `id_Univers`, `nomUnivers`, `nom`, `typeArme`  FROM `armes`
+    $SQL = "SELECT `idArmes`, `id_Univers`, `nomUnivers`, `nomFaction`, `nom`, `typeArme`  FROM `armes`
     INNER JOIN `univers` ON `id_Univers` = `idUnivers`
-    WHERE `idCreateur` = :idUser AND `fixer` = $fixer ORDER BY `nomUnivers`, `nom`";
+      INNER JOIN `factions` ON `id_Faction` = `idFaction`
+    WHERE `armes`.`idCreateur` = :idUser AND `fixer` = $fixer ORDER BY `nomUnivers`, `nom`";
     $prepare = [['prep' => ':idUser', 'variable' => $this->idUser]];
     $liste = new readDB($SQL, $prepare);
     $dataListe = $liste->read();
     foreach ($dataListe as $key) {
         echo
         '<li class="line">
-          '.$key['nomUnivers'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']].'
+          Univers '.$key['nomUnivers'].' Faction '.$key['nomFaction'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']].'
           <form action="CUD/Delette/armes.php" method="post">
             <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
             <input type="hidden" name="idNav" value="'.$this->idNav.'">
@@ -33,9 +35,11 @@ class Armes {
             <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
             <input type="hidden" name="idNav" value="'.$this->idNav.'">';
             if ($fixer == 1) {
-            echo '<button type="submit" name="button">Non fixer</button>';
+            echo '<button type="submit" name="button">Non fixer</button>
+            <a class="lienBoutton" href="index.php?idNav='.$this->adressFicheFixer.'&idArmes='.$key['idArmes'].'">Fiche</a>';
           } else {
-            echo '<button type="submit" name="button">Fixer</button>';
+            echo '<button type="submit" name="button">Fixer</button>
+            <a class="lienBoutton" href="index.php?idNav='.$this->adressFicheFixer.'&idArmes='.$key['idArmes'].'">Fiche</a>';
           }
         echo '</form></li>';
       }
@@ -100,7 +104,7 @@ class Armes {
         </li>';
       }
     }
-    public function ficheArme ($idArmes) {
+    public function ficheArme ($idArmes, $puissanceArme) {
       $SQL = "SELECT `idArmes`, `id_Univers`, `id_Faction`, `nom`, `description`, `typeArme`, `puissance`, `maxRange`,
       `surPuissance`, `sort`, `assaut`, `couverture`, `cadenceTir`, `lourd`, `puissanceExplosif`, `gabarit`, `fixer`, `prix`, `nomUnivers`,
       `nomFaction`
@@ -121,6 +125,7 @@ class Armes {
         <li>Fiche : <strong>'.$dataArme[0]['nom'].'</strong></li>
         <li>'.$dataArme[0]['description'].'</li>
         <li>Type d\'arme : '.$this->typeArme[$dataArme[0]['typeArme']].'</li>
+        <li>Prix brute : '.round($puissanceArme, 0).' points</li>
         <li>Puissance '.$dataArme[0]['puissance'].'D'.$plus.'</li>';
         if($dataArme[0]['typeArme'] != 0) {
           echo '<strong><li>Portée tactique : '.$dataArme[0]['maxRange'].' pouces ou '.round($dataArme[0]['maxRange']*2.54, 0).' cm</li>
@@ -136,8 +141,8 @@ class Armes {
         }
       echo
       '<li><strong>Options</strong></li>
-      <li>Sort '.$this->yes[$dataArme[0]['sort']].'</li>';
-      echo '</ul>';
+      <li>Sort '.$this->yes[$dataArme[0]['sort']].'</li>
+      </ul>';
     }
     public function specialRulesFicheArmes ($idArmes) {
       $SQL = "SELECT `id_Rules`, `nomRules`
@@ -154,7 +159,69 @@ class Armes {
         }
         echo '</strong>';
       }
-
+    }
+    public function DelSpecialRules ($idArmes, $idNav) {
+      $SQL = "SELECT `idAffectation`, `id_Rules`, `nomRules`
+      FROM `armesRules`
+      INNER JOIN `rules` ON `idRules` = `id_Rules`
+      WHERE `id_Armes` = :idArmes";
+      $parametre = [['prep' => ':idArmes', 'variable' => $idArmes]];
+      $listeRules = new readDB($SQL, $parametre);
+      $dataRules = $listeRules->read();
+      if (!empty($dataRules)) {
+        echo '<h4 class="sousTitre">Effacer règles spéciales</h4>  <div class="mosaique">';
+        foreach ($dataRules as $key) {
+          echo '<form class="item" action="CUD/Delette/specialeRules.php" method="post">
+            <input type="hidden" name="idAffectation" value="'.$key['idAffectation'].'">
+            <input type="hidden" name="idArmes" value="'.$idArmes.'">
+            <input type="hidden" name="idNav" value="'.$idNav.'">
+            <button type="submit" name="button">'.$key['nomRules'].'</button>
+          </form>';
+        }
+        echo '</div>';
+      }
+    }
+    public function valeurArmes ($idArmes) {
+      $SQLarme = "SELECT `idArmes`, `typeArme`, `puissance`, `maxRange`, `surPuissance`, `sort`, `assaut`, `couverture`, `cadenceTir`,
+      `lourd`, `puissanceExplosif`, `gabarit`
+      FROM `armes`
+      WHERE `idArmes` = :idArmes";
+      $parametre = [['prep' => ':idArmes', 'variable' => $idArmes]];
+      $readArme = new readDB($SQLarme, $parametre);
+      $dataArmes = $readArme->read();
+      $SQLrules = "SELECT SUM(`tauxRules`) AS `taux` FROM `armesRules` WHERE `id_Armes` = :idArmes";
+      $readRules = new readDB($SQLrules, $parametre);
+      $tauxRules = $readRules->read();
+      // Formule de calcul de la valeur de l'arme :
+      $puissance = $dataArmes[0]['typeArme'] + 2;
+      $puissance = (($dataArmes[0]['puissance'] +1) * 2) + $puissance;
+      $puissance = (log($dataArmes[0]['maxRange'] + 1)) + $puissance;
+      if ($dataArmes[0]['surPuissance'] != 0){
+        $puissance = $puissance * 2;
+      }
+      if ($dataArmes[0]['sort'] != 0){
+        $puissance = ($puissance * 1.2) + $puissance;
+      }
+      if ($dataArmes[0]['assaut'] != 0){
+        $puissance = ($puissance * 1.1) + $puissance;
+      }
+      if ($dataArmes[0]['couverture'] != 0){
+        $puissance = (($dataArmes[0]['couverture'] + $dataArmes[0]['cadenceTir'])/2) + $puissance;
+      }
+      if ($dataArmes[0]['lourd'] != 0) {
+        $puissance = ($puissance * 1.3) + $puissance;
+      }
+      if ($dataArmes[0]['typeArme'] == 2) {
+        $puissance = (($dataArmes[0]['gabarit'] * 3) + $dataArmes[0]['puissanceExplosif'] + 2) + $puissance;
+      }
+      // On sort la valeur de l'arme
+      if (empty($tauxRules[0]['taux'])) {
+          return $puissance;
+      } else {
+        $taux = $tauxRules[0]['taux'];
+        $puissance = $taux * $puissance;
+        return $puissance;
+      }
     }
 }
 //<li>'.$dataArme[0][''].'</li>
