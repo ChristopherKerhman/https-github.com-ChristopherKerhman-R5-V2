@@ -125,7 +125,7 @@ class Armes {
         <li>Fiche : <strong>'.$dataArme[0]['nom'].'</strong></li>
         <li>'.$dataArme[0]['description'].'</li>
         <li>Type d\'arme : '.$this->typeArme[$dataArme[0]['typeArme']].'</li>
-        <li>Prix brute : '.round($puissanceArme, 0).' points</li>
+        <li>Coefficient : '.round($puissanceArme, 3).' points</li>
         <li>Puissance '.$dataArme[0]['puissance'].'D'.$plus.'</li>';
         if($dataArme[0]['typeArme'] != 0) {
           echo '<strong><li>Portée tactique : '.$dataArme[0]['maxRange'].' pouces ou '.round($dataArme[0]['maxRange']*2.54, 0).' cm</li>
@@ -139,10 +139,10 @@ class Armes {
         if ($dataArme[0]['puissanceExplosif'] != 0) {
           echo '<li>Puissance : '.$this->dice[$dataArme[0]['puissanceExplosif']].' - Gabarit : '.$this->gabarit[$dataArme[0]['gabarit']].'</li>';
         }
-      echo
-      '<li><strong>Options</strong></li>
-      <li>Sort '.$this->yes[$dataArme[0]['sort']].'</li>
-      </ul>';
+        if ($dataArme[0]['sort'] > 0) {
+          echo'<strong><li>Sort '.$this->yes[$dataArme[0]['sort']].'</li></strong>';
+        }
+      echo '</ul>';
     }
     public function specialRulesFicheArmes ($idArmes) {
       $SQL = "SELECT `id_Rules`, `nomRules`
@@ -219,7 +219,7 @@ class Armes {
           return $puissance;
       } else {
         $taux = $tauxRules[0]['taux'];
-        $puissance = $taux * $puissance;
+        $puissance = (($taux * $puissance)/100)+1;
         return $puissance;
       }
     }

@@ -8,5 +8,4 @@ $puissanceArme = $ficheArmes->valeurArmes($idArmes);
 $dataFiche = $ficheArmes->ficheArme($idArmes, $puissanceArme);
 $ficheArmes->specialRulesFicheArmes($idArmes);
 $puissanceArme = $ficheArmes->valeurArmes($idArmes);
-
  ?>

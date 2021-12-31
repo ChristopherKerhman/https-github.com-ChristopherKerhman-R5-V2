@@ -2,7 +2,7 @@
 include 'administration/securite.php';
 //$yes = ['non', 'oui'];
 $admin = ['Visiteur', 'Utilisateur', 'Createur', 'Administrateur' ];
-$centrale = ['Bandeau haut', 'Admin User', 'Createur Univers', 'Armes'];
+$centrale = ['Bandeau haut', 'Admin User', 'Univers', 'Armes', 'Figurines', 'Véhicule', 'Listes'];
  ?>
 <form class="colonne" action="CUD/Create/lien.php" method="post">
   <h4 class="sousTitre">Ajouter un lien sur le site</h4>
