@@ -74,13 +74,13 @@ class Figurines {
       <a class="lienBoutton" href="index.php?idNav='.$this->navF.'&idFigurine='.$key['idFigurine'].'">Modifier</a>';
       echo '<form action="CUD/Create/affecterFigurine.php" method="post">
       <label for="faction">Factions :</label>
-      <select name="id_faction">';
+      <select name="id_Faction">';
       foreach ($factionsListe as $index) {
         echo '<option value="'.$index['idFaction'].'">'.$index['nomUnivers'].' - '.$index['nomFaction'].'</option>';
       }
       echo '</select>
-      <input type="hidden" name="idNav" value="'.$this->idNav.'">
       <input type="hidden" name="idFigurine" value="'.$key['idFigurine'].'">
+      <input type="hidden" name="idNav" value="'.$this->idNav.'">
       <button type="submit" name="button">Affecter</button></form>';
       echo '</li>';
     }
