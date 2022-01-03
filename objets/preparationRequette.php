@@ -1,6 +1,6 @@
 <?php
 class Preparation {
-  function creationPrep ($data) {
+  public function creationPrep ($data) {
     foreach ($data as $key => $value) {
       $prepare = array();
       foreach ($data as $key => $value) {

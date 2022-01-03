@@ -30,6 +30,9 @@ Sous Titre alternatif:
    /*color: hsla(252, 8%, 12%, 0.85);*/
    color: #aaa;
    width: 100vm;
+   font-family: 'Assistant', sans-serif;
+   font-weight: normal;
+   font-size: 1.2em;
  }
  nav {
    /*background-color: hsla(207, 100%, 98%, 0.6);*/
@@ -151,9 +154,22 @@ section {
  }
  .gras {
    font-weight: bolder;
+   font-style: italic;
+   margin-left: 0.5em;
+   margin-right: 0.5em;
+   font-family: 'Quantico', sans-serif;
  }
  .maj::first-letter {
    font-size: 1.3em;
+ }
+ .ficheFigurine {
+   list-style: none;
+   font-size: 0.65em;
+   font-family: 'Assistant', sans-serif;
+   font-weight: bolder;
+ }
+ .gras {
+   font-weight: 800;
  }
  /* formulaires*/
  .formulaire {
@@ -228,10 +244,22 @@ section {
   align-items: flex-end;
   justify-content: center;
  }
+.flex-presentation {
+     margin: 1em 1em 1em 1em;
+     display: flex;
+     flex-direction: row;
+     align-items: flex-start;
+     justify-content: center;
+ }
  .colonne {
    display: flex;
    flex-direction: column;
    width: 25%;
+ }
+ .box {
+   border: 2px solid #aaa;
+   border-radius: 5px;
+   padding: 0.2em;
  }
  /* id */
  #titrePrincipal {
@@ -328,7 +356,9 @@ section {
       display: contents;
       text-align: center;
   }
-
+  .flex-presentation {
+    flex-direction: column;
+  }
   .line {
     display: flex;
     flex-direction: column;
