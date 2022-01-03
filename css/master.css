@@ -1,15 +1,34 @@
 /* ----------------------------- */
 /* ==reset */
 /* Font du site*/
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');*/
 /*  font-family: 'Black Ops One', cursive;*/
-@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Quantico&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Quantico&display=swap');*/
 /* element pour les liens, sous-titre du site
- font-family: 'Black Ops One', cursive; */
+ font-family: 'Black Ops One', cursive;
+// Font alternative :
+Titre R5
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Quantico&display=swap');
+font-family: 'Black Ops One', cursive;
+font-family: 'Quantico', sans-serif;
+Titre Alternatif :
+
+font-family: 'Assistant', sans-serif;
+font-family: 'Keania One', cursive;
+font-family: 'Major Mono Display', monospace;
+
+Sous Titre alternatif:
+
+  */
+  @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Quantico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200&family=Keania+One&family=Major+Mono+Display&display=swap');
  /*Element generaux*/
+
  body {
-   background-color:#969BCEff;
-   color: hsla(252, 8%, 12%, 0.85);
+   /*background-color:#969BCEff;*/
+   background-color: #222;
+   /*color: hsla(252, 8%, 12%, 0.85);*/
+   color: #aaa;
    width: 100vm;
  }
  nav {
@@ -26,7 +45,7 @@
     font-family: 'Quantico', sans-serif;
     font-size: 0.5em;
     text-decoration: none;
-    background-color: #75511Fff;
+    background-color: #1C1B20ff;
     color: #F6FBFFff;
     border: #1C1B20ff solid 2px;
     border-radius: 5px;
@@ -34,7 +53,7 @@
     transition: background-color 1s;
  }
  nav a:hover {
-   background-color: #1C1B20ff;
+  background-color: #75511Fff;
    color:#F6FBFFff;
    transition: background-color 1s;
  }
@@ -64,13 +83,14 @@
  button {
    font-family: 'Quantico', sans-serif;
    font-size: 1em;
-   background-color: #75511Fff;
+   background-color: #1C1B20ff;
+
    color: #F6FBFFff;
    transition: background-color 1s;
    margin-top: 0.5em;
  }
  button:hover {
-   background-color: #1C1B20ff;
+   background-color: #75511Fff;
    color:#F6FBFFff;
    transition: background-color 3s;
  }
@@ -97,12 +117,15 @@ section {
  }
  /*Titre + Presentation générale*/
  .titre {
-   font-family: 'Black Ops One', cursive;
-   color: hsla(252, 8%, 12%, 1);
-   font-size: 4em;
+   /*font-family: 'Black Ops One', cursive;*/
+   font-family: 'Keania One', cursive;
+   font-weight: lighter;
+   /*color: hsla(252, 8%, 12%, 1);*/
+   color: #aaa;
+   font-size: 7em;
    text-align: center;
    margin-bottom: -4em;
-    margin-top: -2em;
+   margin-top: -2em;
  }
  .sousTitre {
    font-size: 2.5em;
@@ -223,7 +246,8 @@ section {
    text-decoration: none;
    font-family: 'Quantico', sans-serif;
    font-size: 1.1em;
-   background-color: #75511Fff;
+   background-color: #1C1B20ff;
+
    color: #F6FBFFff;
    transition: background-color 1s;
    margin-top: 0.5em;
@@ -233,7 +257,7 @@ section {
    border-radius: 5px;
  }
  .lienBoutton:hover {
-   background-color: #1C1B20ff;
+   background-color: #75511Fff;
    color:#F6FBFFff;
    transition: background-color 3s;
  }
@@ -242,17 +266,17 @@ section {
    font-family: 'Quantico', sans-serif;
    font-size: 1.5em;
    text-decoration: none;
-   background-color: #75511Fff;
+   background-color: #B91B00;
    color: #F6FBFFff;
    border: #1C1B20ff solid 2px;
    border-radius: 5px;
    padding: 0px 10px 0px 10px;
-   transition: background-color 1s;
+   transition: background-color 4s;
  }
  .lienCentrale:hover {
-   background-color: #1C1B20ff;
+   background-color: #4D8C00;
    color:#F6FBFFff;
-   transition: background-color 3s;
+   transition: background-color 1s;
  }
  /* Lien bouton*/
  /* mobile */
@@ -281,14 +305,16 @@ section {
     margin-bottom: 1em;
    }
    nav a {
-     font-size: 1em;
+     font-size: 0.75em;
+   }
+   .lienCentrale {
+     font-size: 0.95em;
    }
    form {
      display: flex;
      flex-direction: column;
    }
    input, select {
-
      font-size: 0.7em;
    }
   .titre {
@@ -302,9 +328,7 @@ section {
       display: contents;
       text-align: center;
   }
-  .lienCentrale {
-    font-size: 0.85em;
-  }
+
   .line {
     display: flex;
     flex-direction: column;

@@ -13,11 +13,11 @@ function haschage($data) {
 function doublePOP($data, $idNav) {
   array_pop($data);
   array_pop($data);
- foreach ($data as $key => $value) {
-    if(empty($value)) {
-      header('location:../../index.php?idNav='.$idNav.'&message=Au moins un champs est vide.');
+  foreach ($data as $key => $value) {
+    if ($value == '') {
+        return header('location:../../index.php?message=un champs est vide&idNav='.$idNav.'');
     }
   }
   return $data;
-}
+   }
  ?>
