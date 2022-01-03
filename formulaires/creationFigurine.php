@@ -2,9 +2,9 @@
 <h3 class="sousTitre">Créer une nouvelle figurine</h3>
 <form class="formulaire" action="CUD/Create/figurine.php" method="post">
   <label for="nomFigurine">Nom</label>
-  <input id="nomFigurine" type="text" name="nomFigurine">
+  <input id="nomFigurine" type="text" name="nomFigurine" required>
   <label for="description">Description</label>
-  <textarea id="description" name="description" rows="8" cols="80">Quelques éléments sur votre nouvelle figurine ?</textarea>
+  <textarea id="description" name="description" rows="8" cols="80" required>Quelques éléments sur votre nouvelle figurine ?</textarea>
   <div class="flex-ligne">
   <label for="typeF">Type de votre figurine</label>
   <select id="typeF" name="typeFigurine">
