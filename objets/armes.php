@@ -216,11 +216,11 @@ class Armes {
       }
       // On sort la valeur de l'arme
       if (empty($tauxRules[0]['taux'])) {
-          return $puissance;
+          return ($puissance /100)+1;
       } else {
         $taux = $tauxRules[0]['taux'];
-        $puissance = (($taux * $puissance)/100)+1;
-        return $puissance;
+        $puissance;
+        return (($puissance * $taux)/100)+1;
       }
     }
 }
