@@ -39,10 +39,13 @@ class Figurines {
     // Vers affichage fiche simple affichages/ficheFigurine.php
     $this->navG = 59;
   }
-  public function ListeNouvelleFigurine () {
+  public function ListeNouvelleFigurine ($param) {
     $selectListeNF = "SELECT `idFigurine`, `nomFigurine`
-    FROM `figurines` WHERE `id_User` = :idUser AND `figurineAffecter` = 0 AND `valide` = 1";
-    $prep = [['prep'=>':idUser', 'variable' => $this->idUser]];
+    FROM `figurines`
+    WHERE `id_User` = :idUser AND `figurineAffecter` = :param AND `valide` = 1
+    ORDER BY `nomFigurine`";
+    $prep = [['prep'=>':idUser', 'variable' => $this->idUser],
+              ['prep'=>':param', 'variable' => $param]];
     $liste = new readDB ($selectListeNF, $prep);
     $dataListe = $liste->read();
     return $dataListe;
@@ -86,6 +89,35 @@ class Figurines {
     }
     echo '</ul>';
   }
+  public function affichageListeAffecter ($data) {
+    // Création des éléments pour affecter les figurines à un univers + 1 factions
+    $listeFactionUser = "SELECT `idFaction`, `nomFaction`, `nomUnivers`
+    FROM `factions`
+    INNER JOIN `univers` ON `univers`.`idUnivers` = `factions`.`idUnivers`
+    WHERE `idCreateur` = :idUser AND `factions`.`valide` = 1";
+    $PreUser = [['prep'=>':idUser', 'variable' => $this->idUser]];
+    $factions = new readDB ($listeFactionUser, $PreUser);
+    $factionsListe = $factions->read();
+    echo '<ul>';
+    foreach ($data as $key) {
+      $FU = "SELECT `nomUnivers`, `nomFaction`
+      FROM `AffecterFigurineUF`
+      INNER JOIN `univers` ON `id_Univers` = `idUnivers`
+      INNER JOIN `factions` ON `id_Faction` = `idFaction`
+      WHERE `id_Figurine` = :idFigurine";
+      $prepFU = [['prep'=>':idFigurine', 'variable' => $key['idFigurine']]];
+      $readFU = new readDB ($FU, $prepFU);
+      $dataFU = $readFU->read();
+      echo '<li class="line">
+      <strong class="gras">'.$dataFU[0]['nomUnivers'].' '.$dataFU[0]['nomFaction'].' - '.$key['nomFigurine'].'</strong>
+      <a class="lienBoutton" href="index.php?idNav='.$this->navG.'&idFigurine='.$key['idFigurine'].'">Fiche</a>
+      <form action="CUD/Delette/figurine.php" method="post">
+        <input type="hidden" name="idNav" value="'.$this->idNav.'">
+        <input type="hidden" name="idFigurine" value="'.$key['idFigurine'].'">
+        <button type="submit" name="button">Effacer</button>
+      </form>';
+  }
+}
   public function readFiche($idFigurine) {
     $fiche = "SELECT `idFigurine`, `id_User`, `nomFigurine`, `description`, `typeFigurine`, `tailleFigurine`, `DQM`, `DC`,
     `svg`, `pdv`, `mouvement`, `valide`, `partager`, `figurineFixer`, `figurineAffecter`
@@ -104,7 +136,19 @@ class Figurines {
     $sav = $this->svg[$data[0]['svg']]['Valeur'];
     $pointDeVie = $this->pointDeVie[$data[0]['pdv']];
     // Calcul des points de figurine :
-    $prixFigurine = (($DQM + $DC*2) + ($type + $taille + $mouvement + $pointDeVie)) * ($sav + ($pointDeVie / 8));
+    // Intégration des Règles spécial :
+    $Modificateurs = "SELECT SUM(`modificateur`) AS `total` FROM `figurinesRules` WHERE `id_Figurine` = :id_Figurine";
+    $preparation = [['prep'=>'id_Figurine', 'variable'=> $data[0]['idFigurine']]];
+    $action = new readDB($Modificateurs, $preparation);
+    $dataMod = $action->read();
+    $Modificateurs = "SELECT COUNT(`modificateur`) AS `nbr` FROM `figurinesRules` WHERE `id_Figurine` = :id_Figurine";
+    $preparation = [['prep'=>'id_Figurine', 'variable'=> $data[0]['idFigurine']]];
+    $action = new readDB($Modificateurs, $preparation);
+    $datanbr = $action->read();
+    $modificateur = $dataMod[0]['total'] - $datanbr[0]['nbr'] + 1;
+    // Fin du calcul du modificateur
+    $prixFigurine = ((($DQM + $DC*2) + ($type + $taille + $mouvement + $pointDeVie)) * ($sav + ($pointDeVie / 8))) * $modificateur;
+    // Fin calcul
     echo '<h4>'.$data[0]['nomFigurine'].'</h4>
           <ul class="ficheFigurine">';
     echo '<li>Dé Qualité Martial : '.$this->dice[$data[0]['DQM']]['type'].'</li>';
@@ -120,5 +164,20 @@ class Figurines {
     echo '<li>Figurine affectée : '.$this->yes[$data[0]['figurineAffecter']].' </li>';
     echo '<li>Prix figurine brute : '.round($prixFigurine, 0).' points</li>';
     echo '</ul>';
+  }
+  public function spRules($idFigurine) {
+    $triRules = "SELECT `nomRules`
+    FROM `figurinesRules`
+    INNER JOIN `rules` ON `idRules` = `id_Rules`
+    WHERE `id_Figurine` = :idFigurine
+    ORDER by `nomRules`";
+    $prep = [['prep' => 'idFigurine', 'variable'=> $idFigurine]];
+    $listeRules = new readDB($triRules, $prep);
+    $dataRules = $listeRules->read();
+    echo '<p><strong>Règles spécial :</strong> ';
+    foreach ($dataRules as $key) {
+      echo $key['nomRules'].' ';
+    }
+    echo '</p>';
   }
 }

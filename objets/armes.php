@@ -131,13 +131,13 @@ class Armes {
           echo '<strong><li>Portée tactique : '.$dataArme[0]['maxRange'].' pouces ou '.round($dataArme[0]['maxRange']*2.54, 0).' cm</li>
           <li>Arme lourde : '.$this->yes[$dataArme[0]['lourd']].' - Arme d\'assaut : '.$this->yes[$dataArme[0]['assaut']].'</li>';
           if ($dataArme[0]['couverture'] != 0) {
-            echo '<li>Couverture : '.$this->yes[$dataArme[0]['couverture']].' Cadence de tir : '.$dataArme[0]['cadenceTir'].' par tour </li></strong>';
+            echo '<li>Couverture : '.$this->yes[$dataArme[0]['couverture']].' - Cadence de tir : '.$dataArme[0]['cadenceTir'].' par tour </li></strong>';
           } else {
             echo '</strong>';
           }
         }
         if ($dataArme[0]['puissanceExplosif'] != 0) {
-          echo '<li>Puissance : '.$this->dice[$dataArme[0]['puissanceExplosif']].' - Gabarit : '.$this->gabarit[$dataArme[0]['gabarit']].'</li>';
+          echo '<li><strong>Puissance : '.$this->dice[$dataArme[0]['puissanceExplosif']].' - Gabarit : '.$this->gabarit[$dataArme[0]['gabarit']].'</strong></li>';
         }
         if ($dataArme[0]['sort'] > 0) {
           echo'<strong><li>Sort '.$this->yes[$dataArme[0]['sort']].'</li></strong>';
