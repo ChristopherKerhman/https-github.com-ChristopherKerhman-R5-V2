@@ -174,10 +174,15 @@ class Figurines {
     $prep = [['prep' => 'idFigurine', 'variable'=> $idFigurine]];
     $listeRules = new readDB($triRules, $prep);
     $dataRules = $listeRules->read();
-    echo '<p><strong>Règles spécial :</strong> ';
-    foreach ($dataRules as $key) {
-      echo $key['nomRules'].' ';
+    if (!empty($dataRules)) {
+      echo '<p><strong>Règles spécial :</strong> ';
+      foreach ($dataRules as $key) {
+        echo $key['nomRules'].' ';
+      }
+      echo '</p>';
+    } else {
+      echo '<p>Aucune règles spéciales.</p>';
     }
-    echo '</p>';
+
   }
 }
