@@ -17,6 +17,7 @@ require 'objets/rulesSp.php';
   $prix = $figurine->calculPrixFigurine($idFigurine);
   echo '<strong>Prix final figurine : '.round($prix, 0).' points</strong>';
   echo '<br /><strong>Niveau de puissance : '.round($prix/100, 0).' </strong>';
+  $figurine->delArmeAffecter($idFigurine, $idNav);
 ?>
 <h3 class="sousTitre">Dotation</h3>
 <?php

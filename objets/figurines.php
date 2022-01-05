@@ -298,4 +298,26 @@ public function UniversFaction ($idFigurine) {
     $prixFinal = $prix * $coef;
     return $prixFinal;
   }
-}
+  public function delArmeAffecter ($idFigurine, $idNav) {
+    $triArmes = "SELECT `idDotation`, `nom`
+    FROM `dotationFigurine`
+    INNER JOIN `armes` ON `idArmes` = `id_Armes`
+    WHERE `id_Figurine` = :idFigurine";
+    $param = [['prep'=> ':idFigurine', 'variable'=>$idFigurine]];
+    $armesAffecter = new readDB($triArmes, $param);
+    $listeArmes = $armesAffecter->read();
+    echo '
+    <h4 class="sousTitre">Armes affecter</h4>
+    <div class="mosaique">';
+    foreach ($listeArmes as $key) {
+            echo '
+            <form class="item" action="CUD/Delette/affectationArme.php" method="post">
+              <input type="hidden" name="idDotation" value="'.$key['idDotation'].'">
+              <input type="hidden" name="idFigurine" value="'.$idFigurine.'">
+              <input type="hidden" name="idNav" value="'.$idNav.'">
+              <button type="submit" name="button">'.$key['nom'].'</button>
+            </form>';
+          }
+      echo '</div>';
+    }
+  }
