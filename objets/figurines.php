@@ -36,16 +36,20 @@ class Figurines {
     // Navigation
     // vers formulaires/modifierFigurine.php
     $this->navF = 58;
-    // Vers affichage fiche simple affichages/ficheFigurine.php
+    // Vers affichage fiche  affichages/ficheFigurine.php
     $this->navG = 59;
+    // Vers affichage fiche Dotation arme affichage/ficheDotation.php
+    $this->navH = 60;
   }
-  public function ListeNouvelleFigurine ($param) {
+  public function ListeNouvelleFigurine ($param, $param1) {
     $selectListeNF = "SELECT `idFigurine`, `nomFigurine`
     FROM `figurines`
-    WHERE `id_User` = :idUser AND `figurineAffecter` = :param AND `valide` = 1
-    ORDER BY `nomFigurine`";
+    INNER JOIN `AffecterFigurineUF` ON `id_Figurine` = `idFigurine`
+    WHERE `id_User` = :idUser AND `figurineAffecter` = :param AND `valide` = 1 AND `figurineFixer` = :figurineFixer
+    ORDER BY `id_Faction`,`nomFigurine`";
     $prep = [['prep'=>':idUser', 'variable' => $this->idUser],
-              ['prep'=>':param', 'variable' => $param]];
+            ['prep'=>':param', 'variable' => $param],
+            ['prep'=>':figurineFixer', 'variable' => $param1]];
     $liste = new readDB ($selectListeNF, $prep);
     $dataListe = $liste->read();
     return $dataListe;
@@ -118,15 +122,44 @@ class Figurines {
       </form>';
   }
 }
+public function affichageListeEnService ($data) {
+  // Création des éléments pour affecter les figurines à un univers + 1 factions
+  $listeFactionUser = "SELECT `idFaction`, `nomFaction`, `nomUnivers`
+  FROM `factions`
+  INNER JOIN `univers` ON `univers`.`idUnivers` = `factions`.`idUnivers`
+  WHERE `idCreateur` = :idUser AND `factions`.`valide` = 1";
+  $PreUser = [['prep'=>':idUser', 'variable' => $this->idUser]];
+  $factions = new readDB ($listeFactionUser, $PreUser);
+  $factionsListe = $factions->read();
+  echo '<ul>';
+  foreach ($data as $key) {
+    $FU = "SELECT `nomUnivers`, `nomFaction`
+    FROM `AffecterFigurineUF`
+    INNER JOIN `univers` ON `id_Univers` = `idUnivers`
+    INNER JOIN `factions` ON `id_Faction` = `idFaction`
+    WHERE `id_Figurine` = :idFigurine";
+    $prepFU = [['prep'=>':idFigurine', 'variable' => $key['idFigurine']]];
+    $readFU = new readDB ($FU, $prepFU);
+    $dataFU = $readFU->read();
+    echo '<li class="line">
+    <strong class="gras">'.$dataFU[0]['nomUnivers'].' '.$dataFU[0]['nomFaction'].' - '.$key['nomFigurine'].'</strong>
+    <a class="lienBoutton" href="index.php?idNav='.$this->navH.'&idFigurine='.$key['idFigurine'].'">Fiche</a>
+    <form action="CUD/Delette/figurine.php" method="post">
+      <input type="hidden" name="idNav" value="'.$this->idNav.'">
+      <input type="hidden" name="idFigurine" value="'.$key['idFigurine'].'">
+      <button type="submit" name="button">Effacer</button>
+    </form>';
+}
+}
   public function readFiche($idFigurine) {
     $fiche = "SELECT `idFigurine`, `id_User`, `nomFigurine`, `description`, `typeFigurine`, `tailleFigurine`, `DQM`, `DC`,
-    `svg`, `pdv`, `mouvement`, `valide`, `partager`, `figurineFixer`, `figurineAffecter`
+    `svg`, `pdv`, `mouvement`, `valide`, `partager`, `figurineFixer`, `figurineAffecter`, `prix`
     FROM `figurines` WHERE `idFigurine` = :id AND `valide` = 1";
     $preparation = [['prep' => ':id', 'variable'=> $idFigurine]];
     $ficheFigurine = new readDB ($fiche, $preparation);
     return $ficheFigurine->read();
   }
-  public function ficheFigurine($data){
+  public function ficheFigurine($data, $idNav){
     // Liste des éléments pour déterminer le prix d'une figurine :
     $DQM = $this->dice[$data[0]['DQM']]['Valeur'];
     $DC = $this->dice[$data[0]['DC']]['Valeur'];
@@ -164,7 +197,46 @@ class Figurines {
     echo '<li>Figurine affectée : '.$this->yes[$data[0]['figurineAffecter']].' </li>';
     echo '<li>Prix figurine brute : '.round($prixFigurine, 0).' points</li>';
     echo '</ul>';
+    if($data[0]['figurineAffecter'] > 0) {
+      echo '<form action="CUD/Update/serviceFigurine.php" method="post">
+          <input type="hidden" name="idFigurine" value="'.$data[0]['idFigurine'].'">
+          <input type="hidden" name="prix" value="'.$prixFigurine.'">
+          <input type="hidden" name="idNav" value="'.$idNav.'">
+          <button class="lienCentrale" type="submit" name="button">Mettre en service</button>
+        </form>';
+    }
   }
+  // Lecteur de fiche simple présentation web.
+  public function ficheSimple($data) {
+    echo '<h4>'.$data[0]['nomFigurine'].'</h4>
+          <ul class="ficheFigurine">';
+    echo '<li>Dé Qualité Martial : '.$this->dice[$data[0]['DQM']]['type'].'</li>';
+    echo '<li>Dé de Combat : '.$this->dice[$data[0]['DC']]['type'].'</li>';
+    echo '<li>Mouvement : '.$data[0]['mouvement'].' "/ '.round($data[0]['mouvement'] * 1.5, 0).'" + 1D4"</li>';
+    echo '<li>Type de figurine : '.$this->typeFigurine[$data[0]['typeFigurine']]['type'].'</li>';
+    echo '<li>Taille figurine : '.$this->tailleFigurine[$data[0]['tailleFigurine']]['taille'].'</li>';
+    echo '<li><strong>Description</strong><p>'.$data[0]['description'].'</p></li>';
+    echo '<li>Armure : '.$this->svg[$data[0]['svg']]['armure'].' - Point de vie : '.$this->pointDeVie[$data[0]['pdv']].'</li>';
+    echo '<li>Figurine Valide : '.$this->yes[$data[0]['valide']].'</li>';
+    echo '<li>Figurine partagée : '.$this->yes[$data[0]['partager']].'</li>';
+    echo '<li>Figurine fixée : '.$this->yes[$data[0]['figurineFixer']].'</li>';
+    echo '<li>Figurine affectée : '.$this->yes[$data[0]['figurineAffecter']].' </li>';
+    echo '<li>Prix figurine brute : '.$data[0]['prix'].' points</li>';
+    echo '</ul>';
+  }
+public function UniversFaction ($idFigurine) {
+  $UF = "SELECT `nomUnivers`, `nomFaction`, `id_Faction`
+        FROM `AffecterFigurineUF`
+        INNER JOIN `factions` ON `idFaction` = `id_Faction`
+        INNER JOIN `univers` ON `univers`.`idUnivers` = `id_Univers`
+        WHERE `id_Figurine` = :idFigurine";
+  $param = [['prep'=>':idFigurine', 'variable'=> $idFigurine]];
+  $action = new readDB( $UF, $param);
+  $data = $action->read();
+  echo '<h3 class="sousTitre">'.$data[0]['nomUnivers'].' - '.$data[0]['nomFaction'].'</h3>';
+  return $data;
+}
+
   public function spRules($idFigurine) {
     $triRules = "SELECT `nomRules`
     FROM `figurinesRules`
@@ -177,12 +249,53 @@ class Figurines {
     if (!empty($dataRules)) {
       echo '<p><strong>Règles spécial :</strong> ';
       foreach ($dataRules as $key) {
-        echo $key['nomRules'].' ';
+        echo '<strong class="affichageSP">'.$key['nomRules'].'</strong>';
       }
       echo '</p>';
     } else {
       echo '<p>Aucune règles spéciales.</p>';
     }
-
+  }
+  public function DelSpecialRules ($iFigurine, $idNav) {
+    $SQL = "SELECT `idFigurineRules`, `nomRules`
+    FROM `figurinesRules`
+    INNER JOIN `rules` ON `idRules` = `id_Rules`
+    WHERE `id_Figurine` = :idFigurine
+    ORDER BY `nomRules`";
+    $parametre = [['prep' => ':idFigurine', 'variable' => $iFigurine]];
+    $listeRules = new readDB($SQL, $parametre);
+    $dataRules = $listeRules->read();
+    if (!empty($dataRules)) {
+      echo '<h4 class="sousTitre">Effacer règles spéciales</h4>  <div class="mosaique">';
+      foreach ($dataRules as $key) {
+        echo '<form class="item" action="CUD/Delette/specialeRulesFigurine.php" method="post">
+          <input type="hidden" name="idFigurineRules" value="'.$key['idFigurineRules'].'">
+          <input type="hidden" name="id_Figurine" value="'.$iFigurine.'">
+          <input type="hidden" name="idNav" value="'.$idNav.'">
+          <button type="submit" name="button">'.$key['nomRules'].'</button>
+        </form>';
+      }
+      echo '</div>';
+    }
+  }
+  public function dotationArme($idFigurine) {
+    $dotationSQL = "SELECT`id_Armes`, `coef` FROM `dotationFigurine` WHERE `id_Figurine` = :idFigurine";
+    $param = [['prep'=> ':idFigurine', 'variable'=>$idFigurine]];
+    $listeDotation = new readDB($dotationSQL, $param);
+    return $dotation = $listeDotation->read();
+  }
+  public function calculPrixFigurine($idFigurine) {
+    // Calcul du coef de la figurine et du prix de la figurine
+    $dotationSQL = "SELECT SUM(`coef`) AS `total`
+    FROM `dotationFigurine` WHERE `id_Figurine` = :idFigurine
+    UNION SELECT `prix` FROM `figurines` WHERE `idFigurine` = :idFigurine";
+    $param = [['prep'=> ':idFigurine', 'variable'=>$idFigurine]];
+    $sum = new readDB($dotationSQL, $param);
+    $dotation = $sum->read();
+    $prix = $dotation[1]['total'];
+    $coef = $dotation[0]['total'];
+    // Calcul du prix de la figurine
+    $prixFinal = $prix * $coef;
+    return $prixFinal;
   }
 }

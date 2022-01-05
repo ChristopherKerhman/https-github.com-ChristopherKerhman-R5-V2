@@ -10,7 +10,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
   $_POST = doublePOP($_POST, $idNav);
   $prep = new Preparation ();
   $prepare = $prep->creationPrep($_POST);
-  print_r($prepare);
   $requetteSQL = "INSERT INTO `armesRules`(`id_Armes`, `id_Rules`, `tauxRules`) VALUES (:idArmes, :idRules, :modification)";
   $dataUser = new CurDB($requetteSQL, $prepare);
   $dataUser->actionDB();

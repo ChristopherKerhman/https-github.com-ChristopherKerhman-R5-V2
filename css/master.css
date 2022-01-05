@@ -171,6 +171,13 @@ section {
  .gras {
    font-weight: 800;
  }
+ .affichageSP {
+   font-weight:300;
+   padding-right: 0.5em;
+ }
+.resume {
+  list-style: none;
+}
  /* formulaires*/
  .formulaire {
      display: flex;
@@ -275,7 +282,6 @@ section {
    font-family: 'Quantico', sans-serif;
    font-size: 1.1em;
    background-color: #1C1B20ff;
-
    color: #F6FBFFff;
    transition: background-color 1s;
    margin-top: 0.5em;

@@ -223,5 +223,98 @@ class Armes {
         return (($puissance * $taux)/100)+1;
       }
     }
+    public function readArmes ($idFaction) {
+      $tri = "SELECT `idArmes`,`nom`, `description`, `typeArme`, `puissance`, `maxRange`, `surPuissance`, `sort`,
+      `assaut`, `couverture`, `cadenceTir`, `lourd`, `puissanceExplosif`, `gabarit`,
+      `fixer`, `valide`, `prix` FROM `armes` WHERE `id_Faction` = :idFaction AND
+      `valide` = 1 AND `fixer` = 1
+      ORDER BY `typeArme`, `nom`";
+      $param = [['prep'=> ':idFaction', 'variable'=>$idFaction]];
+      $readArme = new readDB($tri, $param);
+      $data = $readArme->read();
+      return $data;
+    }
+    public function readOneArmes ($idArmes) {
+      $tri = "SELECT `idArmes`,`nom`, `description`, `typeArme`, `puissance`, `maxRange`, `surPuissance`, `sort`,
+      `assaut`, `couverture`, `cadenceTir`, `lourd`, `puissanceExplosif`, `gabarit`,
+      `fixer`, `valide`, `prix` FROM `armes` WHERE `idArmes` = :idArmes AND
+      `valide` = 1 AND `fixer` = 1
+      ORDER BY `typeArme`, `nom`";
+      $param = [['prep'=> ':idArmes', 'variable'=>$idArmes]];
+      $readArme = new readDB($tri, $param);
+      $data = $readArme->read();
+      return $data;
+    }
+    public function resumeArme($data, $DC){
+      echo '<lu class="resume">';
+      foreach ($data as $key) {
+        if($key['surPuissance'] >0) {
+          $SP = '++';
+        } else {
+          $SP = '';
+        }
+        if($key['typeArme'] > 0) {
+          $range = 'Portée :'.$key['maxRange'].'"';
+        } else {
+          $range = 'NA';
+        }
+        if ($key['sort'] == 1) {
+          $sort = ' | Sort : Oui';
+        } else {
+            $sort = '';
+        }
+        if ($key['couverture'] == 1) {
+          $couverture = '| Couverture :'.$this->yes[$key['couverture']].'| Cadence de tir :'.$key['cadenceTir'].' tir/tour |';
+        } else {
+          $couverture = '';
+        }
+        if ($key['typeArme'] == 0) {
+          echo '<li>* '.$key['nom'].' | Type :'.$this->typeArme[$key['typeArme']].' | Puissance '.$key['puissance'].$this->dice[$DC].$SP.$sort.'</li>';
+        }
+        if($key['typeArme'] == 1) {
+          echo '<li>* '.$key['nom'].' | Type :'.$this->typeArme[$key['typeArme']].' | '.$key['puissance'].$this->dice[$DC].$SP.' |
+           '.$range.$sort.' | Assaut : '.$this->yes[$key['assaut']].$couverture.' | Arme lourde : '.$this->yes[$key['lourd']].'</li>';
+        }
+        if($key['typeArme'] == 2) {
+        echo '<li>* '.$key['nom'].' | Type :'.$this->typeArme[$key['typeArme']].' | '.$key['puissance'].$this->dice[$DC].$SP.' |
+         '.$range.$sort.' | Assaut : '.$this->yes[$key['assaut']].$couverture.' | Arme lourde : '.$this->yes[$key['lourd']].' | Type de gabarit : '.$this->gabarit[$key['gabarit']].'
+         | Puissance explosif '.$this->dice[$key['puissanceExplosif']].'</li>';
+       }
+        //Recherche RS armes :
+        $SQLRS = "SELECT `nomRules`
+        FROM `armesRules`
+        INNER JOIN `rules` ON `idRules` = `id_Rules`
+        WHERE `id_Armes` = :idArmes";
+        $param = [['prep'=>':idArmes', 'variable'=> $key['idArmes']]];
+        $readRules = new readDB($SQLRS, $param);
+        $ListeRules = $readRules->read();
+
+        if (!empty($ListeRules[0]['nomRules'])) {
+          echo '<li>Régles spéciales : ';
+          foreach ($ListeRules as $key) {
+            echo '<strong class="affichageSP">'.$key['nomRules'].'</strong>';
+          }
+          echo '</li>';
+        }
+        // Fin recherche des RS armes
+
+      }
+      echo '</lu>';
+    }
+  public function mosaiqueArmes($data, $idFigurine, $idNav) {
+    echo '
+    <h4 class="sousTitre">Affectation des armes</h4>
+    <div class="mosaique">';
+        foreach ($data as $key) {
+          echo '
+          <form class="item" action="CUD/Create/affectationArme.php" method="post">
+            <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
+            <input type="hidden" name="idFigurine" value="'.$idFigurine.'">
+            <input type="hidden" name="idNav" value="'.$idNav.'">
+            <button type="submit" name="button">'.$key['nom'].'</button>
+          </form>';
+    }
+    echo '</div>';
+  }
 }
 //<li>'.$dataArme[0][''].'</li>

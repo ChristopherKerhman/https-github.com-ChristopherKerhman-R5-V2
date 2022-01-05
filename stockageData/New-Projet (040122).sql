@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 31 déc. 2021 à 17:11
+-- Généré le : mar. 04 jan. 2022 à 12:22
 -- Version du serveur :  8.0.27-0ubuntu0.20.04.1
 -- Version de PHP : 7.4.3
 
@@ -34,6 +34,18 @@ CREATE TABLE `AffecterFigurineUF` (
   `id_Faction` int NOT NULL,
   `id_Figurine` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `AffecterFigurineUF`
+--
+
+INSERT INTO `AffecterFigurineUF` (`idAffectationFigurine`, `id_Univers`, `id_Faction`, `id_Figurine`) VALUES
+(1, 17, 29, 134),
+(2, 17, 30, 135),
+(3, 15, 25, 136),
+(4, 15, 25, 137),
+(5, 15, 25, 138),
+(6, 15, 25, 139);
 
 -- --------------------------------------------------------
 
@@ -76,8 +88,10 @@ INSERT INTO `armes` (`idArmes`, `id_Univers`, `id_Faction`, `idCreateur`, `nom`,
 (57, 15, 26, 14, 'Fusil laser', 'Fusil laser de la garde impérial.', 1, 2, 16, 0, 0, 1, 1, 2, 0, 0, 0, 1, 1, 1.28985),
 (58, 15, 26, 14, 'Grenade anti-personnelle', 'Grenade anti-personnelle simple.', 2, 1, 6, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1.19488),
 (59, 15, 26, 14, 'Canon', 'Canon lourd', 2, 1, 24, 0, 0, 0, 0, 1, 1, 2, 3, 1, 1, 2.39692),
-(60, 17, 29, 14, 'Volubilis', 'Ce sort permet de créer des dommages sur une cible au contact du sorcier.', 0, 2, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1.39072),
-(61, 15, 26, 14, 'Lance Grenade', 'Petit et compact, ce lance grenade propulse une charge explosive.', 2, 1, 12, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0);
+(60, 17, 29, 14, 'Volubilis', 'Ce sort permet de créer des dommages sur une cible au contact du sorcier.', 0, 2, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 1, 1.176),
+(61, 15, 26, 14, 'Lance Grenade', 'Petit et compact, ce lance grenade propulse une charge explosive.', 2, 1, 12, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1.61126),
+(66, 15, 26, 14, 'C12-Long gun', 'Ce fusil à ion de précision permet de toucher des cibles à longue portée et leur faire des dommages conséquent.', 1, 1, 32, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.91949),
+(67, 16, 28, 14, 'Glaive', 'Une arme en acier antique.', 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -119,11 +133,26 @@ INSERT INTO `armesRules` (`idAffectation`, `id_Armes`, `id_Rules`, `tauxRules`) 
 (57, 59, 14, 1.2),
 (58, 59, 9, 1.25),
 (59, 59, 17, 1.15),
-(63, 60, 31, 1.04),
-(64, 60, 26, 1.18),
 (66, 61, 17, 1.15),
-(67, 61, 17, 1.15),
-(68, 61, 9, 1.25);
+(68, 61, 9, 1.25),
+(69, 61, 21, 1.08),
+(70, 66, 21, 1.08),
+(71, 66, 20, 1.1),
+(72, 66, 12, 1.1),
+(73, 66, 16, 1.1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Camps`
+--
+
+CREATE TABLE `Camps` (
+  `id_Camps` int NOT NULL,
+  `id_Figurine` int NOT NULL,
+  `id_Faction` int NOT NULL,
+  `id_Univers` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -151,7 +180,8 @@ INSERT INTO `factions` (`idFaction`, `idCreateur`, `idUnivers`, `nomFaction`, `v
 (27, 14, 16, 'Les A', 1, 0),
 (28, 14, 16, 'Les non A', 1, 0),
 (29, 14, 17, 'Les sorciers', 1, 0),
-(30, 14, 17, 'Les mangemorts', 1, 0);
+(30, 14, 17, 'Les mangemorts', 1, 0),
+(48, 14, 15, 'Enri V2', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -174,8 +204,55 @@ CREATE TABLE `figurines` (
   `valide` tinyint(1) NOT NULL DEFAULT '1',
   `partager` tinyint(1) NOT NULL DEFAULT '0',
   `figurineFixer` tinyint(1) NOT NULL DEFAULT '0',
+  `figurineAffecter` tinyint(1) NOT NULL DEFAULT '0',
   `prix` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `figurines`
+--
+
+INSERT INTO `figurines` (`idFigurine`, `id_User`, `nomFigurine`, `description`, `typeFigurine`, `tailleFigurine`, `DQM`, `DC`, `svg`, `pdv`, `mouvement`, `valide`, `partager`, `figurineFixer`, `figurineAffecter`, `prix`) VALUES
+(134, 14, 'Mafieux V3', 'Mafieux de tous pays, unissez vous !', 0, 1, 1, 3, 0, 2, 4, 1, 0, 0, 1, 0),
+(135, 14, 'Tueur à gage', 'Un tueur a gage est une élément qui opère en solitaire.', 0, 1, 1, 3, 0, 0, 6, 1, 0, 0, 1, 0),
+(136, 14, 'Salamandre C', 'Soldat de l\'armée régulière ithier.', 2, 1, 1, 2, 3, 1, 4, 1, 0, 0, 1, 0),
+(137, 14, 'Salamandre Officier', 'Soldat de l\'armée régulière ithier.', 6, 1, 2, 2, 3, 1, 4, 1, 0, 0, 1, 0),
+(138, 14, 'Dragon C', 'Membre de l\'élite de l\'armée Ithier.', 4, 1, 2, 2, 4, 2, 4, 1, 0, 0, 1, 0),
+(139, 14, 'Eclaireur Ithier', 'Membre des forces spéciales Ithier, les éclaireurs sont des troupes spécialement entraîner pour opérer en petit groupe d\'action afin de détruire des cibles précise, puis se retirer.', 4, 0, 2, 3, 3, 1, 4, 1, 0, 0, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `figurinesRules`
+--
+
+CREATE TABLE `figurinesRules` (
+  `idFigurineRules` int NOT NULL,
+  `id_Figurine` int NOT NULL,
+  `id_Rules` int NOT NULL,
+  `modificateur` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `figurinesRules`
+--
+
+INSERT INTO `figurinesRules` (`idFigurineRules`, `id_Figurine`, `id_Rules`, `modificateur`) VALUES
+(1, 138, 23, 1.04),
+(2, 138, 8, 1.2),
+(3, 138, 45, 1.1),
+(4, 138, 42, 1.12),
+(5, 139, 8, 1.2),
+(6, 139, 40, 1.07),
+(7, 139, 43, 1.16),
+(8, 139, 45, 1.1),
+(9, 139, 46, 1.4),
+(10, 139, 7, 1.1),
+(11, 139, 8, 1.2),
+(12, 135, 8, 1.2),
+(13, 135, 23, 1.04),
+(14, 135, 40, 1.07),
+(15, 135, 44, 1.25);
 
 -- --------------------------------------------------------
 
@@ -199,8 +276,7 @@ CREATE TABLE `lore` (
 INSERT INTO `lore` (`idLore`, `idUnivers`, `titreLore`, `texteLore`, `valide`, `partager`) VALUES
 (20, 16, 'Lorem Ipsum', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec feugiat velit eu nisl elementum, quis finibus tellus cursus. Aliquam cursus, ipsum ut aliquam consequat, ante libero eleifend risus, in laoreet mi nisi in felis. Aenean ut finibus risus. Phasellus tincidunt venenatis nulla, ac faucibus lectus pulvinar at. Etiam risus enim, maximus a quam sed, malesuada finibus enim. Mauris nec erat ut dui sagittis volutpat at convallis libero. Nullam quis bibendum lectus. Nulla feugiat eros a ante tempor fringilla. Donec ac mauris a ligula placerat tincidunt.\r\n\r\nCurabitur et nulla blandit, fringilla velit eget, rutrum nunc. Proin convallis felis quis metus condimentum consequat. Integer malesuada magna vel nisi auctor varius. Quisque pulvinar tortor non magna semper, vitae mollis nunc fringilla. Aenean nec neque semper, placerat ex non, sodales neque. Nulla ac turpis blandit, mollis ligula ac, suscipit ex. Donec ultrices, arcu et ornare efficitur, massa ligula tincidunt urna, eget tempus nulla mauris vitae orci. Mauris feugiat blandit est, a maximus ipsum. Sed ornare ullamcorper eros id mattis. Nam aliquet eros convallis auctor ultricies. Integer non libero commodo, faucibus quam eget, ornare velit. In diam magna, aliquam et eros id, molestie malesuada sem. Nulla vel pulvinar velit, eu ultricies justo. Suspendisse sagittis mauris nisi. Praesent sed est in nunc tempor ullamcorper sagittis vitae nibh. Integer commodo, libero ut venenatis cursus, ex diam maximus orci, a consequat leo eros ut nunc.\r\n\r\nAliquam erat volutpat. Mauris a sem at lacus egestas interdum nec bibendum eros. Duis in eleifend magna. Nullam scelerisque mauris nec ligula hendrerit, quis bibendum turpis consequat. Donec dictum dolor vel nisi suscipit pellentesque. Aliquam pulvinar orci sed semper fermentum. Nunc pellentesque sapien non tellus ultricies, in luctus ante condimentum. Donec at dui dignissim, finibus elit id, commodo enim.', 1, 1),
 (24, 17, 'Scrap', 'Beaucoup d’entreprises scrapent les sites e-commerce concurrents à la recherche de toutes modifications de prix, de descriptions de produits et d’images, afin d’obtenir toutes les données possibles pour stimuler l’analyse et la modélisation prédictive des données.\r\n\r\nÀ moins que les tarifs ne soient concurrentiels, les sites e-commerce peuvent fermer leurs portes en un rien de temps.\r\n\r\nMême constat avec les sites de voyage qui extraient les prix des sites des compagnies aériennes depuis longtemps.\r\n\r\nDes solutions de web scraping personnalisées vous aideront à obtenir toutes les données imaginables dont vous pourriez avoir besoin.\r\n\r\nDe cette façon, vous pouvez collecter des données et créer votre propre database.', 1, 1),
-(25, 16, 'Les enclaves d\'Orion', 'Le web scraping pour monitorer la réputation d’une marque\r\nLa réputation en ligne est très importante aujourd’hui car de nombreuses entreprises dépendent du bouche à oreille pour leur croissance.\r\n\r\nIci, le scraping de données sur les réseaux sociaux ou écoute sociale, aide à comprendre l’opinion et les sentiments actuels d’une audience définie par rapport à un sujet.\r\n\r\nUne fois l’écoute réalisée vous pourrez communiquer de la meilleure façon possible pour répondre parfaitement aux besoins de cette audience. Tout ça, basé sur leurs vrais sentiments.\r\n\r\nDans de futures articles nous vous apprendrons à scraper le web en Node.js simplement.\r\n\r\nJe vous invite à vous abonner à notre newsletter pour faire partie des premiers à découvrir nos derniers articles.', 1, 0),
-(26, 15, 'TEST', 'Trouver les données de n’importe qui ou qu’elle entité\r\nLe web scraping permet de récupérer n’importe quelle donnée sur un individu X ou sur une entreprise Y. (surtout grâce aux réseaux sociaux)\r\n\r\nCes données sont ensuite utilisées pour des analyses, des comparaisons, des décisions d’investissement, une embauche et plus encore.\r\n\r\nDe nombreuses entreprises font du website scraping aujourd’hui sur des sites comme Le Bon Coin ou Indeed par exemple.', 1, 1);
+(25, 16, 'Les enclaves d\'Orion', 'Le web scraping pour monitorer la réputation d’une marque\r\nLa réputation en ligne est très importante aujourd’hui car de nombreuses entreprises dépendent du bouche à oreille pour leur croissance.\r\n\r\nIci, le scraping de données sur les réseaux sociaux ou écoute sociale, aide à comprendre l’opinion et les sentiments actuels d’une audience définie par rapport à un sujet.\r\n\r\nUne fois l’écoute réalisée vous pourrez communiquer de la meilleure façon possible pour répondre parfaitement aux besoins de cette audience. Tout ça, basé sur leurs vrais sentiments.\r\n\r\nDans de futures articles nous vous apprendrons à scraper le web en Node.js simplement.\r\n\r\nJe vous invite à vous abonner à notre newsletter pour faire partie des premiers à découvrir nos derniers articles.', 1, 0);
 
 -- --------------------------------------------------------
 
@@ -253,7 +329,10 @@ INSERT INTO `nav` (`idNav`, `nomLien`, `cheminNav`, `valide`, `levelAdmi`, `ordr
 (53, 'fiche Armes', 'formulaires/ficheArme.php', 0, 1, 0, 3, 0),
 (54, '', 'affichages/ficheArme.php', 0, 1, 0, 3, 0),
 (55, 'Figurines', 'environnement/gestionFigurine.php', 1, 1, 5, 0, 0),
-(56, 'Créer une figurine', 'formulaires/creationFigurine.php', 1, 1, 0, 4, 0);
+(56, 'Créer une figurine', 'formulaires/creationFigurine.php', 1, 1, 0, 4, 0),
+(57, 'Liste des nouvelles Figurines', 'environnement/listeFigurinesNA.php', 1, 1, 0, 4, 1),
+(58, '', 'formulaires/modifierFigurine.php', 0, 1, 0, 4, 0),
+(59, 'Fiche Figurine', 'affichages/ficheFigurine.php', 0, 1, 0, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -300,7 +379,20 @@ INSERT INTO `rules` (`idRules`, `nomRules`, `descriptionRules`, `modification`, 
 (33, 'Bouclier de combat de mêlée', 'Ce bouclier confère un +1 quand un adversaire tente de vous toucher en combat de mêlée.', 1.05, 0),
 (34, 'Bouclier balistique', 'Ce bouclier vous donne un +1 quand un adversaire tente de vous toucher avec une arme de tir. Le bouclier balistique agit quelques soit les règles spéciales de l’arme qui tir sur votre figurine.', 1.1, 0),
 (35, 'Champs de force', 'Un champs de force détourne la puissance des tirs ou les projectiles dans un court rayon atour d\'une figurine. \r\nLes tir contre une figurine doter d\'un champs de force gagne un -1 sur le dé du tireur.', 1.15, 1),
-(36, 'Champs de force', 'Un champs de force détourne la puissance des tirs ou les projectiles dans un court rayon atour d\'un véhicule. \r\nLes tir contre un véhicule doter d\'un champs de force gagne un -1 sur le dé du tireur.', 1.15, 2);
+(36, 'Champs de force', 'Un champs de force détourne la puissance des tirs ou les projectiles dans un court rayon atour d\'un véhicule. \r\nLes tir contre un véhicule doter d\'un champs de force gagne un -1 sur le dé du tireur.', 1.15, 2),
+(37, 'Equipé d\'un bouclier', 'La figurine est équipé d\'un bouclier qui la protège contre les attaques balistique avec un +1 pour la toucher et dans les combats de mêlée avec un +2.', 1.2, 1),
+(38, 'Renseignement', 'Une figurine qui effectue un renseignement le fait sous l’ordre « tir ajusté » mais à la place d’un tir, elle confère aux figurines autours d’elle un -2 à leur jet de tir respectif. Il faut pour ce faire qu’elle réussisse un test de renseignement de 4+ sur son dé de capacité spécial.', 1.1, 1),
+(39, 'Piège', 'Une figurine avec la capacité piège peut piéger sur une distance de 5 pouces autours d’elle la zone où elle se trouve. Sur un ordre mouvement tactique et sans bouger, elle effectue un test de Piège avec son dé de capacité spécial, sur 4+ elle réussit. On pose alors un jeton sur la figurine, tant qu’elle reste immobile, le piège est actif. Une figurine qui rentre dans la zone, déclenche le piège sur un 2+ sur 1D6. Qui occasionne 1D6 touches automatique, que la cible pourra tenter de sauvegarder. Si la ou les victimes du piège survient, elles passent automatiquement en statut « surprise ». Le piège ne marche qu’une fois. 2 figurines ne peuvent pas être touché par le même piège.', 1.15, 1),
+(40, 'Monte en l’air', 'Une figurine avec cette capacité, sous un ordre « mouvement tactique » peu escalader un décor jusqu’à une hauteur de sa valeur de course. Il ne faut cependant pas qu’elle soit sous le feu ennemi pour ce faire et donc, hors de portée d’un tireur ennemi. Un test de sa capacité spéciale sous 4+ permet de valider que la figurine franchit bien l’obstacle et rejoint un point haut.', 1.07, 1),
+(41, 'Camouflage', 'Une figurine avec la capacité spéciale « camouflage » n’a jamais le malus lier à l’immobilité quand elle est prise pour cible. Toutefois, pour se faire, elle doit réussir un jet de camouflage de 4+ sur son dé de capacité spécial et être immobile.', 1.18, 1),
+(42, 'Tireur d’élite', 'La capacité tireur d’élite est une capacité spéciale passive. Elle n’a pas de valeur de dé. Une figurine avec cette capacité spéciale peut relancer un dé de tir raté sur n’importe qu’elle arme de tir et ceux même si elle a déjà la capacité ++. Toutefois, elle ne peut le faire que sur les armes de puissance 1D uniquement.', 1.12, 1),
+(43, 'Expert en close combat', 'Une figurine d’élite uniquement, peut prendre cette capacité spéciale. Elle gagne automatiquement +1 sur tous ces jets de combat de mêlées, n’est pas sensible à la règle spéciale petite arme.', 1.16, 1),
+(44, 'Vétéran', 'Une figurine vétéran gagne un ++ sur son armure. Si elle est doté d\'une armure déjà ++, considérer que ce ++ est doublé.', 1.25, 1),
+(45, 'Discrétion', 'Lorsque la figurine avec la règle spécial Discrétion opère à plus de 4 pouces de l’importe quelles figurines (de son groupe ou autre) elle gagne un malus quand elle est visé de +2 en raison de sa grande capacité à se fondre dans le décor.', 1.1, 1),
+(46, 'Invisibilité', 'Une figurine avec un dispositif d\'invisibilité (technologique ou magique) gagne un +2 quand elle est visé si elle est immobile et un +1 quand elle est en mouvement tactique.\r\nA la phase de déploiement, une figurine invisible peut se déployer en profondeur dans le champs de bataille de 2 fois son mouvement tactique depuis sa zone de déploiement.', 1.4, 1),
+(47, 'Radio', 'Un figurine doté d\'une radio peut demander un appuis aérien. Cette capacité spécial fonctionne avec les règles spéciales &quot;Appuis aérien&quot; des Liste et &quot;Appuis d\'artillerie&quot;.', 1.02, 1),
+(48, 'Appuis aérien', 'Une liste avec cette règle spécial gagne, une fois par partie si une figurine avec la règle spécial &quot;radio&quot; appel, un tir sur le champs de bataille au tour suivant. \r\nL\'appuis aérien pouvant se déterminer au moment du tir.\r\nLa frappe aérienne se caractérise par un grand gabarit d\'explosion avec D8 de dommage.', 1.1, 3),
+(49, 'Appuis d\'artillerie', 'Seul les figurines avec &quot;radio&quot; peuvent déclencher cette règle spécial. Lorsqu\'un officier programme un tir d\'artillerie et que le tir est raté où inefficace, le personnage avec une radio peut immédiatement corriger le tir et en créer un second avec des coordonnées dévié de 6&quot; maximum dans n\'importe qu\'elle direction du point d\'impact initial.', 1.07, 3);
 
 -- --------------------------------------------------------
 
@@ -392,6 +484,14 @@ ALTER TABLE `armesRules`
   ADD KEY `affecterRules` (`id_Rules`);
 
 --
+-- Index pour la table `Camps`
+--
+ALTER TABLE `Camps`
+  ADD PRIMARY KEY (`id_Camps`),
+  ADD KEY `id_Figurine + id_faction` (`id_Faction`),
+  ADD KEY `id_figurine + figurine` (`id_Figurine`);
+
+--
 -- Index pour la table `factions`
 --
 ALTER TABLE `factions`
@@ -405,6 +505,14 @@ ALTER TABLE `factions`
 ALTER TABLE `figurines`
   ADD PRIMARY KEY (`idFigurine`),
   ADD KEY `User-Figurine` (`id_User`);
+
+--
+-- Index pour la table `figurinesRules`
+--
+ALTER TABLE `figurinesRules`
+  ADD PRIMARY KEY (`idFigurineRules`),
+  ADD KEY `figurine_rules` (`id_Figurine`),
+  ADD KEY `rules_figurines` (`id_Rules`);
 
 --
 -- Index pour la table `lore`
@@ -446,13 +554,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `AffecterFigurineUF`
 --
 ALTER TABLE `AffecterFigurineUF`
-  MODIFY `idAffectationFigurine` int NOT NULL AUTO_INCREMENT;
+  MODIFY `idAffectationFigurine` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `armes`
 --
 ALTER TABLE `armes`
-  MODIFY `idArmes` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `idArmes` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT pour la table `armesFigurine`
@@ -464,19 +572,31 @@ ALTER TABLE `armesFigurine`
 -- AUTO_INCREMENT pour la table `armesRules`
 --
 ALTER TABLE `armesRules`
-  MODIFY `idAffectation` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `idAffectation` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+
+--
+-- AUTO_INCREMENT pour la table `Camps`
+--
+ALTER TABLE `Camps`
+  MODIFY `id_Camps` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `factions`
 --
 ALTER TABLE `factions`
-  MODIFY `idFaction` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `idFaction` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT pour la table `figurines`
 --
 ALTER TABLE `figurines`
-  MODIFY `idFigurine` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idFigurine` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+
+--
+-- AUTO_INCREMENT pour la table `figurinesRules`
+--
+ALTER TABLE `figurinesRules`
+  MODIFY `idFigurineRules` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT pour la table `lore`
@@ -488,13 +608,13 @@ ALTER TABLE `lore`
 -- AUTO_INCREMENT pour la table `nav`
 --
 ALTER TABLE `nav`
-  MODIFY `idNav` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `idNav` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT pour la table `rules`
 --
 ALTER TABLE `rules`
-  MODIFY `idRules` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `idRules` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT pour la table `univers`
@@ -542,6 +662,13 @@ ALTER TABLE `armesRules`
   ADD CONSTRAINT `affecterRules` FOREIGN KEY (`id_Rules`) REFERENCES `rules` (`idRules`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Contraintes pour la table `Camps`
+--
+ALTER TABLE `Camps`
+  ADD CONSTRAINT `id_figurine + figurine` FOREIGN KEY (`id_Figurine`) REFERENCES `figurines` (`idFigurine`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_Figurine + id_faction` FOREIGN KEY (`id_Faction`) REFERENCES `factions` (`idFaction`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Contraintes pour la table `factions`
 --
 ALTER TABLE `factions`
@@ -553,6 +680,13 @@ ALTER TABLE `factions`
 --
 ALTER TABLE `figurines`
   ADD CONSTRAINT `User-Figurine` FOREIGN KEY (`id_User`) REFERENCES `users` (`idUser`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `figurinesRules`
+--
+ALTER TABLE `figurinesRules`
+  ADD CONSTRAINT `figurine_rules` FOREIGN KEY (`id_Figurine`) REFERENCES `figurines` (`idFigurine`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `rules_figurines` FOREIGN KEY (`id_Rules`) REFERENCES `rules` (`idRules`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `lore`
