@@ -1,11 +1,16 @@
-affichages/ficheDotation.php
 <?php
 include 'stockageData/figurine.php';
 include 'securite/securiterUtilisateur.php';
 require 'objets/figurines.php';
 require 'objets/armes.php';
 require 'objets/rulesSp.php';
-  $idFigurine = filter($_GET['idFigurine']);
+$idFigurine = filter($_GET['idFigurine']); ?>
+<form action="CUD/Update/figurineOk.php" method="post">
+  <input type="hidden" name="idFigurine" value="<?=$idFigurine?>">
+  <input type="hidden" name="idNav" value="<?=$idNav?>">
+  <button class="lienCentrale" type="submit" name="button">Bon pour le service</button>
+</form>
+<?php
   $figurine = new Figurines ($_SESSION['idUser'], $idNav);
   $dataFiche = $figurine->readFiche($idFigurine);
   $tri = $figurine->UniversFaction($idFigurine);

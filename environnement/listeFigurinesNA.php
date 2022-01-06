@@ -1,4 +1,3 @@
-environnement/listeFigurineNA.php
 <?php
 require 'objets/figurines.php';
 $listeNF = new Figurines ($_SESSION['idUser'], $idNav);
@@ -15,6 +14,6 @@ $dataListeFigurines3 = $listeNF->ListeNouvelleFigurine(1, 1);
   <?php $listeNF->affichageListeAffecter($dataListeFigurines1); ?>
 </article>
  <article class="">
-   <h3 class="sousTitre">Liste des figurines mise en service</h3>
+   <h3 class="sousTitre">Liste des figurines pour dotation</h3>
    <?php $listeNF->affichageListeEnService($dataListeFigurines3); ?>
  </article>

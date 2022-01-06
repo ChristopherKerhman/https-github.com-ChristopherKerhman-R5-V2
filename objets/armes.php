@@ -12,33 +12,56 @@ class Armes {
     $this->adressFiche = 53;
     $this->adressFicheFixer = 54;
   }
+  public function listeArmesHS () {
+    // On selectionne les armes HS
+    $SQL = "SELECT `idArmes`, `id_Univers`, `nomUnivers`, `nomFaction`, `nom`, `typeArme`  FROM `armes`
+    INNER JOIN `univers` ON `id_Univers` = `idUnivers`
+      INNER JOIN `factions` ON `id_Faction` = `idFaction`
+    WHERE `armes`.`idCreateur` = :idUser AND `armes`.`valide` = 0 ORDER BY `nomUnivers`, `nomFaction`, `nom`";
+    $prepare = [['prep' => ':idUser', 'variable' => $this->idUser]];
+    $liste = new readDB($SQL, $prepare);
+    $dataListe = $liste->read();
+    echo '<h3 class="sousTitre">Les armes mise hors dotation futur</h3><ul>';
+    foreach ($dataListe as $key) {
+      echo '<li>Univers '.$key['nomUnivers'].' Faction '.$key['nomFaction'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']].'
+        <a class="lienBoutton" href="index.php?idNav='.$this->adressFicheFixer.'&idArmes='.$key['idArmes'].'">Fiche</a></li>';
+    }
+    echo '</ul>';
+  }
+
+
   public function listeArmes ($fixer) {
     // Paramètre pour fixer, 0 -> Non fixer, 1 -> fixer
     $SQL = "SELECT `idArmes`, `id_Univers`, `nomUnivers`, `nomFaction`, `nom`, `typeArme`  FROM `armes`
     INNER JOIN `univers` ON `id_Univers` = `idUnivers`
       INNER JOIN `factions` ON `id_Faction` = `idFaction`
-    WHERE `armes`.`idCreateur` = :idUser AND `fixer` = $fixer ORDER BY `nomUnivers`, `nom`";
+    WHERE `armes`.`idCreateur` = :idUser AND `fixer` = $fixer AND `armes`.`valide` = 1 ORDER BY `nomUnivers`, `nomFaction`, `nom`";
     $prepare = [['prep' => ':idUser', 'variable' => $this->idUser]];
     $liste = new readDB($SQL, $prepare);
     $dataListe = $liste->read();
     foreach ($dataListe as $key) {
-        echo
-        '<li class="line">
-          Univers '.$key['nomUnivers'].' Faction '.$key['nomFaction'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']].'
-          <form action="CUD/Delette/armes.php" method="post">
-            <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
-            <input type="hidden" name="idNav" value="'.$this->idNav.'">
-            <button type="submit" name="button">Effacer</button>
-          </form>
+        echo'<li class="line">';
+        if ($fixer == 1) {
+        echo '<form action="CUD/Update/HSarmes.php" method="post">
+          <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
+          <input type="hidden" name="idNav" value="'.$this->idNav.'">
+          <button type="submit" name="button">Mettre hors service</button>
+        </form>';}
+        echo 'Univers '.$key['nomUnivers'].' Faction '.$key['nomFaction'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']].'
           <form action="CUD/Update/fixer.php" method="post">
             <input type="hidden" name="fixer" value="'.$fixer.'">
             <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
             <input type="hidden" name="idNav" value="'.$this->idNav.'">';
             if ($fixer == 1) {
-            echo '<button type="submit" name="button">Non fixer</button>
-            <a class="lienBoutton" href="index.php?idNav='.$this->adressFicheFixer.'&idArmes='.$key['idArmes'].'">Fiche</a>';
+            echo '<a class="lienBoutton" href="index.php?idNav='.$this->adressFicheFixer.'&idArmes='.$key['idArmes'].'">Fiche</a>
+          ';
           } else {
             echo '<button type="submit" name="button">Fixer</button>
+            <form action="CUD/Delette/armes.php" method="post">
+              <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
+              <input type="hidden" name="idNav" value="'.$this->idNav.'">
+              <button type="submit" name="button">Effacer</button>
+            </form>
             <a class="lienBoutton" href="index.php?idNav='.$this->adressFicheFixer.'&idArmes='.$key['idArmes'].'">Fiche</a>';
           }
         echo '</form></li>';
@@ -125,7 +148,6 @@ class Armes {
         <li>Fiche : <strong>'.$dataArme[0]['nom'].'</strong></li>
         <li>'.$dataArme[0]['description'].'</li>
         <li>Type d\'arme : '.$this->typeArme[$dataArme[0]['typeArme']].'</li>
-        <li>Coefficient : '.round($puissanceArme, 3).' points</li>
         <li>Puissance '.$dataArme[0]['puissance'].'D'.$plus.'</li>';
         if($dataArme[0]['typeArme'] != 0) {
           echo '<strong><li>Portée tactique : '.$dataArme[0]['maxRange'].' pouces ou '.round($dataArme[0]['maxRange']*2.54, 0).' cm</li>
@@ -142,7 +164,7 @@ class Armes {
         if ($dataArme[0]['sort'] > 0) {
           echo'<strong><li>Sort '.$this->yes[$dataArme[0]['sort']].'</li></strong>';
         }
-      echo '</ul>';
+      echo '<li>Coefficient : '.round($puissanceArme, 3).'</li></ul>';
     }
     public function specialRulesFicheArmes ($idArmes) {
       $SQL = "SELECT `id_Rules`, `nomRules`

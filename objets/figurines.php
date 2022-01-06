@@ -42,11 +42,18 @@ class Figurines {
     $this->navH = 60;
   }
   public function ListeNouvelleFigurine ($param, $param1) {
-    $selectListeNF = "SELECT `idFigurine`, `nomFigurine`
-    FROM `figurines`
-    INNER JOIN `AffecterFigurineUF` ON `id_Figurine` = `idFigurine`
-    WHERE `id_User` = :idUser AND `figurineAffecter` = :param AND `valide` = 1 AND `figurineFixer` = :figurineFixer
-    ORDER BY `id_Faction`,`nomFigurine`";
+    if($param1 >0) {
+      $selectListeNF = "SELECT `idFigurine`, `nomFigurine`
+      FROM `figurines`
+      INNER JOIN `AffecterFigurineUF` ON `id_Figurine` = `idFigurine`
+      WHERE `id_User` = :idUser AND `figurineAffecter` = :param AND `valide` = 1 AND `figurineFixer` = :figurineFixer AND `liste` = 0
+      ORDER BY `id_Faction`,`nomFigurine`";
+    } else {
+      $selectListeNF = "SELECT `idFigurine`, `nomFigurine`
+      FROM `figurines`
+      WHERE `id_User` = :idUser AND `figurineAffecter` = :param AND `valide` = 1 AND `figurineFixer` = :figurineFixer AND `liste` = 0
+      ORDER BY `nomFigurine`";
+    }
     $prep = [['prep'=>':idUser', 'variable' => $this->idUser],
             ['prep'=>':param', 'variable' => $param],
             ['prep'=>':figurineFixer', 'variable' => $param1]];
