@@ -1,4 +1,3 @@
-affichages/ficheFigurineOk.php
 <?php
 include 'securite/securiterUtilisateur.php';
 $idFigurine = filter($_GET['idFigurine']);
@@ -8,6 +7,7 @@ $oneFigurine = new figurines ($_SESSION['idUser'], $idNav);
 $dataFigurine = $oneFigurine->readFiche($idFigurine);
 $oneFigurine->UniversFaction($idFigurine);
 $oneFigurine->ficheSimple($dataFigurine);
+$oneFigurine->spRules($idFigurine);
 $DC = $dataFigurine[0]['DC'];
 $dotationArme = $oneFigurine->dotationArme($idFigurine);
 foreach ($dotationArme as $key) {

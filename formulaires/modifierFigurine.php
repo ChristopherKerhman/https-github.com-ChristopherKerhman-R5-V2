@@ -8,7 +8,7 @@ $dataFiche = $figurine->readFiche($idFigurine); ?>
 <section class="flex-presentation">
   <article class="box">
   <?php
-  $figurine->ficheFigurine($dataFiche);
+  $figurine->ficheFigurine($dataFiche, $idNav);
    ?>
    </article>
    <article>
@@ -23,7 +23,11 @@ $dataFiche = $figurine->readFiche($idFigurine); ?>
       <select id="typeF" name="typeFigurine">
         <?php
         foreach ($typeFigurine as $key => $value) {
-          echo '<option value="'.$key.'">'.$value['type'].'</option>';
+            if($dataFiche[0]['typeFigurine'] == $key) {
+            echo '<option value="'.$key.'" selected>'.$value['type'].'</option>';
+          } else {
+            echo '<option value="'.$key.'">'.$value['type'].'</option>';
+          }
         }
          ?>
       </select>
@@ -31,7 +35,12 @@ $dataFiche = $figurine->readFiche($idFigurine); ?>
       <select id="taille" name="tailleFigurine">
         <?php
         foreach ($tailleFigurine as $key => $value) {
+          if($dataFiche[0]['tailleFigurine'] == $key) {
+            echo '<option value="'.$key.'" selected>'.$value['taille'].'</option>';
+          } else {
           echo '<option value="'.$key.'">'.$value['taille'].'</option>';
+          }
+
         }
          ?>
       </select>
@@ -41,7 +50,12 @@ $dataFiche = $figurine->readFiche($idFigurine); ?>
         <select id="DQM" name="DQM">
           <?php
           foreach ($dice as $key => $value) {
+            if($dataFiche[0]['DQM'] == $key) {
+            echo '<option value="'.$key.'" selected>'.$value['type'].'</option>';
+            } else {
             echo '<option value="'.$key.'">'.$value['type'].'</option>';
+            }
+
           }
            ?>
         </select>
@@ -49,7 +63,12 @@ $dataFiche = $figurine->readFiche($idFigurine); ?>
         <select id="DC" name="DC">
           <?php
           foreach ($dice as $key => $value) {
+            if($dataFiche[0]['DC'] == $key) {
+            echo '<option value="'.$key.'" selected>'.$value['type'].'</option>';
+            } else {
             echo '<option value="'.$key.'">'.$value['type'].'</option>';
+            }
+
           }
            ?>
         </select>
@@ -57,9 +76,12 @@ $dataFiche = $figurine->readFiche($idFigurine); ?>
         <select id="pdv" name="pdv">
           <?php
           for ($i=0; $i < count($pointDeVie) ; $i++) {
-            echo '<option value="'.$i.'">
-            '.$pointDeVie[$i].' PdV / PdS
-            </option>';
+            if($dataFiche[0]['pdv'] == $i) {
+              echo '<option value="'.$i.'" selected>'.$pointDeVie[$i].' PdV / PdS</option>';
+            } else {
+            echo '<option value="'.$i.'">'.$pointDeVie[$i].' PdV / PdS</option>';
+            }
+
           }
            ?>
         </select>
@@ -67,7 +89,12 @@ $dataFiche = $figurine->readFiche($idFigurine); ?>
         <select id="armure" name="svg">
           <?php
             foreach ($svg as $key => $value) {
+              if($dataFiche[0]['svg'] == $key) {
+              echo '<option value="'.$key.'" selected>'.$value['armure'].'</option>';
+              } else {
               echo '<option value="'.$key.'">'.$value['armure'].'</option>';
+              }
+
             }
            ?>
         </select>
@@ -82,6 +109,4 @@ $dataFiche = $figurine->readFiche($idFigurine); ?>
     </form>
     </article>
 </section>
-
-
  <?php include 'javascript/mouvement.php' ?>

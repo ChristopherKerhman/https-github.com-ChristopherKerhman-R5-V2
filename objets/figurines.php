@@ -265,7 +265,7 @@ public function UniversFaction ($idFigurine) {
       }
       echo '</p>';
     } else {
-      echo '<p>Aucune règles spéciales.</p>';
+      echo '<p>Aucune règles spéciales pour cette figurine.</p>';
     }
   }
   public function DelSpecialRules ($iFigurine, $idNav) {
