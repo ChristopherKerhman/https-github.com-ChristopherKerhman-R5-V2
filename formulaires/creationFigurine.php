@@ -61,7 +61,7 @@
   </div>
   <div id="COURSE" class="flex-ligne">
     <label for="deplacement">Déplacement tactique : {{mouvement}}" / Course {{course}}" + 1D4" </label>
-      <input type="range" name="mouvement" v-model="mouvement" min="0" max="12" />
+      <input id="deplacement" type="range" name="mouvement" v-model="mouvement" min="0" max="12" />
   </div>
   <input type="hidden" name="idNav" value="<?=$idNav?>">
 <button type="submit" name="button">Enregistrer</button>

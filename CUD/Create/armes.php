@@ -13,12 +13,17 @@ $SQL = ["INSERT INTO `armes`( `id_Univers`,`nom`, `description`, `typeArme`, `pu
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
   $idNav = filter($_POST['idNav']);
   $_POST = doublePOP($_POST, $idNav);
+  $ok = champsVide($_POST);
+  if ($ok > 0) {
+  header('location:../../index.php?idNav='.$idNav.'&message=Un champs est vide.');
+  }
+   else {
   $prep = new Preparation ();
   $prepare = $prep->creationPrepIdUser($_POST);
   $requetteSQL = $SQL[filter($_POST['typeArme'])];
   $action = new CurDB ($requetteSQL, $prepare);
   $action->actionDB();
-  header('location:../../index.php?idNav='.$idNav.'&message=Arme '.filter($_POST['nom']).' enregistrée.');
+  header('location:../../index.php?idNav='.$idNav.'&message=Arme '.filter($_POST['nom']).' enregistrée.');}
 } else {
   header('location:../../index.php?message=Erreur de traitement.');
 }
