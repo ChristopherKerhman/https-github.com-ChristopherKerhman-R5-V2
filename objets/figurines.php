@@ -40,6 +40,8 @@ class Figurines {
     $this->navG = 59;
     // Vers affichage fiche Dotation arme affichage/ficheDotation.php
     $this->navH = 60;
+    // Vers affichafe fiche figurine bonne pour le service
+    $this->navI = 63;
   }
   public function ListeNouvelleFigurine ($param, $param1) {
     if($param1 >0) {
@@ -160,7 +162,7 @@ public function affichageListeEnService ($data) {
 }
   public function readFiche($idFigurine) {
     $fiche = "SELECT `idFigurine`, `id_User`, `nomFigurine`, `description`, `typeFigurine`, `tailleFigurine`, `DQM`, `DC`,
-    `svg`, `pdv`, `mouvement`, `valide`, `partager`, `figurineFixer`, `figurineAffecter`, `prix`
+    `svg`, `pdv`, `mouvement`, `valide`, `partager`, `figurineFixer`, `figurineAffecter`, `prix`, `prixFinal`
     FROM `figurines` WHERE `idFigurine` = :id AND `valide` = 1";
     $preparation = [['prep' => ':id', 'variable'=> $idFigurine]];
     $ficheFigurine = new readDB ($fiche, $preparation);
@@ -215,7 +217,7 @@ public function affichageListeEnService ($data) {
   }
   // Lecteur de fiche simple présentation web.
   public function ficheSimple($data) {
-    echo '<h4>'.$data[0]['nomFigurine'].'</h4>
+    echo '<h4>Nom figurine : '.$data[0]['nomFigurine'].'</h4>
           <ul class="ficheFigurine">';
     echo '<li>Dé Qualité Martial : '.$this->dice[$data[0]['DQM']]['type'].'</li>';
     echo '<li>Dé de Combat : '.$this->dice[$data[0]['DC']]['type'].'</li>';
@@ -228,7 +230,10 @@ public function affichageListeEnService ($data) {
     echo '<li>Figurine partagée : '.$this->yes[$data[0]['partager']].'</li>';
     echo '<li>Figurine fixée : '.$this->yes[$data[0]['figurineFixer']].'</li>';
     echo '<li>Figurine affectée : '.$this->yes[$data[0]['figurineAffecter']].' </li>';
-    echo '<li>Prix figurine brute : '.$data[0]['prix'].' points</li>';
+    echo '<li>Prix de référence : '.$data[0]['prix'].' points</li>';
+    if($data[0]['prixFinal'] > 0) {
+      echo '<li>Prix figurine : '.round($data[0]['prixFinal'], 0).' points</li>';
+    }
     echo '</ul>';
   }
 public function UniversFaction ($idFigurine) {
@@ -326,5 +331,25 @@ public function UniversFaction ($idFigurine) {
             </form>';
           }
       echo '</div>';
+    }
+    public function listeFigOk() {
+      $triOk = "SELECT `idFigurine`, `nomFigurine`, `typeFigurine`, `nomFaction`, `nomUnivers`
+      FROM `figurines`
+      INNER JOIN `AffecterFigurineUF` ON `id_Figurine` = `idFigurine`
+      INNER JOIN `factions` ON `idFaction` = `AffecterFigurineUF`.`id_Faction`
+      INNER JOIN `univers` ON `univers`.`idUnivers` = `AffecterFigurineUF`.`id_Univers`
+      WHERE `id_User` = :idUser AND `liste` = 1
+      ORDER BY `id_Faction`,`nomFigurine`";
+      $prep = [['prep'=>'idUser', 'variable'=>$this->idUser]];
+
+      $liste = new readDB ($triOk, $prep);
+      $dataListe = $liste->read();
+      echo '<h3 class="sousTitre">Liste des figurines près pour le combat</h3><ul>';
+      foreach ($dataListe as $key) {
+        echo '<li>'.$key['nomUnivers'].' '.$key['nomFaction'].'
+        '.$key['nomFigurine'].' '.$this->typeFigurine[$key['typeFigurine']]['type'].'
+          <a class="lienBoutton" href="index.php?idNav='.$this->navI.'&idFigurine='.$key['idFigurine'].'">Fiche</a></li>';
+      }
+      echo '</ul>';
     }
   }

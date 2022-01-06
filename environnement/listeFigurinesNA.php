@@ -1,3 +1,4 @@
+environement/listeFigurinesNA.php
 <?php
 require 'objets/figurines.php';
 $listeNF = new Figurines ($_SESSION['idUser'], $idNav);
