@@ -78,7 +78,7 @@ class Figurines {
       <form action="CUD/Create/cloneFigurine.php" method="post">
         <input type="hidden" name="idNav" value="'.$this->idNav.'">
         <input type="hidden" name="idFigurine" value="'.$key['idFigurine'].'">
-        <button type="submit" name="button">Cloner</button>
+        <button id="clone" type="submit" name="button">Cloner</button>
       </form>
       <strong class="gras">'.$key['nomFigurine'].'</strong>
       <a class="lienBoutton" href="index.php?idNav='.$this->navG.'&idFigurine='.$key['idFigurine'].'">Fiche</a>

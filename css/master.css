@@ -20,7 +20,7 @@ font-family: 'Major Mono Display', monospace;
 Sous Titre alternatif:
 
   */
-  @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Quantico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Quantico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200&family=Keania+One&family=Major+Mono+Display&display=swap');
  /*Element generaux*/
 
@@ -87,18 +87,77 @@ body {
    font-size: 0.7em;
  }
  button {
+   background-color: Black;
+   color:red;
    font-family: 'Quantico', sans-serif;
    font-size: 1em;
-   background-color: #B91B00;
-   color: #F6FBFFff;
-   transition: background-color 1s;
    margin-top: 0.5em;
+   transition: color 0.5s;
+   border-radius: 5px;
+   transition: background-color 1s;
+   transition: color 0.5s;
+   -webkit-box-shadow: inset 0px 0px 5px 0px red;
+box-shadow: inset 0px 0px 5px 0px red;
  }
  button:hover {
-   background-color: #4D8C00;
+   background-color: red;
    color:#F6FBFFff;
-   transition: background-color 1s;
+   font-family: 'Quantico', sans-serif;
+   font-size: 1em;
+   margin-top: 0.5em;
+   transition: color 0.5s;
+   border-radius: 5px;
+   transition: background-color 1s, color 1s;
+   -webkit-box-shadow: inset 0px 0px 5px 0px #28FF00;
+   box-shadow: inset 0px 0px 5px 0px #28FF00;
  }
+ #clone {
+   background-color: Black;
+   color:red;
+   font-family: 'Quantico', sans-serif;
+   font-size: 1em;
+   margin-top: 0.5em;
+   transition: color 0.5s;
+   border-radius: 5px;
+   transition: background-color 1s;
+   transition: color 0.5s;
+   -webkit-box-shadow: inset 0px 0px 5px 0px #28FF00;
+box-shadow: inset 0px 0px 5px 0px #28FF00;
+ }
+ #clone:hover {
+   background-color: #28FF00;
+   color:#F6FBFFff;
+   font-family: 'Quantico', sans-serif;
+   font-size: 1em;
+   margin-top: 0.5em;
+   transition: color 0.5s;
+   border-radius: 5px;
+   transition: background-color 1s, color 1s;
+   -webkit-box-shadow: inset 0px 0px 5px 0px #28FF00;
+   box-shadow: inset 0px 0px 5px 0px #28FF00;
+ }
+ .lienBoutton {
+   text-decoration: none;
+   background-color: Black;
+   color:red;
+   font-family: 'Quantico', sans-serif;
+   font-size: 1em;
+   margin-top: 0.5em;
+   padding-left: 0.4em;
+   padding-right: 0.4em;
+   transition: color 0.5s;
+   border-radius: 5px;
+   transition: background-color 1s;
+   transition: color 0.5s;
+   -webkit-box-shadow: inset 0px 0px 5px 0px blue;
+   box-shadow: inset 0px 0px 5px 0px blue;
+ }
+ .lienBoutton:hover {
+   background-color: blue;
+   color:#F6FBFFff;
+   transition: background-color 3s;
+ }
+
  label {
    margin-top: 0.5em;
    margin-right: 0.5em;
@@ -279,26 +338,7 @@ section {
      align-content: stretch;
  }
  /* Lien bouton*/
- .lienBoutton {
-   text-decoration: none;
-   font-family: 'Quantico', sans-serif;
-   font-size: 1.1em;
-   background-color: #4D8C00;
-   color: #F6FBFFff;
-   transition: background-color 1s;
-   margin-top: 0.5em;
-   padding-left: 0.4em;
-   padding-right: 0.4em;
-   margin-left: 0.2em;
-   margin-right: 0.2em;
-   border: #1C1B20ff solid 2px;
-   border-radius: 5px;
- }
- .lienBoutton:hover {
-   background-color: blue;
-   color:#F6FBFFff;
-   transition: background-color 3s;
- }
+
  .lienCentrale {
    height: auto;
    font-family: 'Quantico', sans-serif;
