@@ -162,7 +162,7 @@ public function affichageListeEnService ($data) {
 }
   public function readFiche($idFigurine) {
     $fiche = "SELECT `idFigurine`, `id_User`, `nomFigurine`, `description`, `typeFigurine`, `tailleFigurine`, `DQM`, `DC`,
-    `svg`, `pdv`, `mouvement`, `valide`, `partager`, `figurineFixer`, `figurineAffecter`, `prix`, `prixFinal`
+    `svg`, `pdv`, `mouvement`, `valide`, `partager`, `figurineFixer`, `figurineAffecter`, `prix`, `prixFinal`, `vol`, `stationnaire`
     FROM `figurines` WHERE `idFigurine` = :id AND `valide` = 1";
     $preparation = [['prep' => ':id', 'variable'=> $idFigurine]];
     $ficheFigurine = new readDB ($fiche, $preparation);
@@ -174,7 +174,8 @@ public function affichageListeEnService ($data) {
     $DC = $this->dice[$data[0]['DC']]['Valeur'];
     $type = $this->typeFigurine[$data[0]['typeFigurine']]['Valeur'];
     $taille = $this->tailleFigurine[$data[0]['tailleFigurine']]['Valeur'];
-    $mouvement = $data[0]['mouvement'];
+    $mouvement = $data[0]['mouvement']; $vol = $data[0]['vol']; $station = $data[0]['stationnaire'];
+    $mouvement = $mouvement + $vol * 2 + $station * 4;
     $sav = $this->svg[$data[0]['svg']]['Valeur'];
     $pointDeVie = $this->pointDeVie[$data[0]['pdv']];
     // Calcul des points de figurine :
@@ -188,6 +189,7 @@ public function affichageListeEnService ($data) {
     $action = new readDB($Modificateurs, $preparation);
     $datanbr = $action->read();
     $modificateur = $dataMod[0]['total'] - $datanbr[0]['nbr'] + 1;
+
     // Fin du calcul du modificateur
     $prixFigurine = ((($DQM + $DC*2) + ($type + $taille + $mouvement + $pointDeVie)) * ($sav + ($pointDeVie / 8))) * $modificateur;
     // Fin calcul
@@ -196,6 +198,7 @@ public function affichageListeEnService ($data) {
     echo '<li>Dé Qualité Martial : '.$this->dice[$data[0]['DQM']]['type'].'</li>';
     echo '<li>Dé de Combat : '.$this->dice[$data[0]['DC']]['type'].'</li>';
     echo '<li>Mouvement : '.$data[0]['mouvement'].' "/ '.round($data[0]['mouvement'] * 1.5, 0).'" + 1D4"</li>';
+    echo '<li>Vol : '.$this->yes[$data[0]['vol']].' Vol stationnaire : '.$this->yes[$data[0]['stationnaire']].'</li>';
     echo '<li>Type de figurine : '.$this->typeFigurine[$data[0]['typeFigurine']]['type'].'</li>';
     echo '<li>Taille figurine : '.$this->tailleFigurine[$data[0]['tailleFigurine']]['taille'].'</li>';
     echo '<li><strong>Description</strong><p>'.$data[0]['description'].'</p></li>';
@@ -222,6 +225,7 @@ public function affichageListeEnService ($data) {
     echo '<li>Dé Qualité Martial : '.$this->dice[$data[0]['DQM']]['type'].'</li>';
     echo '<li>Dé de Combat : '.$this->dice[$data[0]['DC']]['type'].'</li>';
     echo '<li>Mouvement : '.$data[0]['mouvement'].' "/ '.round($data[0]['mouvement'] * 1.5, 0).'" + 1D4"</li>';
+    echo '<li>Vol : '.$this->yes[$data[0]['vol']].' Vol stationnaire : '.$this->yes[$data[0]['stationnaire']].'</li>';
     echo '<li>Type de figurine : '.$this->typeFigurine[$data[0]['typeFigurine']]['type'].'</li>';
     echo '<li>Taille figurine : '.$this->tailleFigurine[$data[0]['tailleFigurine']]['taille'].'</li>';
     echo '<li><strong>Description</strong><p>'.$data[0]['description'].'</p></li>';

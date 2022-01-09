@@ -37,7 +37,57 @@ class Vehicules {
                           ['armure' => '2+', 'Valeur' => 4]];
     $this->yes = ['Non', 'Oui'];
   }
+  public function attribution() {
+    // Liste des univers et des faction associé.
+    $triFU = "SELECT `idFaction`, `factions`.`idUnivers`, `nomFaction`, `nomUnivers`
+    FROM `factions`
+    INNER JOIN `univers` ON `univers`.`idUnivers` = `factions`.`idUnivers`
+    WHERE `idCreateur` = :idUser
+    ORDER BY `nomUnivers`";
+    $param = [['prep'=> ':idUser', 'variable'=> $this->idUser]];
+    $liste = new readDB($triFU, $param);
+    $dataListeFU = $liste->read();
+    //print_r($dataListeFU);
+    // Trie des véhicules
+    $triVehicule = "SELECT `idVehicule`, `nomVehicule`
+    FROM `transport` WHERE `idUser` = :idUser AND `id_univers` = 0";
+    $listeVehicule = new readDB($triVehicule, $param);
+    $dataListeVehicule = $listeVehicule->read();
+    //print_r($dataListeVehicule);
+    echo '<ul>';
+    foreach ($dataListeVehicule as $key => $value) {
 
+    echo '<li>'.$value['nomVehicule'].'
+    <form action="CUD/Update/affectationVehicule.php" method="post">
+    <select name="FU">
+    ';
+      foreach ($dataListeFU as $index => $valeur) {
+        echo '<option value="'.$valeur['idUnivers'].','.$valeur['idFaction'].'">'.$valeur['nomUnivers'].'- '.$valeur['nomFaction'].'</option>';
+      }
+    echo'</select>
+    <input type="hidden" name="idVehicule" value="'.$value['idVehicule'].'">
+    <input type="hidden" name="idNav" value="'.$this->idNav.'">
+    <button type="submit" name="button">Affecter</button>
+    </form></li>';
+      }
+    echo '</ul>';
+  }
+  public function listeVehicule() {
+    $param = [['prep'=> ':idUser', 'variable'=> $this->idUser]];
+    $triVehicule = "SELECT `idVehicule`, `nomVehicule`, `nomUnivers`, `nomFaction`
+    FROM `transport`
+    INNER JOIN `univers` ON `idUnivers` = `id_Univers`
+    INNER JOIN `factions` ON `idFaction` = `id_Faction`
+    WHERE `idUser` = :idUser AND `id_univers` > 0
+    ORDER BY `nomUnivers`, `nomFaction`, `nomVehicule`";
+    $listeVehicule = new readDB($triVehicule, $param);
+    $dataListeVehicule = $listeVehicule->read();
+    echo '<ul>';
+    foreach ($dataListeVehicule as $key => $value) {
+      echo '<li>'.$value['nomUnivers'].' '.$value['nomFaction'].' '.$value['nomVehicule'].'</li>';
+    }
+    echo '</ul>';
+  }
 }
 
  ?>

@@ -63,6 +63,20 @@
     <label for="deplacement">Déplacement tactique : {{mouvement}}" / Course {{course}}" + 1D4" </label>
       <input id="deplacement" type="range" name="mouvement" v-model="mouvement" min="0" max="12" />
   </div>
+  <div class="flex-ligne">
+    <label for="vol">Vol :</label>
+    <select id="vol" name="vol">
+        <?php for ($i=0; $i <count($yes) ; $i++) {
+          echo '<option value="'.$i.'">'.$yes[$i].'</option>';
+        } ?>
+    </select>
+    <label for="station">Vol stationnaire :</label>
+    <select id="station" name="stationnaire">
+        <?php for ($i=0; $i <count($yes) ; $i++) {
+          echo '<option value="'.$i.'">'.$yes[$i].'</option>';
+        } ?>
+    </select>
+  </div>
   <input type="hidden" name="idNav" value="<?=$idNav?>">
 <button type="submit" name="button">Enregistrer</button>
 </form>

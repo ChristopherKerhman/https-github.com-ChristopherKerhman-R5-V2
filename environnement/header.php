@@ -1,7 +1,7 @@
 <?php
 session_start();
 $titre = "R5";
-$sousTitre = "Le jeu d'escarmouche avec des figurines recyclées";
+$sousTitre = "Le jeu d'escarmouches multi-vers";
 function filter($data) {
   $data = trim($data);
   $data = stripslashes($data);
@@ -59,4 +59,3 @@ $idNav = $dataNav[0]['idNav'];
   <?php if(isset($_GET['message'])){ echo '<h3 class="titreArticle">'.filter($_GET['message']).'</h3>'; } ?>
   </header>
 <section>
-  

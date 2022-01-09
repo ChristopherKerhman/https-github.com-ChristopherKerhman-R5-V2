@@ -14,11 +14,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
    else {
      $prep = new Preparation ();
      $prepare = $prep->creationPrepIdUser($_POST);
-     $requetteSQL = "INSERT INTO `vehicules`(`nomVehicule`, `description`, `typeVehicule`,
-       `roleVehicule`, `tailleVehicule`,`equipage`, `passage`,`vol`, `stationnaire`,
-       `DQM`, `DC`,  `pds`, `svgVehicule`, `deplacement`, `id_User`)
-       VALUES (:nomVehicule, :description, :typeVehicule, :roleVehicule, :tailleVehicule, :equipage, :passage,
-         :vol, :stationnaire, :DQM, :DC, :pds, :svgVehicule, :deplacement, :idUser)";
+     $requetteSQL = "INSERT INTO `transport`(`nomVehicule`, `description`, `typeVehicule`, `roleVehicule`, `tailleVehicule`,
+       `equipage`, `passage`, `vol`, `stationnaire`, `DQM`, `DC`, `pds`, `svgVehicule`, `deplacement`, `idUser`)
+       VALUES (:nomVehicule, :description, :typeVehicule, :roleVehicule, :tailleVehicule,
+         :equipage, :passage, :vol, :stationnaire, :DQM, :DC, :pds, :svgVehicule, :deplacement, :idUser)";
      $action = new CurDB ($requetteSQL, $prepare);
      $action->actionDB();
 

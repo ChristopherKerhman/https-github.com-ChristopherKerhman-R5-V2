@@ -14,12 +14,11 @@ class CurDB extends ParamDB {
      echo "Error: " . $e->getMessage();
     }
     $data = $conn->prepare($this->sql);
-    foreach ($this->param as $key) {
-      $data->bindParam($key['prep'],$key['variable']);
+    foreach ($this->param as $key => $value) {
+      $data->bindParam($value['prep'],$value['variable']);
     }
     $data->execute();
   }
   function __destruct() {
-    
   }
 }

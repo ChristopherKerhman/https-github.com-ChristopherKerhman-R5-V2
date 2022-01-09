@@ -24,19 +24,18 @@ Sous Titre alternatif:
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200&family=Keania+One&family=Major+Mono+Display&display=swap');
  /*Element generaux*/
 
-body {
-
-  background-image: repeating-linear-gradient(0deg, rgb(41, 41, 41) 0px, rgb(41, 41, 41) 1px,transparent 0px, transparent 30px),repeating-linear-gradient(90deg, rgb(41, 41, 41) 0px, rgb(41, 41, 41) 1px,
-  transparent 0px, transparent 30px),linear-gradient(90deg, hsl(87,0%,5%),hsl(87,0%,5%));12px),
-  linear-gradient(90deg, rgb(42,0,0),rgb(42,0,0));
+ body {
+   /*background-color:#969BCEff;*/
+   /*background-color: #222;*/
+   /*background-image: radial-gradient(circle at 99% 33%, hsla(235,0%,48%,0.03) 0%, hsla(235,0%,48%,0.03) 37%,transparent 37%, transparent 100%),radial-gradient(circle at 46% 16%, hsla(235,0%,48%,0.03) 0%, hsla(235,0%,48%,0.03) 43%,transparent 43%, transparent 100%),radial-gradient(circle at 99% 25%, hsla(235,0%,48%,0.03) 0%, hsla(235,0%,48%,0.03) 22%,transparent 22%, transparent 100%),radial-gradient(circle at 57% 88%, hsla(235,0%,48%,0.03) 0%, hsla(235,0%,48%,0.03) 86%,transparent 86%, transparent 100%),radial-gradient(circle at 82% 78%, hsla(235,0%,48%,0.03) 0%, hsla(235,0%,48%,0.03) 22%,transparent 22%, transparent 100%),linear-gradient(90deg, rgb(0,0,0),rgb(0,0,0));*/
+   background-image: repeating-linear-gradient(0deg, rgb(41, 41, 41) 0px, rgb(41, 41, 41) 1px,transparent 1px, transparent 21px),repeating-linear-gradient(90deg, rgb(41, 41, 41) 0px, rgb(41, 41, 41) 1px,transparent 1px, transparent 21px),linear-gradient(90deg, hsl(87,0%,9%),hsl(87,0%,9%));
+   /*color: hsla(252, 8%, 12%, 0.85);*/
    color: #aaa;
    width: 100vm;
    font-family: 'Assistant', sans-serif;
    font-weight: normal;
    font-size: 1.2em;
  }
-
-
  nav {
    /*background-color: hsla(207, 100%, 98%, 0.6);*/
     background: linear-gradient(270deg, hsla(207, 100%, 98%, 0.8) 70%, hsla(47, 44%, 87%, 1) 100%);
@@ -89,15 +88,15 @@ body {
  button {
    font-family: 'Quantico', sans-serif;
    font-size: 1em;
-   background-color: #B91B00;
+   background-color: #1C1B20ff;
    color: #F6FBFFff;
    transition: background-color 1s;
    margin-top: 0.5em;
  }
  button:hover {
-   background-color: #4D8C00;
+   background-color: #75511Fff;
    color:#F6FBFFff;
-   transition: background-color 1s;
+   transition: background-color 3s;
  }
  label {
    margin-top: 0.5em;
@@ -283,19 +282,17 @@ section {
    text-decoration: none;
    font-family: 'Quantico', sans-serif;
    font-size: 1.1em;
-   background-color: #4D8C00;
+   background-color: #1C1B20ff;
    color: #F6FBFFff;
    transition: background-color 1s;
    margin-top: 0.5em;
    padding-left: 0.4em;
    padding-right: 0.4em;
-   margin-left: 0.2em;
-   margin-right: 0.2em;
    border: #1C1B20ff solid 2px;
    border-radius: 5px;
  }
  .lienBoutton:hover {
-   background-color: blue;
+   background-color: #75511Fff;
    color:#F6FBFFff;
    transition: background-color 3s;
  }

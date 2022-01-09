@@ -7,8 +7,7 @@ $typeFigurine = [
   ['type' => 'Elite', 'Valeur'=> 9, 'PC' => 0.45],
   ['type' => 'Vétéran', 'Valeur'=> 10, 'PC' => 0.5],
   ['type' => 'Officier', 'Valeur'=> 20, 'PC' => 1],
-  ['type' => 'Officier suppérieur', 'Valeur'=> 26, 'PC' => 1.3],
-  ['type' => 'Mage', 'Valeur'=> 30, 'PC' => 1.5]];
+  ['type' => 'Officier suppérieur', 'Valeur'=> 26, 'PC' => 1.3]];
 $tailleFigurine = [
   ['taille' => 'Petite', 'Valeur' => 1.5],
   ['taille' => 'Standard', 'Valeur' => 1],
@@ -29,4 +28,5 @@ $svg = [
   ['armure' => '3++', 'Valeur' => 2],
   ['armure' => '2+', 'Valeur' => 4]];
   $niveauMage = [0, 1, 2, 3];
+  $yes = ['Non', 'Oui'];
  ?>

@@ -15,8 +15,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
    else {
       $prep = new Preparation ();
       $prepare = $prep->creationPrepIdUser($_POST);
-      $requetteSQL = "INSERT INTO `figurines`(`nomFigurine`, `description`, `typeFigurine`, `tailleFigurine`, `DQM`, `DC`, `pdv`, `svg`, `mouvement`,`id_User`)
-      VALUES (:nomFigurine, :description, :typeFigurine, :tailleFigurine, :DQM, :DC, :pdv, :svg,  :mouvement, :idUser)";
+      $requetteSQL = "INSERT INTO `figurines`(`nomFigurine`, `description`, `typeFigurine`, `tailleFigurine`, `DQM`, `DC`, `pdv`, `svg`, `mouvement`, `vol`, `stationnaire`,`id_User`)
+      VALUES (:nomFigurine, :description, :typeFigurine, :tailleFigurine, :DQM, :DC, :pdv, :svg,  :mouvement, :vol, :stationnaire, :idUser)";
       $action = new CurDB ($requetteSQL, $prepare);
       $action->actionDB();
       header('location:../../index.php?idNav='.$idNav.'&message=Figurine '.filter($_POST['nomFigurine']).' enregistrée.');}

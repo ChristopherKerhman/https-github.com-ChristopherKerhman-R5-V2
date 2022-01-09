@@ -3,9 +3,9 @@ class Factions {
   private $idUser;
   private $idNav;
 
-  public function __construct($param, $nav) {
-    $this->idUser = $param;
-    $this->idNav = $nav;
+  public function __construct($idUser, $idNav) {
+    $this->idUser = $idUser;
+    $this->idNav = $idNav;
   }
   public function adminFaction () {
     $triUnivers = "SELECT `idUnivers`, `nomUnivers`, `NTUnivers` FROM `univers` WHERE `idProprietaire` = :idUser AND `valide` = 1";
