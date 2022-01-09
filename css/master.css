@@ -85,6 +85,8 @@ body {
    border: #1C1B20ff solid 2px;
    border-radius: 5px;
    font-size: 0.7em;
+   margin-left: 0.5em;
+   margin-right: 0.5em;
  }
  button {
    background-color: Black;
@@ -108,8 +110,8 @@ box-shadow: inset 0px 0px 5px 0px red;
    transition: color 0.5s;
    border-radius: 5px;
    transition: background-color 1s, color 1s;
-   -webkit-box-shadow: inset 0px 0px 5px 0px #28FF00;
-   box-shadow: inset 0px 0px 5px 0px #28FF00;
+   -webkit-box-shadow: inset 0px 0px 5px 0px red;
+box-shadow: inset 0px 0px 5px 0px red;
  }
  #clone {
    background-color: Black;
@@ -117,9 +119,8 @@ box-shadow: inset 0px 0px 5px 0px red;
    font-family: 'Quantico', sans-serif;
    font-size: 1em;
    margin-top: 0.5em;
-   transition: color 0.5s;
    border-radius: 5px;
-   transition: background-color 1s;
+   transition: background-color 1s, color 1s;
    transition: color 0.5s;
    -webkit-box-shadow: inset 0px 0px 5px 0px #28FF00;
 box-shadow: inset 0px 0px 5px 0px #28FF00;

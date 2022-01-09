@@ -8,7 +8,7 @@ $idFigurine = filter($_GET['idFigurine']); ?>
 <form action="CUD/Update/figurineOk.php" method="post">
   <input type="hidden" name="idFigurine" value="<?=$idFigurine?>">
   <input type="hidden" name="idNav" value="<?=$idNav?>">
-  <button class="lienCentrale" type="submit" name="button">Bon pour le service</button>
+  <button type="submit" name="button">Bon pour le service</button>
 </form>
 <?php
   $figurine = new Figurines ($_SESSION['idUser'], $idNav);

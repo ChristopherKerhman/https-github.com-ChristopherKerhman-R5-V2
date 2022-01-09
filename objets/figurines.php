@@ -81,14 +81,7 @@ class Figurines {
         <button id="clone" type="submit" name="button">Cloner</button>
       </form>
       <strong class="gras">'.$key['nomFigurine'].'</strong>
-      <a class="lienBoutton" href="index.php?idNav='.$this->navG.'&idFigurine='.$key['idFigurine'].'">Fiche</a>
-      <form action="CUD/Delette/figurine.php" method="post">
-        <input type="hidden" name="idNav" value="'.$this->idNav.'">
-        <input type="hidden" name="idFigurine" value="'.$key['idFigurine'].'">
-        <button type="submit" name="button">Effacer</button>
-      </form>
-      <a class="lienBoutton" href="index.php?idNav='.$this->navF.'&idFigurine='.$key['idFigurine'].'">Modifier</a>';
-      echo '<form action="CUD/Create/affecterFigurine.php" method="post">
+      <form action="CUD/Create/affecterFigurine.php" method="post">
       <label for="faction">Factions :</label>
       <select name="id_Faction">';
       foreach ($factionsListe as $index) {
@@ -97,8 +90,14 @@ class Figurines {
       echo '</select>
       <input type="hidden" name="idFigurine" value="'.$key['idFigurine'].'">
       <input type="hidden" name="idNav" value="'.$this->idNav.'">
-      <button type="submit" name="button">Affecter</button></form>';
-      echo '</li>';
+      <button type="submit" name="button">Affecter</button></form>
+      <a class="lienBoutton" href="index.php?idNav='.$this->navG.'&idFigurine='.$key['idFigurine'].'">Fiche</a>
+      <a class="lienBoutton" href="index.php?idNav='.$this->navF.'&idFigurine='.$key['idFigurine'].'">Modifier</a>
+      <form action="CUD/Delette/figurine.php" method="post">
+        <input type="hidden" name="idNav" value="'.$this->idNav.'">
+        <input type="hidden" name="idFigurine" value="'.$key['idFigurine'].'">
+        <button type="submit" name="button">Effacer</button>
+      </form></li>';
     }
     echo '</ul>';
   }

@@ -35,20 +35,6 @@ include 'stockageData/vehicules.php';
   </select>
   </div>
 <div class="flex-ligne">
-  <label for="vol">Vol :</label>
-  <select id="vol" name="vol">
-      <?php for ($i=0; $i <count($yes) ; $i++) {
-        echo '<option value="'.$i.'">'.$yes[$i].'</option>';
-      } ?>
-  </select>
-  <label for="station">Vol stationnaire :</label>
-  <select id="station" name="stationnaire">
-      <?php for ($i=0; $i <count($yes) ; $i++) {
-        echo '<option value="'.$i.'">'.$yes[$i].'</option>';
-      } ?>
-  </select>
-</div>
-<div class="flex-ligne">
 <label for="DQM">Dé de qualité martial</label>
 <select id="DQM" name="DQM">
   <?php foreach ($dice as $key => $value) { echo '<option value="'.$key.'">'.$value['type'].'</option>'; } ?>

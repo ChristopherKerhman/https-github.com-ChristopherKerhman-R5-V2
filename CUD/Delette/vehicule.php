@@ -5,12 +5,12 @@ require '../../objets/cud.php';
 include '../fonctionsDB.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
   $idNav = filter($_POST['idNav']);
-  $id = filter($_POST['idFigurine']);
+  $id = filter($_POST['id']);
   $prepare = [['prep'=> ':id', 'variable' => $id],['prep'=> ':idUser', 'variable' => $_SESSION['idUser']]];
-  $requetteSQL = "DELETE FROM `figurines` WHERE `idFigurine` = :id AND `id_User` = :idUser";
+  $requetteSQL = "DELETE FROM `transport` WHERE `idVehicule` = :id AND `idUser` = :idUser";
   $action = new CurDB($requetteSQL, $prepare);
   $action->actionDB();
-  header('location:../../index.php?idNav='.$idNav.'&message=Figurine effacée.');
+  header('location:../../index.php?idNav='.$idNav.'&message=Véhicule effacé.');
 } else {
   header('location:../../index.php?message=Erreur de traitement.');
 }

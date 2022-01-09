@@ -36,6 +36,9 @@ class Vehicules {
                           ['armure' => '3++', 'Valeur' => 2],
                           ['armure' => '2+', 'Valeur' => 4]];
     $this->yes = ['Non', 'Oui'];
+    // A présiser lors de la mise en service des fiches.
+    $this->navFV = 90;
+    $this->navMV = 91;
   }
   public function attribution() {
     // Liste des univers et des faction associé.
@@ -57,8 +60,13 @@ class Vehicules {
     echo '<ul>';
     foreach ($dataListeVehicule as $key => $value) {
 
-    echo '<li>'.$value['nomVehicule'].'
-    <form action="CUD/Update/affectationVehicule.php" method="post">
+    echo '<li><div class="line">
+    <form action="CUD/Create/cloneVehicule.php" method="post">
+      <input type="hidden" name="idNav" value="'.$this->idNav.'">
+      <input type="hidden" name="idVehicule" value="'.$value['idVehicule'].'">
+      <button id="clone" type="submit" name="button">Cloner</button>
+    </form>
+   '.$value['nomVehicule'].' <form action="CUD/Update/affectationVehicule.php" method="post">
     <select name="FU">
     ';
       foreach ($dataListeFU as $index => $valeur) {
@@ -68,7 +76,15 @@ class Vehicules {
     <input type="hidden" name="idVehicule" value="'.$value['idVehicule'].'">
     <input type="hidden" name="idNav" value="'.$this->idNav.'">
     <button type="submit" name="button">Affecter</button>
-    </form></li>';
+    </form>
+    <a class="lienBoutton" href="index.php?idNav='.$this->navFV.'&idVehicule='.$value['idVehicule'].'">Fiche</a>
+    <a class="lienBoutton" href="index.php?idNav='.$this->navMV.'&idVehicule='.$value['idVehicule'].'">Modifier</a>
+    <form action="CUD/Delette/vehicule.php" method="post">
+      <input type="hidden" name="idNav" value="'.$this->idNav.'">
+      <input type="hidden" name="id" value="'.$value['idVehicule'].'">
+      <button type="submit" name="button">Effacer</button>
+    </form>
+    </div></li>';
       }
     echo '</ul>';
   }
