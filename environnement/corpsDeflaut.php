@@ -14,3 +14,8 @@
   Il vous faudra quelques dés, des pions « ordre » et « statuts », que vous pouvez télécharger avec le fichier PDF du jeu, des figurines et un terrain. Une aide de jeu « en ligne » existe pour vous facilitez la tache, permettant entre autre de résoudre 99 % des cas du jeu et accessible hors ligne si vous l’installer sur un smartphone.
   </p>
 </article>
+<?php
+if (!isset($_SESSION['idUser'])) {
+  include 'javascript/galerie.php';
+}
+ ?>

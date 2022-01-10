@@ -3,7 +3,7 @@ include 'securite/securiterUtilisateur.php';
 $idFigurine = filter($_GET['idFigurine']);
 require 'objets/figurines.php';
 require 'objets/armes.php';
-$oneFigurine = new figurines ($_SESSION['idUser'], $idNav);
+$oneFigurine = new Figurines ($_SESSION['idUser'], $idNav);
 $dataFigurine = $oneFigurine->readFiche($idFigurine);
 $oneFigurine->UniversFaction($idFigurine);
 $oneFigurine->ficheSimple($dataFigurine);
