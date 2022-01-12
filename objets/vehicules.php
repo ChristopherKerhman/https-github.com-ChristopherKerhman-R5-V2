@@ -281,5 +281,15 @@ echo '<h4 class="sousTitre">Effacer règles spéciales</h4><div class="mosaique"
       echo '</div>';
     }
   }
+  public function dotationArme($idVehicule) {
+    $triArmes= "SELECT `id_Arme`
+    FROM `dotationVehicule`
+    INNER JOIN `armes` ON `idArmes` = `id_Arme`
+    WHERE `id_Vehicule` = :idVehicule";
+    $param = [['prep'=> 'idVehicule', 'variable'=>$idVehicule]];
+    $listeArmes = new readDB($triArmes, $param);
+    $dataListe = $listeArmes->read();
+    return $dataListe;
+  }
 }
  ?>

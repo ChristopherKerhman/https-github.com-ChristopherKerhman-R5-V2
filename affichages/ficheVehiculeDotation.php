@@ -12,9 +12,17 @@ $idVehicule = filter($_GET['idVehicule']); ?>
 <?php
 $ficheVehicule = new Vehicules($_SESSION['idUser'], $idNav);
 $dataVehicule = $ficheVehicule->readVehicule($idVehicule);
+$DC = $dataVehicule[0]['DC'];
 $dataUF = $ficheVehicule->UniversFaction($idVehicule);
 $prix = $ficheVehicule->prixBrute($idVehicule);
 $ficheVehicule->fiche($dataVehicule);
+$dataDotation = $ficheVehicule->dotationArme($idVehicule);
+//print_r($dataDotation);
+foreach ($dataDotation as $key => $value) {
+  $doter = new Armes($_SESSION['idUser'], $idNav);
+  $dataArme = $doter->readOneArmes($value['id_Arme']);
+  $doter->resumeArme ($dataArme, $DC);
+}
 $ficheVehicule->spRules($idVehicule);
 // On sort la valeur idFaction en vue du tri sur les armes.
 $idF = $dataUF[0]['id_faction'];
