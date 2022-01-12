@@ -8,36 +8,21 @@ class Rules {
     $listeRules = $read->read();
     return $listeRules;
   }
-  public function affectation ($data, $idArmes, $idNav) {
+  public function affectation ($data, $id, $idNav, $type) {
     echo '
     <h4 class="sousTitre">Affectation des règles spéciales</h4>
     <div class="mosaique">';
         foreach ($data as $key) {
           echo '
-          <form class="item" action="CUD/Create/affectationRS.php" method="post">
-            <input type="hidden" name="idArmes" value="'.$idArmes.'">
+          <form class="item" action="CUD/Create/affectationRegSep.php" method="post">
+            <input type="hidden" name="id" value="'.$id.'">
+            <input type="hidden" name="type" value="'.$type.'">
             <input type="hidden" name="idRules" value="'.$key['idRules'].'">
-            <input type="hidden" name="modification" value="'.$key['modification'].'">
             <input type="hidden" name="idNav" value="'.$idNav.'">
             <button type="submit" name="button">'.$key['nomRules'].'</button>
           </form>';
     }
     echo '</div>';
   }
-  public function affectationFigurine ($data, $idFigurine, $idNav) {
-    echo '
-    <h4 class="sousTitre">Affectation des règles spéciales</h4>
-    <div class="mosaique">';
-        foreach ($data as $key) {
-          echo '
-          <form class="item" action="CUD/Create/affectationRSF.php" method="post">
-            <input type="hidden" name="id_Figurine" value="'.$idFigurine.'">
-            <input type="hidden" name="id_Rules" value="'.$key['idRules'].'">
-            <input type="hidden" name="modificateur" value="'.$key['modification'].'">
-            <input type="hidden" name="idNav" value="'.$idNav.'">
-            <button type="submit" name="button">'.$key['nomRules'].'</button>
-          </form>';
-    }
-    echo '</div>';
-  }
+
 }

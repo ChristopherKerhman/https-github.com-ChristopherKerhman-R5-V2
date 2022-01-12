@@ -1,3 +1,4 @@
+formulaires/factionArme.php
 <article>
 <?php
   include 'securite/securiterUtilisateur.php';

@@ -1,3 +1,4 @@
+affichages/ficheDotation.php
 <?php
 include 'stockageData/figurine.php';
 include 'securite/securiterUtilisateur.php';
@@ -21,8 +22,7 @@ $idFigurine = filter($_GET['idFigurine']); ?>
   $dotationArme = $figurine->dotationArme($idFigurine);
   $prix = $figurine->calculPrixFigurine($idFigurine);
   echo '<strong>Prix final figurine : '.round($prix, 0).' points</strong>';
-  echo '<br /><strong>Niveau de puissance : '.round($prix/100, 0).' </strong>';
-  $figurine->delArmeAffecter($idFigurine, $idNav);
+
 ?>
 <h3 class="sousTitre">Dotation</h3>
 <?php
@@ -32,7 +32,8 @@ $idFigurine = filter($_GET['idFigurine']); ?>
     $doter->resumeArme($dataArme, $DC);
   }
   $dotationFigurine = $arme->readArmes($tri[0]['id_Faction']);
-  $arme->mosaiqueArmes($dotationFigurine, $idFigurine, $idNav);
+  $figurine->delArmeAffecter($idFigurine, $idNav);
+  $arme->mosaiqueArmes($dotationFigurine, $idFigurine, $idNav, 0);
  ?>
 <h3 class="sousTitre">Armes disponibles</h3>
 <?php

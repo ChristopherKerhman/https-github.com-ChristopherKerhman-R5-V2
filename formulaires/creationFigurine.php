@@ -1,3 +1,5 @@
+formulaires/creationFigurine.php
+<article>
 <?php include 'stockageData/figurine.php'; ?>
 <h3 class="sousTitre">Créer une nouvelle figurine</h3>
 <form class="formulaire" action="CUD/Create/figurine.php" method="post">
@@ -80,4 +82,5 @@
   <input type="hidden" name="idNav" value="<?=$idNav?>">
 <button type="submit" name="button">Enregistrer</button>
 </form>
+</article>
 <?php include 'javascript/mouvement.php' ?>

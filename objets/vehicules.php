@@ -5,41 +5,43 @@ class Vehicules {
   public function __construct($idUser, $idNav) {
     $this->idUser = $idUser;
     $this->idNav = $idNav;
-    $this->typeVehicule = [['type'=>'Civile', 'valeur'=>2], ['type'=>'Militaire', 'valeur'=>4]];
-    $this->roleVehicule = [['role'=>'transport', 'valeur'=>2, 'PC'=>0.25],
-                          ['role'=>'Soutient tactique', 'valeur'=>4, 'PC'=>0.35],
-                          ['role'=>'Attaque rapide', 'valeur'=>3, 'PC'=>0.45],
-                          ['role'=>'Véhicule de commandement', 'valeur'=>6, 'PC'=>2],
-                          ['role'=>'Artillerie', 'valeur'=>4, 'PC'=>0.12]];
+    $this->typeVehicule = [['type'=>'Civile', 'valeur'=>1], ['type'=>'Militaire', 'valeur'=>2]];
+    $this->roleVehicule = [['role'=>'transport', 'valeur'=>1, 'PC'=>0.25],
+                          ['role'=>'Soutient tactique', 'valeur'=>2, 'PC'=>0.35],
+                          ['role'=>'Attaque rapide', 'valeur'=>2.5, 'PC'=>0.45],
+                          ['role'=>'Véhicule de commandement', 'valeur'=>5, 'PC'=>2],
+                          ['role'=>'Artillerie', 'valeur'=>2, 'PC'=>0.12]];
     $this->dice =[['type' => 'D6', 'valeur' => 2],
                   ['type' => 'D8', 'valeur' => 4],
                   ['type' => 'D10', 'valeur' => 6],
                   ['type' => 'D12', 'valeur' => 8]];
-    $this->tailleVehicule = [ ['taille' => 'Petit', 'valeur' => 2],
-                              ['taille' => 'Standard', 'valeur' => 4],
-                              ['taille' => 'Grand', 'valeur' => 8],
-                              ['taille' => 'Géant', 'valeur' => 16]];
+    $this->tailleVehicule = [ ['taille' => 'Petit', 'valeur' => 1],
+                              ['taille' => 'Standard', 'valeur' => 2],
+                              ['taille' => 'Grand', 'valeur' => 4],
+                              ['taille' => 'Géant', 'valeur' => 8]];
     $this->pds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
-    $this->equipage = [['nbre'=>0, 'valeur'=>1],
-                      ['nbre'=> 1, 'valeur'=>2],
-                      ['nbre'=> 2, 'valeur'=>4],
-                      ['nbre'=> 3, 'valeur'=>6],
-                      ['nbre'=> 4, 'valeur'=>8],
-                      ['nbre'=> 5, 'valeur'=>10],
-                      ['nbre'=> 6, 'valeur'=>14]];
+    $this->equipage = [['nbre'=>0, 'valeur'=>0],
+                      ['nbre'=> 1, 'valeur'=>1],
+                      ['nbre'=> 2, 'valeur'=>2],
+                      ['nbre'=> 3, 'valeur'=>3],
+                      ['nbre'=> 4, 'valeur'=>4],
+                      ['nbre'=> 5, 'valeur'=>6],
+                      ['nbre'=> 6, 'valeur'=>8]];
     $this->passager = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-    $this->svgVehicule = [['armure' => 'Aucune', 'valeur' => 0.3],
-                          ['armure' => '6+', 'valeur' => 0.4],
-                          ['armure' => '5+', 'valeur' => 0.5],
-                          ['armure' => '4+', 'valeur' => 1],
-                          ['armure' => '4++', 'valeur' => 1.25],
-                          ['armure' => '3+', 'valeur' => 1.5],
-                          ['armure' => '3++', 'valeur' => 2],
-                          ['armure' => '2+', 'valeur' => 4]];
+    $this->svgVehicule = [['armure' => 'Aucune', 'valeur' => 0.1],
+                          ['armure' => '6+', 'valeur' => 0.12],
+                          ['armure' => '5+', 'valeur' => 0.24],
+                          ['armure' => '4+', 'valeur' => 0.48],
+                          ['armure' => '4++', 'valeur' => 0.75],
+                          ['armure' => '3+', 'valeur' => 0.9],
+                          ['armure' => '3++', 'valeur' => 1],
+                          ['armure' => '2+', 'valeur' => 2]];
     $this->yes = ['Non', 'Oui'];
     // A présiser lors de la mise en service des fiches.
-    // Fiche véhicule
+    // Fiche véhicule + ajoute de règles spéciales
     $this->navFV = 67;
+    // Fiche véhicule + ajoute de armes
+    $this->navFW = 69;
     // Modif véhicule
     $this->navMV = 68;
   }
@@ -76,13 +78,13 @@ class Vehicules {
     foreach ($dataListeVehicule as $key => $value) {
       $vehicule = new Vehicules ($this->idNav, $this->idUser);
       $prix = $vehicule->prixBrute($value['idVehicule']);
-    echo '<li><div class="line">
+    echo '<li class="line">
     <form action="CUD/Create/cloneVehicule.php" method="post">
       <input type="hidden" name="idNav" value="'.$this->idNav.'">
       <input type="hidden" name="idVehicule" value="'.$value['idVehicule'].'">
       <button id="clone" type="submit" name="button">Cloner</button>
     </form>
-   <strong class="gras">'.$value['nomVehicule'].' / '.$prix.' points</strong> <form action="CUD/Update/affectationVehicule.php" method="post">
+   <strong class="gras">'.$value['nomVehicule'].' / '.round($prix,0).' points</strong> <form action="CUD/Update/affectationVehicule.php" method="post">
     <select name="FU">
     ';
       foreach ($dataListeFU as $index => $valeur) {
@@ -99,8 +101,7 @@ class Vehicules {
       <input type="hidden" name="idNav" value="'.$this->idNav.'">
       <input type="hidden" name="id" value="'.$value['idVehicule'].'">
       <button type="submit" name="button">Effacer</button>
-    </form>
-    </div></li>';
+    </form></li>';
       }
     echo '</ul>';
   }
@@ -118,7 +119,15 @@ class Vehicules {
     foreach ($dataListeVehicule as $key => $value) {
       $vehicule = new Vehicules ($this->idNav, $this->idUser);
       $prix = $vehicule->prixBrute($value['idVehicule']);
-      echo '<li>'.$value['nomUnivers'].' '.$value['nomFaction'].' <strong class="gras">'.$value['nomVehicule'].' / '.$prix.' points</strong></li>';
+      echo '<li class="line">'.$value['nomUnivers'].' '.$value['nomFaction'].' <strong class="gras">'.$value['nomVehicule'].' / '.round($prix,0).' points</strong>
+      <a class="lienBoutton" href="index.php?idNav='.$this->navFV.'&idVehicule='.$value['idVehicule'].'">Add RS</a>
+      <a class="lienBoutton" href="index.php?idNav='.$this->navFW.'&idVehicule='.$value['idVehicule'].'">Add Arme</a>
+      <form action="CUD/Delette/vehicule.php" method="post">
+        <input type="hidden" name="idNav" value="'.$this->idNav.'">
+        <input type="hidden" name="id" value="'.$value['idVehicule'].'">
+        <button type="submit" name="button">Effacer</button>
+      </form>
+      </li>';
     }
     echo '</ul>';
   }
@@ -139,15 +148,32 @@ class Vehicules {
     $mouvement = $data[0]['deplacement'];
     $vol = $data[0]['vol'];
     $station = $data[0]['stationnaire'];
-    $mouvement = $mouvement + $vol * 2 + $station * 4;
+    $mouvement = $mouvement + $vol * 2 + $station * 2;
     $DQM = $this->dice[$data[0]['DQM']]['valeur'];
     $DC = $this->dice[$data[0]['DC']]['valeur'];
     $pds = $this->pds[$data[0]['pds']];
     $svg = $this->svgVehicule[$data[0]['svgVehicule']]['valeur'];
     // Calcul sans les règles spéciales.
-    $prixFigurine = ((($equipage + ($passager/2))+($DQM + $DC*2) + ($type + $role + $taille + $mouvement + $pds) ) * ($svg + ($pds / 8)));
+    $sum = "SELECT SUM(`modificateur`) AS `total` FROM `vehiculeRules` WHERE `id_Vehicule`=:id
+            UNION
+            SELECT COUNT(`modificateur`)FROM `vehiculeRules` WHERE `id_Vehicule`=:id";
+    $paramSum = [['prep'=>':id', 'variable'=> $idVehicule]];
+    $sum = new readDB($sum, $paramSum);
+    $dataTotal = $sum->read();
+    $modificateur =   $dataTotal[0]['total'] - ($dataTotal[1]['total']);
+    // Fin calcul de l'influence des règles spéciales.
+    // Calcul de l'impact des armes sur le prix de la figurine
+      $sqlArmes = "SELECT SUM(`coef`) AS `totalCoef` FROM `dotationVehicule` WHERE `id_Vehicule` = :id";
+      $armes = new readDB($sqlArmes, $paramSum);
+      $dataArmes = $armes->read();
+      $armes = $dataArmes[0]['totalCoef'];
+    // Calcul de l'impact des armes sur le prix de la figurine
+
+    $prixFigurineBrute = (((($equipage) + ($passager/2))+($DQM + $DC*2) + ($type + $role + $taille + $mouvement + $pds) ) * ($svg + ($pds / 8)));
+    $prixFigurine = ($prixFigurineBrute * $modificateur) + $prixFigurineBrute;
+    $prixFigurine = $prixFigurine + ($prixFigurine * $armes);
+    //$prixFigurine = ((($equipage + ($passager/2))+($DQM + $DC*2) + ($type + $role + $taille + $mouvement + $pds) ) * ($svg + ($pds / 8)));
     //Intégration de la règles spéciales
-    //$prixFigurine = ((($equipage + ($passager/2))($DQM + $DC*2) + ($type + $taille + $mouvement + $pds) ) * ($svg + ($pds / 8)))* $modificateur;
     return $prixFigurine;
   }
   public function fiche($data) {
@@ -177,6 +203,83 @@ class Vehicules {
     echo '<li>Prix brute : '.round($prix, 0).' points</li>';
     echo '</ul>';
   }
-}
+  public function UniversFaction($idVehicule) {
+    $sql = "SELECT `nomFaction`, `nomUnivers`, `id_faction`
+    FROM `transport`
+    INNER JOIN `factions` ON `idFaction` = `id_faction`
+    INNER JOIN `univers` ON `univers`.`idUnivers` = `id_univers`
+    WHERE `idVehicule` = :idVehicule";
+    $param = [['prep'=>'idVehicule', 'variable'=>$idVehicule]];
+    $UF = new readDB($sql, $param);
+    $dataUF = $UF->read();
+    echo '<h3 class="sousTitre">'.$dataUF[0]['nomUnivers'].' '.$dataUF[0]['nomFaction'].' </h3>';
+    return $dataUF;
+  }
+  public function spRules($idVehicule) {
+    $triRules = "SELECT `nomRules`
+    FROM `vehiculeRules`
+    INNER JOIN `rules` ON `idRules` = `id_Rules`
+    WHERE `id_Vehicule` = :id
+    ORDER by `nomRules`";
+    $prep = [['prep' => ':id', 'variable'=> $idVehicule]];
+    $listeRules = new readDB($triRules, $prep);
+    $dataRules = $listeRules->read();
+    if (!empty($dataRules)) {
+      echo '<p><strong>Règles spécial :</strong> ';
+      foreach ($dataRules as $key) {
+        echo '<strong class="affichageSP">'.$key['nomRules'].'</strong>';
+      }
+      echo '</p>';
+    } else {
+      echo '<p>Aucune règles spéciales pour ce véhicule.</p>';
+    }
+  }
+  public function DelSpecialRules ($idVehicule, $idNav) {
+    $triRules = "SELECT `nomRules`, `idVehiculeRules`
+    FROM `vehiculeRules`
+    INNER JOIN `rules` ON `idRules` = `id_Rules`
+    WHERE `id_Vehicule` = :id
+    ORDER by `nomRules`";
+    $prep = [['prep' => ':id', 'variable'=> $idVehicule]];
+    $listeRules = new readDB($triRules, $prep);
+    $dataRules = $listeRules->read();
 
+    if (!empty($dataRules)) {
+echo '<h4 class="sousTitre">Effacer règles spéciales</h4><div class="mosaique">';
+      foreach ($dataRules as $key) {
+        echo '<form class="item" action="CUD/Delette/specialeRulesVehicule.php" method="post">
+          <input type="hidden" name="idVehiculeRules" value="'.$key['idVehiculeRules'].'">
+          <input type="hidden" name="id_Vehicule" value="'.$idVehicule.'">
+          <input type="hidden" name="idNav" value="'.$this->idNav.'">
+          <button type="submit" name="button">'.$key['nomRules'].'</button>
+        </form>';
+      }
+          echo '</div>';
+    }
+  }
+  public function delArmesVehicule($idVehicule) {
+    $triArme = "SELECT `idDotation`,`nom`
+    FROM `dotationVehicule`
+    INNER JOIN `armes` ON `idArmes` = `id_Arme`
+    WHERE `id_Vehicule` = :id";
+    $prep = [['prep' => ':id', 'variable'=> $idVehicule]];
+    $armes = new readDB($triArme, $prep);
+    $dataArmes = $armes->read();
+        echo '<h4 class="sousTitre">Effacer les armes</h4>';
+    if(empty($dataArmes)) {
+      echo '<h4 class="sousTitre">Pas encore d\'armes disponible</h4>';
+    } else {
+      echo '<div class="mosaique">';
+      foreach ($dataArmes as $key => $value) {
+        echo '<form class="item" action="CUD/Delette/armeVehicule.php" method="post">
+          <input type="hidden" name="idDotation" value="'.$value['idDotation'].'">
+          <input type="hidden" name="idVehicule" value="'.$idVehicule.'">
+          <input type="hidden" name="idNav" value="'.$this->idNav.'">
+          <button type="submit" name="button">'.$value['nom'].'</button>
+        </form>';
+      }
+      echo '</div>';
+    }
+  }
+}
  ?>

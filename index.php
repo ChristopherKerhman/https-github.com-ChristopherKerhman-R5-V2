@@ -15,6 +15,9 @@
          } else {
             include $dataAffichage[0]['cheminNav'];
             $idNav = $dataAffichage[0]['cheminNav'];
+            // Affichage de la navigation
+            echo $dataAffichage[0]['cheminNav'];
          }
           ?>
+
 <?php include 'environnement/footer.php' ?>

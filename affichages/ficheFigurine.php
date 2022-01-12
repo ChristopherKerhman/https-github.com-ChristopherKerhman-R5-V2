@@ -15,7 +15,8 @@ require 'objets/rulesSp.php';
   $figurine->ficheFigurine($dataFiche, $idNav);
   $figurine->spRules($idFigurine);
   $figurine->DelSpecialRules($idFigurine, $idNav);
-  $specialRules = new Rules ();
-  $dataSP = $specialRules->readRules(1);
-  $specialRules->affectationFigurine($dataSP, $dataFiche[0]['idFigurine'], $idNav);
+  $liste = new Rules();
+  $type = 1;
+  $dataRS = $liste->readRules($type);
+  $liste->affectation($dataRS, $idFigurine, $idNav, $type);
 ?>

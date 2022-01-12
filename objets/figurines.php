@@ -151,7 +151,7 @@ public function affichageListeEnService ($data) {
     $dataFU = $readFU->read();
     echo '<li class="line">
     <strong class="gras">'.$dataFU[0]['nomUnivers'].' '.$dataFU[0]['nomFaction'].' - '.$key['nomFigurine'].'</strong>
-    <a class="lienBoutton" href="index.php?idNav='.$this->navH.'&idFigurine='.$key['idFigurine'].'">Fiche</a>
+    <a class="lienBoutton" href="index.php?idNav='.$this->navH.'&idFigurine='.$key['idFigurine'].'">Add Armes</a>
     <form action="CUD/Delette/figurine.php" method="post">
       <input type="hidden" name="idNav" value="'.$this->idNav.'">
       <input type="hidden" name="idFigurine" value="'.$key['idFigurine'].'">
@@ -212,8 +212,8 @@ public function affichageListeEnService ($data) {
       echo '<form action="CUD/Update/serviceFigurine.php" method="post">
           <input type="hidden" name="idFigurine" value="'.$data[0]['idFigurine'].'">
           <input type="hidden" name="prix" value="'.$prixFigurine.'">
-          <input type="hidden" name="idNav" value="'.$idNav.'">
-          <button class="lienCentrale" type="submit" name="button">Mettre en service</button>
+          <input type="hidden" name="idNav" value="'.$this->navH.'">
+          <button type="submit" name="button">Ok pour dotation</button>
         </form>';
     }
   }
@@ -258,7 +258,7 @@ public function UniversFaction ($idFigurine) {
     INNER JOIN `rules` ON `idRules` = `id_Rules`
     WHERE `id_Figurine` = :idFigurine
     ORDER by `nomRules`";
-    $prep = [['prep' => 'idFigurine', 'variable'=> $idFigurine]];
+    $prep = [['prep' => ':idFigurine', 'variable'=> $idFigurine]];
     $listeRules = new readDB($triRules, $prep);
     $dataRules = $listeRules->read();
     if (!empty($dataRules)) {
@@ -310,7 +310,7 @@ public function UniversFaction ($idFigurine) {
     $prix = $dotation[1]['total'];
     $coef = $dotation[0]['total'];
     // Calcul du prix de la figurine
-    $prixFinal = $prix * $coef;
+    $prixFinal = $prix + $prix * $coef;
     return $prixFinal;
   }
   public function delArmeAffecter ($idFigurine, $idNav) {

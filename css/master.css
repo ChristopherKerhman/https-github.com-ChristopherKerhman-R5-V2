@@ -26,7 +26,7 @@ Sous Titre alternatif:
 
 body {
 
-  background-image: repeating-linear-gradient(0deg, rgb(41, 41, 41) 0px, rgb(41, 41, 41) 1px,transparent 0px, transparent 30px),repeating-linear-gradient(90deg, rgb(41, 41, 41) 0px, rgb(41, 41, 41) 1px,
+  background-image: repeating-linear-gradient(0deg, hsl(87,0%,5%) 0px, rgb(41, 41, 41) 1px,transparent 0px, transparent 30px),repeating-linear-gradient(90deg, rgb(41, 41, 41) 0px, rgb(41, 41, 41) 1px,
   transparent 0px, transparent 30px),linear-gradient(90deg, hsl(87,0%,5%),hsl(87,0%,5%));12px),
   linear-gradient(90deg, rgb(42,0,0),rgb(42,0,0));
    color: #aaa;
@@ -35,7 +35,14 @@ body {
    font-weight: normal;
    font-size: 1.2em;
  }
-
+article {
+  background-color:hsl(87,0%,5%, 75%);
+  border: 1px solid white;
+  border-radius: 0px 00px 50px 0px;
+  margin-top: 0.5em;
+  padding: 0.5em;
+  text-align: justify;
+}
 
  nav {
    /*background-color: hsla(207, 100%, 98%, 0.6);*/
@@ -144,6 +151,7 @@ box-shadow: inset 0px 0px 5px 0px #28FF00;
    font-family: 'Quantico', sans-serif;
    font-size: 1em;
    margin-top: 0.5em;
+   margin-left: 0.5em;
    padding-left: 0.4em;
    padding-right: 0.4em;
    transition: color 0.5s;

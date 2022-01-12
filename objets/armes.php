@@ -77,6 +77,8 @@ class Armes {
       $liste = new readDB($SQL, $prepare);
       $dataListe = $liste->read();
       foreach ($dataListe as $key) {
+        $prix = new Armes ($this->idUser, $this->idNav);
+        $prixArme = $prix->valeurArmes($key['idArmes']);
         $requetteSQL = "SELECT `idFaction`, `nomFaction`
         FROM `factions`
         WHERE `valide` = 1 AND `idUnivers` = :idUnivers";
@@ -85,7 +87,7 @@ class Armes {
         $listeFaction = $action->read();
         echo
         '<li class="line">
-          '.$key['nomUnivers'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']].'
+          '.$key['nomUnivers'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']].' Coef : '.round($prixArme, 3).'
           <form action="CUD/Update/armeFaction.php" method="post">
           <label for="faction">Factions</label>
             <select name="id_Faction">';
@@ -117,12 +119,15 @@ class Armes {
       $liste = new readDB($SQL, $prepare);
       $dataListe = $liste->read();
       foreach ($dataListe as $key) {
+        $prix = new Armes ($this->idUser, $this->idNav);
+        $prixArme = $prix->valeurArmes($key['idArmes']);
         echo '<li class="line"> '.$key['nomUnivers'].' Faction : '.$key['nomFaction'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']].'
+        Coef : '.round($prixArme, 3).'
         <form action="CUD/Delette/armes.php" method="post">
           <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
           <input type="hidden" name="idNav" value="'.$this->idNav.'">
           <button type="submit" name="button">Effacer</button>
-          <a class="lienBoutton" href="index.php?idNav='.$this->adressFiche.'&idArmes='.$key['idArmes'].'">Fiche</a>
+          <a class="lienBoutton" href="index.php?idNav='.$this->adressFiche.'&idArmes='.$key['idArmes'].'">Add RS</a>
         </form>
         </li>';
       }
@@ -215,7 +220,7 @@ class Armes {
       $readRules = new readDB($SQLrules, $parametre);
       $tauxRules = $readRules->read();
       // Formule de calcul de la valeur de l'arme :
-      $puissance = $dataArmes[0]['typeArme'] + 2;
+      $puissance = $dataArmes[0]['typeArme'] + 1;
       $puissance = (($dataArmes[0]['puissance'] +1) * 2) + $puissance;
       $puissance = (log($dataArmes[0]['maxRange'] + 1)) + $puissance;
       if ($dataArmes[0]['surPuissance'] != 0){
@@ -238,11 +243,11 @@ class Armes {
       }
       // On sort la valeur de l'arme
       if (empty($tauxRules[0]['taux'])) {
-          return ($puissance /100)+1;
+          return $puissance/50;
       } else {
         $taux = $tauxRules[0]['taux'];
         $puissance;
-        return (($puissance * $taux)/100)+1;
+        return (($puissance * $taux)/50);
       }
     }
     public function readArmes ($idFaction) {
@@ -323,20 +328,36 @@ class Armes {
       }
       echo '</lu>';
     }
-  public function mosaiqueArmes($data, $idFigurine, $idNav) {
+  public function mosaiqueArmes($data, $id, $idNav, $type) {
     echo '
-    <h4 class="sousTitre">Affectation des armes</h4>
-    <div class="mosaique">';
-        foreach ($data as $key) {
-          echo '
-          <form class="item" action="CUD/Create/affectationArme.php" method="post">
-            <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
-            <input type="hidden" name="idFigurine" value="'.$idFigurine.'">
-            <input type="hidden" name="idNav" value="'.$idNav.'">
-            <button type="submit" name="button">'.$key['nom'].'</button>
-          </form>';
-    }
+    <h4 class="sousTitre">Affectation des armes</h4>';
+    if ($type == 0) {
+      echo ' <div class="mosaique">';
+      foreach ($data as $key) {
+        echo '
+        <form class="item" action="CUD/Create/affectationArme.php" method="post">
+          <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
+          <input type="hidden" name="idFigurine" value="'.$id.'">
+          <input type="hidden" name="idNav" value="'.$idNav.'">
+          <button type="submit" name="button">'.$key['nom'].'</button>
+        </form>';
+  }
     echo '</div>';
+    } else {
+      echo ' <div class="mosaique">';
+      foreach ($data as $key) {
+        echo '
+        <form class="item" action="CUD/Create/affectationArmeVehicule.php" method="post">
+          <input type="hidden" name="id_Armes" value="'.$key['idArmes'].'">
+          <input type="hidden" name="id_Vehicule" value="'.$id.'">
+          <input type="hidden" name="idNav" value="'.$idNav.'">
+          <button type="submit" name="button">'.$key['nom'].'</button>
+        </form>';
+  }
+    echo '</div>';
+    }
+
+
   }
 }
 //<li>'.$dataArme[0][''].'</li>

@@ -1,4 +1,3 @@
-
 <?php
 include 'securite/securiterUtilisateur.php';
 require 'objets/lienCentrale.php';

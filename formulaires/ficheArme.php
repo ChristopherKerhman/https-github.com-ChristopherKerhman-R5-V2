@@ -1,3 +1,4 @@
+formulaires/ficheArme.php
 <?php
 include 'securite/securiterUtilisateur.php';
 require 'objets/armes.php';
@@ -11,6 +12,7 @@ $puissanceArme = $ficheArmes->valeurArmes($idArmes);
 echo '<br />';
 $ficheArmes->DelSpecialRules($idArmes, $idNav);
 $liste = new Rules();
-$dataRSArme = $liste->readRules(0);
-$liste->affectation($dataRSArme, $idArmes, $idNav);
+$type = 0;
+$dataRS = $liste->readRules($type);
+$liste->affectation($dataRS, $idArmes, $idNav, $type);
  ?>
