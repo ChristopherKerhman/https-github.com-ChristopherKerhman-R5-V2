@@ -10,8 +10,6 @@ $dataFiche = $figurine->readFiche($idFigurine); ?>
   <?php
   $figurine->ficheFigurine($dataFiche, $idNav);
    ?>
-   </article>
-   <article>
     <h3 class="sousTitre">Modifier la fiche : <?=$dataFiche[0]['nomFigurine']?></h3>
     <form class="formulaire" action="CUD/Update/statFigurine.php" method="post">
       <label for="nomFigurine">Nom</label>
@@ -133,6 +131,5 @@ $dataFiche = $figurine->readFiche($idFigurine); ?>
         <input type="hidden" name="idNav" value="<?=$idNav?>">
     <button type="submit" name="button">Modifier</button>
     </form>
-    </article>
 </section>
  <?php include 'javascript/mouvement.php' ?>

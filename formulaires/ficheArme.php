@@ -1,4 +1,3 @@
-formulaires/ficheArme.php
 <?php
 include 'securite/securiterUtilisateur.php';
 require 'objets/armes.php';

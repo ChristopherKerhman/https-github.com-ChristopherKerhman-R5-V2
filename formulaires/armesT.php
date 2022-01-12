@@ -4,7 +4,7 @@ require 'objets/factions.php';
 include 'stockageData/armes.php';
 include 'stockageData/yes.php';
  ?>
-<article>
+
   <h3 class="sousTitre">Création arme de tir</h3>
   <form class="formulaire" action="CUD/Create/armes.php" method="post">
     <label for="Univers">Univers</label>
@@ -88,5 +88,4 @@ include 'stockageData/yes.php';
         <input type="hidden" name="idNav" value="<?=$idNav?>">
   <button type="submit" name="button">Enregistrer</button>
   </form>
-</article>
 <?php include 'javascript/range.php'; ?>

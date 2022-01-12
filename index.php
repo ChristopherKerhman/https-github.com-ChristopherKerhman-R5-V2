@@ -13,11 +13,13 @@
          if (empty($dataAffichage)) {
             include 'environnement/corpsDeflaut.php';
          } else {
-            include $dataAffichage[0]['cheminNav'];
-            $idNav = $dataAffichage[0]['cheminNav'];
-            // Affichage de la navigation
+             // Affichage de la navigation pour la version de dev
             echo $dataAffichage[0]['cheminNav'];
+            // Fin Affichage de la navigation pour la version de dev
+            echo '<article>';
+            include $dataAffichage[0]['cheminNav'];
+            echo '</article>';
+            $idNav = $dataAffichage[0]['cheminNav'];
          }
           ?>
-
 <?php include 'environnement/footer.php' ?>

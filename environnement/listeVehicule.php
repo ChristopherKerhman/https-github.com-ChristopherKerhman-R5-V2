@@ -1,4 +1,3 @@
-environnement/listeVehicules.php
 <?php
 require 'objets/vehicules.php';
 $listeVehicule = new Vehicules ($_SESSION['idUser'], $idNav);

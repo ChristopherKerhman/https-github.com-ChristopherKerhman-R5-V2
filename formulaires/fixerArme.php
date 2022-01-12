@@ -1,4 +1,3 @@
-<article>
 <?php
   include 'securite/securiterUtilisateur.php';
   require 'objets/armes.php';
@@ -12,4 +11,3 @@
 <ul>
   <?php $listeArmes->listeArmes(1); ?>
 </ul>
-</article>

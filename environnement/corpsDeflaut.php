@@ -1,4 +1,4 @@
-<article>
+
   <h3 class="titreArticle">Le projet R-5</h3>
 <p class="articleContexte">
   Le projet <strong>R-5</strong> propose un système de jeu générique. Vous allez pouvoir avec le système <strong>R-5</strong> créer n’importe quel contexte de jeu de figurine de différente taille, allant de l’escarmouche à de petite bataille entre une soixantaine de figurine par camps.
@@ -13,7 +13,7 @@
   <p>
   Il vous faudra quelques dés, des pions « ordre » et « statuts », que vous pouvez télécharger avec le fichier PDF du jeu, des figurines et un terrain. Une aide de jeu « en ligne » existe pour vous facilitez la tache, permettant entre autre de résoudre 99 % des cas du jeu et accessible hors ligne si vous l’installer sur un smartphone.
   </p>
-</article>
+
 <?php
 if (!isset($_SESSION['idUser'])) {
   include 'javascript/galerie.php';

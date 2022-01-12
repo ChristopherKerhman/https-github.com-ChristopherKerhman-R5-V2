@@ -2,7 +2,7 @@
 include 'securite/securiterCreateur.php';
 include 'stockageData/typeRules.php';
  ?>
-<article class="">
+
   <h3 class="sousTitre">Ajouter une règle spéciales</h3>
   <form class="formulaire" action="CUD/Create/regleSpecial.php" method="post">
     <label for="nom">Nom de la règle spéciale</label>
@@ -23,7 +23,6 @@ include 'stockageData/typeRules.php';
     <input type="hidden" name="idNav" value="<?=$idNav?>">
   <button type="submit" name="button">Enregistrer</button>
   </form>
-</article>
 <article>
   <?php
   // Recherche des règles spécial déjà créer.
