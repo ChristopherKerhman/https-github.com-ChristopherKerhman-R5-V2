@@ -1,4 +1,5 @@
-<?php include 'securite/securiterUtilisateur.php';
+<?php
+include 'securite/securiterUtilisateur.php';
 require 'objets/vehicules.php';
 require 'objets/rulesSp.php';
 require 'objets/armes.php';

@@ -5,4 +5,3 @@ require 'objets/figurines.php';
 require 'objets/armes.php';
 $listeArmesHS = new Armes ($_SESSION['idUser'], $idNav);
 $listeArmesHS->listeArmesHS()
- ?>

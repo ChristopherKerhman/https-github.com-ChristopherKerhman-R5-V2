@@ -1,4 +1,3 @@
-<article>
 <?php
 include 'securite/securiterUtilisateur.php';
 $idFigurine = filter($_GET['idFigurine']);
@@ -17,4 +16,3 @@ foreach ($dotationArme as $key) {
   $doter->resumeArme($dataArme, $DC);
 }
  ?>
-</article>

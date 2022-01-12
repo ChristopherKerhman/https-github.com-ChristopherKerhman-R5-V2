@@ -1,4 +1,3 @@
-affichages/ficheDotation.php
 <?php
 include 'stockageData/figurine.php';
 include 'securite/securiterUtilisateur.php';
