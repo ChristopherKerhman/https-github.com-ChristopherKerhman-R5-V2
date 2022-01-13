@@ -10,16 +10,19 @@
         }
          ?>
          <?php
+           echo '<article>';
          if (empty($dataAffichage)) {
+
             include 'environnement/corpsDeflaut.php';
          } else {
              // Affichage de la navigation pour la version de dev
             echo $dataAffichage[0]['cheminNav'];
             // Fin Affichage de la navigation pour la version de dev
-            echo '<article>';
+
             include $dataAffichage[0]['cheminNav'];
-            echo '</article>';
+
             $idNav = $dataAffichage[0]['cheminNav'];
          }
+            echo '</article>';
           ?>
 <?php include 'environnement/footer.php' ?>

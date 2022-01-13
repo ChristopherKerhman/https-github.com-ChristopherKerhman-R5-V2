@@ -32,11 +32,10 @@ $dataUnivers = $readUnivers->read();
   }
    ?>
 </form>
-<article class="centrage">
+
   <h4 class="sousTitre">Les factions existantes</h4>
   <?php
     require 'objets/factions.php';
     $dataListeFaction = new Factions ($_SESSION['idUser'], $idNav);
     $dataListeFaction->adminFaction();
    ?>
-</article>

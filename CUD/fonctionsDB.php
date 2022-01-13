@@ -24,4 +24,12 @@ function champsVide($data) {
   }
   return $ok;
 }
+function redirect($data, $idNav) {
+  foreach ($data as $key => $value) {
+    if ($value === '') {
+      return header('location:../../index.php?message=Un champs est vide');
+    }
+  }
+}
+
  ?>

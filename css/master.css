@@ -95,6 +95,9 @@ article {
    margin-left: 0.5em;
    margin-right: 0.5em;
  }
+ textarea {
+   width: 95%;
+ }
  button {
    background-color: Black;
    color:red;

@@ -35,15 +35,29 @@ class Lore {
         '.$article[0]['texteLore'].'
       </textarea>
       <label for="partager">Partager votre texte</label>
-      <select id="partager" name="partager">
-        <option value="0">Non</option>
-        <option value="1" selected>Oui</option>
-      </select>
+      <select id="partager" name="partager">';
+      for ($i=0; $i <count($this->yes) ; $i++) {
+        if($article[0]['partager'] == $i) {
+          echo '<option value="'.$i.'" selected>
+          '.$this->yes[$i].'</option>';
+        } else {
+          echo '<option value="'.$i.'">
+          '.$this->yes[$i].'</option>';
+        }
+      }
+      echo'</select>
       <label for="valide">Valider texte</label>
-      <select id="valide" name="valide">
-        <option value="0">Non</option>
-        <option value="1" selected>Oui</option>
-      </select>
+      <select id="valide" name="valide">';
+      for ($i=0; $i <count($this->yes) ; $i++) {
+        if($article[0]['valide'] == $i) {
+          echo '<option value="'.$i.'" selected>
+          '.$this->yes[$i].'</option>';
+        } else {
+          echo '<option value="'.$i.'">
+          '.$this->yes[$i].'</option>';
+        }
+      }
+  echo'</select>
       <input type="hidden" name="idLore" value="'.$article[0]['idLore'].'">
       <input type="hidden" name="idNav" value="'.$data.'">
     <button type="submit" name="button">Modifier</button>

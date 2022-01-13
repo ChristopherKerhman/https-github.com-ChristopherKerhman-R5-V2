@@ -7,7 +7,7 @@ const COURSE = Vue.createApp({
     }
   },
   updated () {
-    this.course = Math.floor(this.mouvement * 1.75)
+    this.course = Math.floor(this.mouvement * 2)
     if(this.mouvement > 28) {
       this.mouvement = 28
     }

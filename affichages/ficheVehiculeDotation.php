@@ -4,8 +4,8 @@ require 'objets/vehicules.php';
 require 'objets/rulesSp.php';
 require 'objets/armes.php';
 $idVehicule = filter($_GET['idVehicule']); ?>
-<form action="CUD/Update/fixerVehicule" method="post">
-  <input type="hidden" name="idVehicule" value="<?=$idFigurine?>">
+<form action="CUD/Update/fixerVehicule.php" method="post">
+  <input type="hidden" name="idVehicule" value="<?=$idVehicule?>">
   <button type="submit" name="button">Bon pour le service</button>
 </form>
 <h3 class="titreArticle">Dotation de nouvelles armes sur un véhicule</h3>

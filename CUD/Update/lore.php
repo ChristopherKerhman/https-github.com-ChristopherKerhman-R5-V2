@@ -12,10 +12,10 @@ include '../fonctionsDB.php';
     } else {
       // On fabrique la préparation
       $preparation = new Preparation();
-      $prepare = $preparation->creationPrep($_POST);
+      $prepare = $preparation->creationPrepIdUser($_POST);
       $requetteSQL= "UPDATE `lore`
       SET `titreLore`= :titreLore,`texteLore`= :texteLore,`valide`= :valide,`partager`= :partager
-      WHERE `idLore`=:idLore";
+      WHERE `idLore`=:idLore AND `idCreateur` = :idUser";
       $action = new CurDB ($requetteSQL, $prepare);
       $action->actionDB();
     header('location:../../index.php?idNav='.$idNav.'&idLore='.$idLore.'&message=Modification prise en compte.');

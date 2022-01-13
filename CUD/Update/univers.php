@@ -11,14 +11,15 @@ include '../fonctionsDB.php';
     $del = filter($_POST['del']);
     if ($del == 0) {
       $requetteSQL = "UPDATE `univers` SET `nomUnivers`=:nomUnivers ,`partager`=:partager
-      WHERE `idUnivers` = :idUnivers";
+      WHERE `idUnivers` = :idUnivers AND `idProprietaire` = :idUser";
       $prepare = [['prep'=> ':idUnivers', 'variable' => $idUnivers],
                   ['prep'=> ':nomUnivers', 'variable' => $nomUnivers],
-                  ['prep'=> ':partager', 'variable' => $partager],];
+                  ['prep'=> ':partager', 'variable' => $partager],
+                ['prep'=> ':idUser', 'variable' => $_SESSION['idUser']]];
       $message = 'Modification prise en compte.';
     } else {
-      $requetteSQL = "DELETE FROM `univers` WHERE `idUnivers` = :idUnivers";
-      $prepare = [['prep'=> ':idUnivers', 'variable' => $idUnivers]];
+      $requetteSQL = "DELETE FROM `univers` WHERE `idUnivers` = :idUnivers AND `idProprietaire` = :idUser";
+      $prepare = [['prep'=> ':idUnivers', 'variable' => $idUnivers], ['prep'=> ':idUser', 'variable' => $_SESSION['idUser']]];
       $message = $nomUnivers.'est effacé.';
     }
 

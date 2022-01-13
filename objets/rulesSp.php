@@ -2,7 +2,8 @@
 class Rules {
   public function readRules ($type) {
     $SQL = "SELECT `idRules`, `nomRules`, `descriptionRules`, `modification`, `typeRules`
-    FROM `rules` WHERE `typeRules` = :type";
+    FROM `rules` WHERE `typeRules` = :type
+    ORDER BY `nomRules`";
     $pre = [['prep' => ':type', 'variable' => $type]];
     $read = new readDB ($SQL, $pre);
     $listeRules = $read->read();

@@ -44,6 +44,8 @@ class Vehicules {
     $this->navFW = 69;
     // Modif véhicule
     $this->navMV = 68;
+    //Affichage fiche Véhicule sans modification
+    $this->navFVsite = 70;
   }
   public function readVehicule($idVehicule) {
     $vehicule = "SELECT `idVehicule`, `nomVehicule`, `description`, `typeVehicule`, `roleVehicule`, `tailleVehicule`,
@@ -105,34 +107,48 @@ class Vehicules {
       }
     echo '</ul>';
   }
-  public function listeVehicule() {
-    $param = [['prep'=> ':idUser', 'variable'=> $this->idUser]];
-    $triVehicule = "SELECT `idVehicule`, `nomVehicule`, `nomUnivers`, `nomFaction`
+  public function listeVehicule($service) {
+    $param = [['prep'=> ':idUser', 'variable'=> $this->idUser], ['prep'=>':service', 'variable'=>$service]];
+    $triVehicule = "SELECT `idVehicule`, `nomVehicule`, `nomUnivers`, `nomFaction`, `service`
     FROM `transport`
     INNER JOIN `univers` ON `idUnivers` = `id_Univers`
     INNER JOIN `factions` ON `idFaction` = `id_Faction`
-    WHERE `idUser` = :idUser AND `id_univers` > 0
+    WHERE `idUser` = :idUser AND `id_univers` > 0 AND `service` = :service
     ORDER BY `nomUnivers`, `nomFaction`, `nomVehicule`";
     $listeVehicule = new readDB($triVehicule, $param);
     $dataListeVehicule = $listeVehicule->read();
     echo '<ul>';
     foreach ($dataListeVehicule as $key => $value) {
-      $vehicule = new Vehicules ($this->idNav, $this->idUser);
-      $prix = $vehicule->prixBrute($value['idVehicule']);
-      echo '<li class="line">'.$value['nomUnivers'].' '.$value['nomFaction'].' <strong class="gras">'.$value['nomVehicule'].' / '.round($prix,0).' points</strong>
-      <a class="lienBoutton" href="index.php?idNav='.$this->navFV.'&idVehicule='.$value['idVehicule'].'">Add RS</a>
-      <a class="lienBoutton" href="index.php?idNav='.$this->navFW.'&idVehicule='.$value['idVehicule'].'">Add Arme</a>
-      <form action="CUD/Delette/vehicule.php" method="post">
-        <input type="hidden" name="idNav" value="'.$this->idNav.'">
-        <input type="hidden" name="id" value="'.$value['idVehicule'].'">
-        <button type="submit" name="button">Effacer</button>
-      </form>
-      </li>';
+      if ($value['service'] == 0) {
+        $vehicule = new Vehicules ($this->idNav, $this->idUser);
+        $prix = $vehicule->prixBrute($value['idVehicule']);
+        echo '<li class="line">'.$value['nomUnivers'].' '.$value['nomFaction'].' <strong class="gras">'.$value['nomVehicule'].' / '.round($prix,0).' points</strong>
+        <a class="lienBoutton" href="index.php?idNav='.$this->navFV.'&idVehicule='.$value['idVehicule'].'">Add RS</a>
+        <a class="lienBoutton" href="index.php?idNav='.$this->navFW.'&idVehicule='.$value['idVehicule'].'">Add Arme</a>
+        <form action="CUD/Delette/vehicule.php" method="post">
+          <input type="hidden" name="idNav" value="'.$this->idNav.'">
+          <input type="hidden" name="id" value="'.$value['idVehicule'].'">
+          <button type="submit" name="button">Effacer</button>
+        </form>
+        </li>';
+      } else {
+        $vehicule = new Vehicules ($this->idNav, $this->idUser);
+        $prix = $vehicule->prixBrute($value['idVehicule']);
+        echo '<li class="line">'.$value['nomUnivers'].' '.$value['nomFaction'].' <strong class="gras">'.$value['nomVehicule'].' / '.round($prix,0).' points</strong>
+        <a class="lienBoutton" href="index.php?idNav='.  $this->navFVsite.'&idVehicule='.$value['idVehicule'].'">Fiche véhicule</a>
+        <form action="CUD/Delette/vehicule.php" method="post">
+          <input type="hidden" name="idNav" value="'.$this->idNav.'">
+          <input type="hidden" name="id" value="'.$value['idVehicule'].'">
+          <button type="submit" name="button">Effacer</button>
+        </form>
+        </li>';
+      }
+
     }
     echo '</ul>';
   }
   public function prixBrute($idVehicule) {
-    //Donner nécessaire au calcul du prix :
+    //Données nécessaire au calcul du prix :
     $vehicule = "SELECT `idVehicule`, `typeVehicule`, `roleVehicule`, `tailleVehicule`,
     `equipage`, `passage`, `vol`, `stationnaire`, `DQM`, `DC`, `pds`, `svgVehicule`, `deplacement`
     FROM `transport`
@@ -192,12 +208,12 @@ class Vehicules {
     echo '<li>Equipage : '.$this->equipage[$data[0]['equipage']]['nbre'].' personne</li>';
   }
   if ($data[0]['passage'] > 0) {
-    echo '<li>Passager : '.$this->passager[$data[0]['passage']].' personne</li>';
+    echo '<li>Passager : '.$this->passager[$data[0]['passage']].' personnes</li>';
   } else {
     echo '<li>Passager : '.$this->passager[$data[0]['passage']].' personne</li>';
   }
   $mouv = $data[0]['deplacement'];
-    echo '<li>Mouvement : '.$mouv.' " / '.round($mouv *1.75).' " + 1d6 " Vol : '.$this->yes[$data[0]['vol']].' / Vol stationnaire : '.$this->yes[$data[0]['stationnaire']].'</li>';
+    echo '<li>Mouvement : '.$mouv.' " / '.round($mouv * 2).' " + 1d6 " Vol : '.$this->yes[$data[0]['vol']].' / Vol stationnaire : '.$this->yes[$data[0]['stationnaire']].'</li>';
     echo '<li>Dé de Qualité Martial : '.$this->dice[$data[0]['DQM']]['type'].' / Dé de combat : '.$this->dice[$data[0]['DC']]['type'].'</li>';
     echo '<li>Point de structure : '.$this->pds[$data[0]['pds']].' / Sauvegarde : '.$this->svgVehicule[$data[0]['svgVehicule']]['armure'].'</li>';
     echo '<li>Prix brute : '.round($prix, 0).' points</li>';
