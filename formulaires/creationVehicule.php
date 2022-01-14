@@ -1,4 +1,3 @@
-formulaires/creationVehicule.php
 <?php
 include 'securite/securiterUtilisateur.php';
 include 'stockageData/vehicules.php';

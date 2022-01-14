@@ -6,14 +6,13 @@ class Figurines {
     $this->idUser = $idUser;
     $this->idNav = $idNav;
     $this->typeFigurine = [['type' => 'Civile', 'Valeur'=> 1, 'PC' => 0.05],
-      ['type' => 'Conscrit', 'Valeur'=> 2.8, 'PC' => 0.14],
-      ['type' => 'Soldat régulier', 'Valeur'=> 3.6, 'PC' => 0.18],
+      ['type' => 'Conscrit', 'Valeur'=> 2.8, 'PC' => 0.1],
+      ['type' => 'Soldat régulier', 'Valeur'=> 3.6, 'PC' => 0.1667],
       ['type' => 'Soutient Tactique', 'Valeur'=> 5, 'PC' => 0.25],
       ['type' => 'Elite', 'Valeur'=> 9, 'PC' => 0.45],
       ['type' => 'Vétéran', 'Valeur'=> 10, 'PC' => 0.5],
       ['type' => 'Officier', 'Valeur'=> 20, 'PC' => 1],
-      ['type' => 'Officier suppérieur', 'Valeur'=> 26, 'PC' => 1.3],
-      ['type' => 'Mage', 'Valeur'=> 30, 'PC' => 1.5]];
+      ['type' => 'Officier suppérieur', 'Valeur'=> 26, 'PC' => 1.3]];
     $this->tailleFigurine = [['taille' => 'Petite', 'Valeur' => 1.5],
       ['taille' => 'Standard', 'Valeur' => 1],
       ['taille' => 'Grande', 'Valeur' => 0.9],

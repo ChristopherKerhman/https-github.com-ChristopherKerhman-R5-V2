@@ -6,11 +6,11 @@ class Vehicules {
     $this->idUser = $idUser;
     $this->idNav = $idNav;
     $this->typeVehicule = [['type'=>'Civile', 'valeur'=>1], ['type'=>'Militaire', 'valeur'=>2]];
-    $this->roleVehicule = [['role'=>'transport', 'valeur'=>1, 'PC'=>0.25],
-                          ['role'=>'Soutient tactique', 'valeur'=>2, 'PC'=>0.35],
-                          ['role'=>'Attaque rapide', 'valeur'=>2.5, 'PC'=>0.45],
+    $this->roleVehicule = [['role'=>'transport', 'valeur'=>1, 'PC'=>0.05],
+                          ['role'=>'Soutient tactique', 'valeur'=>2, 'PC'=>1],
+                          ['role'=>'Attaque rapide', 'valeur'=>2.5, 'PC'=>0.5],
                           ['role'=>'Véhicule de commandement', 'valeur'=>5, 'PC'=>2],
-                          ['role'=>'Artillerie', 'valeur'=>2, 'PC'=>0.12]];
+                          ['role'=>'Artillerie', 'valeur'=>2, 'PC'=>0.05]];
     $this->dice =[['type' => 'D6', 'valeur' => 2],
                   ['type' => 'D8', 'valeur' => 4],
                   ['type' => 'D10', 'valeur' => 6],
@@ -69,7 +69,6 @@ class Vehicules {
     $param = [['prep'=> ':idUser', 'variable'=> $this->idUser]];
     $liste = new readDB($triFU, $param);
     $dataListeFU = $liste->read();
-    //print_r($dataListeFU);
     // Trie des véhicules
     $triVehicule = "SELECT `idVehicule`, `nomVehicule`
     FROM `transport` WHERE `idUser` = :idUser AND `id_univers` = 0";

@@ -14,7 +14,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $FU = str_getcsv($FU, ',');
     $U = $FU[0];
     $F = $FU[1];
-    var_dump($U, $F);
     $requetteSQL = "UPDATE `transport`
     SET `id_univers`=:idUnivers,`id_faction`=:idFaction
     WHERE `idVehicule` = :idVehicule";
