@@ -171,6 +171,55 @@ class Armes {
         }
       echo '<li>Coefficient : '.round($puissanceArme, 3).'</li></ul>';
     }
+    public function ficheArmeListe ($idArmes, $puissanceArme) {
+      $SQL = "SELECT `idArmes`, `id_Univers`, `id_Faction`, `nom`, `description`, `typeArme`, `puissance`, `maxRange`,
+      `surPuissance`, `sort`, `assaut`, `couverture`, `cadenceTir`, `lourd`, `puissanceExplosif`, `gabarit`, `fixer`, `prix`, `nomUnivers`,
+      `nomFaction`
+      FROM `armes`
+      INNER JOIN `univers` ON `id_Univers` = `idUnivers`
+      INNER JOIN `factions` ON `id_Faction` = `idFaction`
+      WHERE `idArmes` = :idArmes";
+      $prepare = [['prep' => ':idArmes', 'variable' => $idArmes]];
+      $fiche = new readDB($SQL, $prepare);
+      $dataArme = $fiche->read();
+      if($dataArme[0]['surPuissance'] == 1) {
+        $plus = '++';
+      } else {
+        $plus = '';
+      }
+      echo
+      '<ul class="ficheFigurine">
+        <li>'.$dataArme[0]['nom'].' Type d\'arme : '.$this->typeArme[$dataArme[0]['typeArme']].'</li>
+        <li>Puissance '.$dataArme[0]['puissance'].'D'.$plus;
+        if($dataArme[0]['typeArme'] != 0) {
+          echo 'Portée tactique : '.$dataArme[0]['maxRange'].' pouces Arme lourde : '.$this->yes[$dataArme[0]['lourd']].' - Arme d\'assaut : '.$this->yes[$dataArme[0]['assaut']].'';
+          if ($dataArme[0]['couverture'] != 0) {
+            echo 'Couverture : '.$this->yes[$dataArme[0]['couverture']].' - Cadence de tir : '.$dataArme[0]['cadenceTir'].' par tour ';
+          }
+        }
+        if ($dataArme[0]['puissanceExplosif'] != 0) {
+          echo 'Puissance : '.$this->dice[$dataArme[0]['puissanceExplosif']].' - Gabarit : '.$this->gabarit[$dataArme[0]['gabarit']].'';
+        }
+        if ($dataArme[0]['sort'] > 0) {
+          echo'Sort '.$this->yes[$dataArme[0]['sort']].'';
+        }
+        echo '</li>';
+        $SQL = "SELECT `id_Rules`, `nomRules`
+        FROM `armesRules`
+        INNER JOIN `rules` ON `idRules` = `id_Rules`
+        WHERE `id_Armes` = :idArmes";
+        $parametre = [['prep' => ':idArmes', 'variable' => $idArmes]];
+        $listeRules = new readDB($SQL, $parametre);
+        $dataRules = $listeRules->read();
+        if (!empty($dataRules)) {
+          echo '<strong>Règles spéciales : ';
+          foreach ($dataRules as $key) {
+            echo $key['nomRules'].' ';
+          }
+          echo '</strong>';
+        }
+        echo '</ul>';
+    }
     public function specialRulesFicheArmes ($idArmes) {
       $SQL = "SELECT `id_Rules`, `nomRules`
       FROM `armesRules`
@@ -320,6 +369,62 @@ class Armes {
           echo '<li>Régles spéciales : ';
           foreach ($ListeRules as $key) {
             echo '<strong class="affichageSP">'.$key['nomRules'].'</strong>';
+          }
+          echo '</li>';
+        }
+        // Fin recherche des RS armes
+
+      }
+      echo '</lu>';
+    }
+    public function resumeArmeListe($data, $DC){
+      echo '<lu class="resume">';
+      foreach ($data as $key) {
+        if($key['surPuissance'] >0) {
+          $SP = '++';
+        } else {
+          $SP = '';
+        }
+        if($key['typeArme'] > 0) {
+          $range = 'Portée :'.$key['maxRange'].'"';
+        } else {
+          $range = 'NA';
+        }
+        if ($key['sort'] == 1) {
+          $sort = ' | Sort : Oui';
+        } else {
+            $sort = '';
+        }
+        if ($key['couverture'] == 1) {
+          $couverture = '| Couverture :'.$this->yes[$key['couverture']].'| Cadence de tir :'.$key['cadenceTir'].' tir/tour |';
+        } else {
+          $couverture = '';
+        }
+        if ($key['typeArme'] == 0) {
+          echo '<li>'.$key['nom'].' | Type :'.$this->typeArme[$key['typeArme']].' | Puissance '.$key['puissance'].$this->dice[$DC].$SP.$sort.'</li>';
+        }
+        if($key['typeArme'] == 1) {
+          echo '<li>'.$key['nom'].' | Type :'.$this->typeArme[$key['typeArme']].' | '.$key['puissance'].$this->dice[$DC].$SP.' |
+           '.$range.$sort.' | Assaut : '.$this->yes[$key['assaut']].$couverture.' | Arme lourde : '.$this->yes[$key['lourd']].'</li>';
+        }
+        if($key['typeArme'] == 2) {
+        echo '<li>'.$key['nom'].' | Type :'.$this->typeArme[$key['typeArme']].' | '.$key['puissance'].$this->dice[$DC].$SP.' |
+         '.$range.$sort.' | Assaut : '.$this->yes[$key['assaut']].$couverture.' | Arme lourde : '.$this->yes[$key['lourd']].' | Type de gabarit : '.$this->gabarit[$key['gabarit']].'
+         | Puissance explosif '.$this->dice[$key['puissanceExplosif']].'</li>';
+       }
+        //Recherche RS armes :
+        $SQLRS = "SELECT `nomRules`
+        FROM `armesRules`
+        INNER JOIN `rules` ON `idRules` = `id_Rules`
+        WHERE `id_Armes` = :idArmes";
+        $param = [['prep'=>':idArmes', 'variable'=> $key['idArmes']]];
+        $readRules = new readDB($SQLRS, $param);
+        $ListeRules = $readRules->read();
+
+        if (!empty($ListeRules[0]['nomRules'])) {
+          echo '<li class="RSFiche">Régles spéciales '.$key['nom'].' : ';
+          foreach ($ListeRules as $key) {
+            echo '<strong id="listeFiche">'.$key['nomRules'].'</strong>';
           }
           echo '</li>';
         }

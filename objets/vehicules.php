@@ -50,7 +50,7 @@ class Vehicules {
   public function readVehicule($idVehicule) {
     $vehicule = "SELECT `idVehicule`, `nomVehicule`, `description`, `typeVehicule`, `roleVehicule`, `tailleVehicule`,
     `equipage`, `passage`, `vol`, `stationnaire`, `DQM`, `DC`, `pds`, `svgVehicule`, `deplacement`, `id_univers`,
-    `id_faction`, `valide`, `fixer`, `service`, `partager`
+    `id_faction`, `valide`, `fixer`, `service`, `partager`, `prixVehicule`
     FROM `transport`
     WHERE `idVehicule` = :idVehicule";
     $param = [['prep'=>':idVehicule', 'variable'=>$idVehicule]];
@@ -218,6 +218,19 @@ class Vehicules {
     echo '<li>Prix brute : '.round($prix, 0).' points</li>';
     echo '</ul>';
   }
+  public function ficheListe($data) {
+    $idV = $data[0]['idVehicule'];
+    echo '<ul class="ficheFigurine">';
+    echo '<li>'.$data[0]['nomVehicule'].' Prix : '.round($data[0]['prixVehicule'], 0).' points</li>';
+    echo '<li>Type de véhicule : '.$this->typeVehicule[$data[0]['typeVehicule']]['type'].' - Rôle du véhicule :
+    '.$this->roleVehicule[$data[0]['roleVehicule']]['role'].' - Taille : '.$this->tailleVehicule[$data[0]['tailleVehicule']]['taille'].'</li>';
+    echo '<li>Equipage : '.$this->equipage[$data[0]['equipage']]['nbre'].' - Passager : '.$this->passager[$data[0]['passage']].'</li>';
+  $mouv = $data[0]['deplacement'];
+    echo '<li>Mouvement : '.$mouv.' " / '.round($mouv * 2).' " + 1d6 " Vol : '.$this->yes[$data[0]['vol']].' / Vol stationnaire : '.$this->yes[$data[0]['stationnaire']].'</li>';
+    echo '<li>Dé de Qualité Martial : '.$this->dice[$data[0]['DQM']]['type'].' / Dé de combat : '.$this->dice[$data[0]['DC']]['type'].'</li>';
+    echo '<li>Point de structure : '.$this->pds[$data[0]['pds']].' / Sauvegarde : '.$this->svgVehicule[$data[0]['svgVehicule']]['armure'].'</li>';
+    echo '</ul>';
+  }
   public function UniversFaction($idVehicule) {
     $sql = "SELECT `nomFaction`, `nomUnivers`, `id_faction`
     FROM `transport`
@@ -305,6 +318,13 @@ echo '<h4 class="sousTitre">Effacer règles spéciales</h4><div class="mosaique"
     $listeArmes = new readDB($triArmes, $param);
     $dataListe = $listeArmes->read();
     return $dataListe;
+  }
+  public function triListeVehicule ($idFaction) {
+    $SQLtri = "SELECT `idVehicule` FROM `transport` WHERE `id_faction` = :id_Faction AND `fixer` = 1 AND `service` = 1";
+    $param = [['prep'=> ':id_Faction', 'variable'=>$idFaction]];
+    $liste =new readDB($SQLtri, $param);
+    $dataListeVehicule = $liste->read();
+    return   $dataListeVehicule;
   }
 }
  ?>

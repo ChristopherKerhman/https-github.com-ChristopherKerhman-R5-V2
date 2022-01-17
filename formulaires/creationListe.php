@@ -1,6 +1,7 @@
 <?php
 include 'securite/securiterUtilisateur.php';
 require 'objets/listes.php';
+require 'objets/figurines.php';
 // Création de la liste des univers + faction associé
 $triFU = "SELECT `idFaction`, `factions`.`idUnivers`, `nomFaction`, `nomUnivers`
 FROM `factions`
@@ -33,7 +34,6 @@ foreach ($dataListeFU as $index => $valeur) {
 </form>
 <?php
 $listeNouvelle = new Listes($_SESSION['idUser'], $idNav);
-$dataListeUser = $listeNouvelle->readListesUser(1);
-$listeNouvelle->affichageListe($dataListeUser)
-
+$dataListeUser = $listeNouvelle->readListesUser(1, 0);
+$listeNouvelle->affichageListe($dataListeUser);
  ?>

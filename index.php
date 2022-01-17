@@ -1,28 +1,28 @@
-<?php include 'environnement/header.php' ?>
-        <?php
-        if (isset($_GET['idNav'])) {
-          $idNav = filter($_GET['idNav']);
-          $requetteSQL = "SELECT  `cheminNav`
-          FROM `nav` WHERE `idNav` = :idNav";
-          $prepare = [['prep'=> ':idNav', 'variable' => $idNav]];
-          $affichage = new readDB($requetteSQL, $prepare);
-          $dataAffichage = $affichage->read();
-        }
-         ?>
-         <?php
-           echo '<article>';
-         if (empty($dataAffichage)) {
+<?php
+include 'environnement/header.php';
+// $Dev = 1 affichage des chemins / $dev = 0 chemin non affiché.
+$dev = 1;
+  if (isset($_GET['idNav'])) {
+    $idNav = filter($_GET['idNav']);
+    $requetteSQL = "SELECT  `cheminNav`
+    FROM `nav` WHERE `idNav` = :idNav";
+    $prepare = [['prep'=> ':idNav', 'variable' => $idNav]];
+    $affichage = new readDB($requetteSQL, $prepare);
+    $dataAffichage = $affichage->read();
+  }
+  echo '<article>';
+  // Affichage de la navigation pour la version de dev
+  if (($dev > 0) && (isset($dataAffichage[0]['cheminNav']))) {
+    echo $dataAffichage[0]['cheminNav'];
+  }
+  // Fin Affichage de la navigation pour la version de dev
+  if (empty($dataAffichage)) {
+    include 'environnement/corpsDeflaut.php';
+  } else {
 
-            include 'environnement/corpsDeflaut.php';
-         } else {
-             // Affichage de la navigation pour la version de dev
-            echo $dataAffichage[0]['cheminNav'];
-            // Fin Affichage de la navigation pour la version de dev
-
-            include $dataAffichage[0]['cheminNav'];
-
-            $idNav = $dataAffichage[0]['cheminNav'];
-         }
-            echo '</article>';
-          ?>
-<?php include 'environnement/footer.php' ?>
+    include $dataAffichage[0]['cheminNav'];
+    $idNav = $dataAffichage[0]['cheminNav'];
+  }
+  echo '</article>';
+include 'environnement/footer.php'
+?>

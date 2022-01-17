@@ -6,7 +6,7 @@ $idFigurine = filter($_GET['idFigurine']);
 $figurine = new Figurines ($_SESSION['idUser'], $idNav);
 $dataFiche = $figurine->readFiche($idFigurine); ?>
 <section class="flex-presentation">
-  <article class="box">
+  <div>
   <?php
   $figurine->ficheFigurine($dataFiche, $idNav);
    ?>
@@ -131,5 +131,6 @@ $dataFiche = $figurine->readFiche($idFigurine); ?>
         <input type="hidden" name="idNav" value="<?=$idNav?>">
     <button type="submit" name="button">Modifier</button>
     </form>
+  </div>
 </section>
  <?php include 'javascript/mouvement.php' ?>

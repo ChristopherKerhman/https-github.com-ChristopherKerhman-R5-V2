@@ -354,4 +354,55 @@ public function UniversFaction ($idFigurine) {
       }
       echo '</ul>';
     }
+    public function ficheFigurineCompleteListe ($idFigurine) {
+      // Element de la fiche de la figurine :
+      $fiche = "SELECT `idFigurine`, `id_User`, `nomFigurine`, `description`, `typeFigurine`, `tailleFigurine`, `DQM`, `DC`,
+      `svg`, `pdv`, `mouvement`, `valide`, `partager`, `figurineFixer`, `figurineAffecter`, `prix`, `prixFinal`, `vol`, `stationnaire`
+      FROM `figurines` WHERE `idFigurine` = :id AND `valide` = 1 AND `figurineFixer` = 1";
+      $preparation = [['prep' => ':id', 'variable'=> $idFigurine]];
+      $ficheFigurine = new readDB ($fiche, $preparation);
+      $dataFigurine = $ficheFigurine->read();
+      // Extraction de la DC de la figurine :
+      $DC = $dataFigurine[0]['DC'];
+      // Régles spécial :
+      $triRules = "SELECT `nomRules`
+      FROM `figurinesRules`
+      INNER JOIN `rules` ON `idRules` = `id_Rules`
+      WHERE `id_Figurine` = :idFigurine
+      ORDER by `nomRules`";
+      $prep = [['prep' => ':idFigurine', 'variable'=> $idFigurine]];
+      $listeRules = new readDB($triRules, $prep);
+      $dataRules = $listeRules->read();
+      // Extration des armes de la figurine
+      $dotationSQL = "SELECT`id_Armes` FROM `dotationFigurine` WHERE `id_Figurine` = :idFigurine";
+      $param = [['prep'=> ':idFigurine', 'variable'=>$idFigurine]];
+      $listeDotation = new readDB($dotationSQL, $param);
+      $dotation = $listeDotation->read();
+    // Affichage du profil de la figurines :
+    echo '<ul class="ficheFigurine">';
+    echo '<li>'.$dataFigurine[0]['nomFigurine'].' - Prix : '.round($dataFigurine[0]['prixFinal'], 0).' points - Type : '.$this->typeFigurine[$dataFigurine[0]['typeFigurine']]['type'].' -
+    Taille : '.$this->tailleFigurine[$dataFigurine[0]['tailleFigurine']]['taille'].' - DQM : '.$this->dice[$dataFigurine[0]['DQM']]['type'].'</li>';
+    echo '<li>Mouvement : '.$dataFigurine[0]['mouvement'].' "/ '.round($dataFigurine[0]['mouvement'] * 1.5, 0).'" + 1D4" - Vol : '.$this->yes[$dataFigurine[0]['vol']].'
+    Vol stationnaire : '.$this->yes[$dataFigurine[0]['stationnaire']].'</li>';
+    echo '<li>Armure : '.$this->svg[$dataFigurine[0]['svg']]['armure'].' - Point de vie : '.$this->pointDeVie[$dataFigurine[0]['pdv']].'</li>';
+    if($dataFigurine[0]['prixFinal'] > 0) {
+    }
+
+    // affichage des règles spécial de la figurine :
+    if (!empty($dataRules)) {
+      echo '<li>Règles spécial '.$dataFigurine[0]['nomFigurine'].' : ';
+      foreach ($dataRules as $key) {
+        echo $key['nomRules'].'  ';
+      }
+      echo '</li>';
+    }
+        echo '</ul>';
+    // Affichage des armes
+      $armeDoter = new Armes ($this->idUser, $this->idNav);
+      foreach ($dotation as $key => $valeur) {
+        $dataArmes = $armeDoter->readOneArmes($valeur['id_Armes']);
+        $armeDoter->resumeArmeListe($dataArmes, $DC);
+      }
+      echo '-- -- -- -- --';
+    }
   }

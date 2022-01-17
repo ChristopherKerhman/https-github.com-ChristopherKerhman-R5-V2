@@ -147,6 +147,10 @@ box-shadow: inset 0px 0px 5px 0px #28FF00;
    -webkit-box-shadow: inset 0px 0px 5px 0px #28FF00;
    box-shadow: inset 0px 0px 5px 0px #28FF00;
  }
+ #nomFigurine {
+   font-size: 1em;
+   font-weight: bolder;
+ }
  .lienBoutton {
    text-decoration: none;
    background-color: Black;
@@ -249,7 +253,21 @@ section {
    padding-right: 0.5em;
  }
 .resume {
+  list-style: square;
+  list-style-position: outside;
+  font-size: 0.65em;
+  font-family: 'Assistant', sans-serif;
+  font-weight: bolder;
+}
+.RSFiche {
+  margin-left: 1.5em;
   list-style: none;
+  font-family: 'Assistant', sans-serif;
+  font-weight: bolder;
+}
+#listeFiche {
+  padding-right: 0.2em;
+  font-weight: lighter;
 }
  /* formulaires*/
  .formulaire {
