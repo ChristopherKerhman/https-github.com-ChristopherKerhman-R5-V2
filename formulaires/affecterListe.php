@@ -17,15 +17,15 @@ $idFaction = $dotationListe->factionListe($idListe) ;
 // Trie des véhicules
 $vehicule =  new Vehicules($_SESSION['idUser'], $idNav);
 $listeVehicule = $vehicule->triListeVehicule ($idFaction);
-
  ?>
+ <div class="flex-presentation">
+<article class="affecterListe">
  <h3 class="sousTitre">Liste <?=$nameListe[0]['nomListe']?></h3>
  <h4>Les figurines disponibles</h4>
 <?php
 // Affichage des listes des figurines et résumé de leur caractéristique
 foreach ($dataIdF as $key => $value) {
-  $figurine->ficheFigurineCompleteListe ($value['id_Figurine']);
-  echo '<form action="CUD/Create/liste.php" method="post">
+  echo '<form action="CUD/Create/affecterListe.php" method="post">
     <input type="hidden" name="id_Liste" value="'.$idListe.'">
     <input type="hidden" name="id_Figurine" value="'.$value['id_Figurine'].'">
     <label for=numbre>Nombre</label>
@@ -33,11 +33,20 @@ foreach ($dataIdF as $key => $value) {
     <input type="hidden" name="idNav" value="'.$idNav.'">
   <button type="submit" name="button">Ajouter à la liste</button>
   </form>';
+  $figurine->ficheFigurineCompleteListe ($value['id_Figurine']);
 }
  ?>
 <h4>Les véhicules disponibles</h4>
 <?php
 foreach ($listeVehicule as $key => $value) {
+  echo '<form action="CUD/Create/affecterListe.php" method="post">
+        <input type="hidden" name="id_Liste" value="'.$idListe.'">
+    <input type="hidden" name="id_Vehicule" value="'.$value['idVehicule'].'">
+    <label for=numbre>Nombre</label>
+    <input id="number" type="number" name="nbr" min="0" max="12">
+    <input type="hidden" name="idNav" value="'.$idNav.'">
+  <button type="submit" name="button">Ajouter à la liste</button>
+  </form>';
   $dataVehicule = $vehicule->readVehicule($value['idVehicule']);
   $vehicule->ficheListe($dataVehicule);
   $dataArmes = $vehicule->dotationArme($value['idVehicule']);
@@ -46,14 +55,15 @@ foreach ($listeVehicule as $key => $value) {
     $armesVehicule = new Armes($_SESSION['idUser'], $idNav);
     $armesVehicule->ficheArmeListe ($valeur['id_Arme'], $DC);
   }
-  echo '<form action="CUD/Create/liste.php" method="post">
-        <input type="hidden" name="id_Liste" value="'.$idListe.'">
-    <input type="hidden" name="id_Vehicule" value="'.$value['idVehicule'].'">
-    <label for=numbre>Nombre</label>
-    <input id="number" type="number" name="nbr" min="0" max="12">
-    <input type="hidden" name="idNav" value="'.$idNav.'">
-  <button type="submit" name="button">Ajouter à la liste</button>
-  </form>';
 echo '-- -- -- -- -- -- --';
 }
  ?>
+</article>
+<article class="affecterListe">
+     <h3 class="sousTitre">Composition de la liste</h3>
+     <a class="lienBoutton" href="index.php?idNav=74&idListe=<?=$idListe?>">Voir liste à imprimer</a>
+     Prix total de la liste : <?php $valeurListe = $dotationListe->sommeListe($idListe); if($valeurListe == 0) { echo 'Pas encore d\'éléments dans cette liste.';} else { echo round($valeurListe, 0).' points';}?><br />
+     Point de commandement : <?php $pc = $dotationListe->pointCommandement($idListe);echo round($pc,0); if($pc > 1.5) { echo ' points';} else { echo ' point';} ?>
+     <?php $dotationListe->resumeListe($idListe);?>
+</article>
+ </div>

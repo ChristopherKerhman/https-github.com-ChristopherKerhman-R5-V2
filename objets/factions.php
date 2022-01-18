@@ -44,4 +44,14 @@ class Factions {
       echo '</ul>';
     }
   }
+  public function nomFactionEtUnivers($idFaction) {
+    $UF = "SELECT `nomFaction`, `nomUnivers`
+    FROM `factions`
+    INNER JOIN `univers` ON `univers`.`idUnivers` = `factions`.`idUnivers`
+    WHERE `idFaction` = :idFaction";
+    $param = [['prep'=> ':idFaction', 'variable'=>$idFaction]];
+    $getUF = new readDB($UF, $param);
+    $dataUF = $getUF->read();
+    return $dataUF;
+  }
 }

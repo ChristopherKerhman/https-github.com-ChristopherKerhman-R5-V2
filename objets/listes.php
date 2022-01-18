@@ -21,6 +21,12 @@ class Listes {
       ['role'=>'Artillerie', 'valeur'=>2, 'PC'=>0.05]];
       //Navigation
       $this->AL = 73;
+      //Fiche figurine sans modification
+      $this->navG = 63;
+      //Affichage fiche Véhicule sans modification
+      $this->navFV = 70;
+      //Aller vers fiche d'armée :
+      $this->liste = 74;
   }
   public function readListesUser ($ok, $fixer) {
     $triListe = "SELECT `idListe`, `id_Univers`, `id_Faction`, `nomListe`, `nomUnivers`, `nomFaction`, `listeArmee`.`partager`
@@ -77,5 +83,101 @@ class Listes {
     $GetidFaction = new readDB(  $SQLidListe, $param);
     $idFaction = $GetidFaction->read();
     return $idFaction[0]['id_Faction'];
+  }
+  public function resumeListe($idListe) {
+    //Nom figurine + nbr + prix total dans la liste
+    $param = [['prep'=> ':id_Liste', 'variable'=>$idListe]];
+    $sqlFigurine = "SELECT `nomFigurine`, `nbr`, `prixTotal`, `idComposition`, `id_Figurine`
+    FROM `compositionListe`
+    INNER JOIN `figurines` ON `idFigurine` = `id_Figurine`
+    WHERE `id_Liste` = :id_Liste";
+    $getFigurine = new readDB($sqlFigurine, $param);
+    $dataFigurine = $getFigurine->read();
+    // Nom véhicule
+    $sqlVehicule = "SELECT  `nomVehicule`,`nbr`, `prixTotal`, `idComposition`, `id_Vehicule`
+    FROM `compositionListe`
+    INNER JOIN `transport` ON `idVehicule` = `id_Vehicule`
+    WHERE `id_Liste` = :id_Liste";
+    $getVehicule = new readDB($sqlVehicule, $param);
+    $dataVehicule = $getVehicule->read();
+    echo '<h4 class="sousTitreArticle">Figurines</h4>';
+    echo '<ul>';
+    foreach ($dataFigurine as $key => $value) {
+      echo '<li class="line">  <form action="CUD/Delette/affectationListe.php" method="post">
+          <input type="hidden" name="idComposition" value="'.$value['idComposition'].'">
+          <input type="hidden" name="id_Liste" value="'.$idListe.'">
+          <input type="hidden" name="idNav" value="'.$this->idNav.'">
+          <button type="submit" name="button">Effacer</button>
+        </form>
+        <a class="lienBoutton" href="index.php?idNav='.$this->navG.'&idFigurine='.$value['id_Figurine'].'">Fiche</a>
+        '.$value['nbr'].' '.$value['nomFigurine'].' - Prix : '.round($value['prixTotal'], 0).' points
+    </li>';
+    }
+    echo '</ul>';
+    echo '<h4 class="sousTitreArticle">Véhicules</h4>';
+    echo '<ul>';
+    foreach ($dataVehicule as $key => $value) {
+      echo '<li class="line"><form action="CUD/Delette/affectationListe.php" method="post">
+          <input type="hidden" name="idComposition" value="'.$value['idComposition'].'">
+          <input type="hidden" name="id_Liste" value="'.$idListe.'">
+          <input type="hidden" name="idNav" value="'.$this->idNav.'">
+          <button type="submit" name="button">Effacer</button>
+        </form>
+        <a class="lienBoutton" href="index.php?idNav='.$this->navFV.'&idVehicule='.$value['id_Vehicule'].'">Fiche</a>
+        '.$value['nbr'].' '.$value['nomVehicule'].' - Prix : '.round($value['prixTotal'], 0).' points</li>';
+    }
+    echo '</ul>';
+  }
+  public function sommeListe($idListe) {
+    $sommeListe = "SELECT SUM(`prixTotal`) AS `totalListe` FROM `compositionListe` WHERE `id_Liste` = :idListe";
+    $param = [['prep'=> ':idListe', 'variable'=>$idListe]];
+    $getSomme = new readDB($sommeListe, $param);
+    $total = $getSomme->read();
+    return $total[0]['totalListe'];
+  }
+  public function pointCommandement($idListe) {
+    $param = [['prep'=> ':id_Liste', 'variable'=>$idListe]];
+    $sqlFigurine = "SELECT  `id_Figurine`, `typeFigurine`, `nbr`
+    FROM `compositionListe`
+    INNER JOIN `figurines` ON `idFigurine` = `id_Figurine`
+    WHERE `id_Liste` = :id_Liste";
+    $getFigurine = new readDB($sqlFigurine, $param);
+    $dataFigurine = $getFigurine->read();
+    // Nom véhicule
+    $sqlVehicule = "SELECT  `id_Vehicule`, `roleVehicule`, `nbr`
+    FROM `compositionListe`
+    INNER JOIN `transport` ON `idVehicule` = `id_Vehicule`
+    WHERE `id_Liste` = :id_Liste";
+    $getVehicule = new readDB($sqlVehicule, $param);
+    $dataVehicule = $getVehicule->read();
+    $sumPC = 0;
+    foreach ($dataFigurine as $key => $value) {
+      $sumPC = $this->typeFigurine[$value['typeFigurine']]['PC'] * $value['nbr']  + $sumPC;
+    }
+    foreach ($dataVehicule as $key => $value) {
+      $sumPC = $this->typeFigurine[$value['roleVehicule']]['PC'] * $value['nbr'] + $sumPC;
+    }
+    return $sumPC;
+  }
+  public function detailListeFigurine($idListe) {
+    $param = [['prep'=> ':id_Liste', 'variable'=>$idListe]];
+    $sqlFigurine = "SELECT `nomFigurine`,`nbr`, `prixTotal`, `idComposition`, `id_Figurine`
+    FROM `compositionListe`
+    INNER JOIN `figurines` ON `idFigurine` = `id_Figurine`
+    WHERE `id_Liste` = :id_Liste";
+    $getFigurine = new readDB($sqlFigurine, $param);
+    $dataFigurine = $getFigurine->read();
+    return $dataFigurine;
+  }
+  public function detailListeVehicule($idListe) {
+    $param = [['prep'=> ':id_Liste', 'variable'=>$idListe]];
+    // Nom véhicule
+    $sqlVehicule = "SELECT  `nomVehicule`, `nbr`, `prixTotal`, `idComposition`, `id_Vehicule`
+    FROM `compositionListe`
+    INNER JOIN `transport` ON `idVehicule` = `id_Vehicule`
+    WHERE `id_Liste` = :id_Liste";
+    $getVehicule = new readDB($sqlVehicule, $param);
+    $dataVehicule = $getVehicule->read();
+    return $dataVehicule;
   }
 }

@@ -152,6 +152,8 @@ box-shadow: inset 0px 0px 5px 0px #28FF00;
    font-weight: bolder;
  }
  .lienBoutton {
+   text-align: center;
+   max-width: 30%;
    text-decoration: none;
    background-color: Black;
    color:red;
@@ -159,8 +161,8 @@ box-shadow: inset 0px 0px 5px 0px #28FF00;
    font-size: 1em;
    margin-top: 0.5em;
    margin-left: 0.5em;
-   padding-left: 0.4em;
-   padding-right: 0.4em;
+   margin-right: 1em;
+   padding: 3px 10px 3px 10px;
    transition: color 0.5s;
    border-radius: 5px;
    transition: background-color 1s;
@@ -213,6 +215,7 @@ section {
    font-family: 'Quantico', sans-serif;
    margin-left: 1em;
  }
+
  .titreArticle {
    font-size: 2.5em;
    text-align: center;
@@ -270,6 +273,13 @@ section {
   font-weight: lighter;
 }
  /* formulaires*/
+ .affecterListe {
+   display:flex;
+   flex-direction: column;
+   width: 50%;
+   position: relative;
+   border: none;
+ }
  .formulaire {
      display: flex;
      flex-direction: column;
@@ -359,6 +369,10 @@ section {
    border-radius: 5px;
    padding: 0.2em;
  }
+ .containerDoubleColonne {
+   display: flex;
+   flex-direction: row;
+ }
  /* id */
  #titrePrincipal {
      display: flex;
@@ -387,6 +401,13 @@ section {
    transition: background-color 1s;
  }
  /* Lien bouton*/
+/*Liste Blanche*/
+.listeBlanche {
+  background-color: white;
+  color: black;
+  border: none;
+}
+ /*Liste Blanche*/
  /* mobile */
  @media (min-width: 800px ), (orientation: landscape) {
    .flex-center {

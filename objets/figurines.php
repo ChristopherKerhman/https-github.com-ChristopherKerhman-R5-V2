@@ -380,7 +380,7 @@ public function UniversFaction ($idFigurine) {
       $dotation = $listeDotation->read();
     // Affichage du profil de la figurines :
     echo '<ul class="ficheFigurine">';
-    echo '<li>'.$dataFigurine[0]['nomFigurine'].' - Prix : '.round($dataFigurine[0]['prixFinal'], 0).' points - Type : '.$this->typeFigurine[$dataFigurine[0]['typeFigurine']]['type'].' -
+    echo '<li>'.$dataFigurine[0]['nomFigurine'].' - Prix unitaire : '.round($dataFigurine[0]['prixFinal'], 0).' points - Type : '.$this->typeFigurine[$dataFigurine[0]['typeFigurine']]['type'].' -
     Taille : '.$this->tailleFigurine[$dataFigurine[0]['tailleFigurine']]['taille'].' - DQM : '.$this->dice[$dataFigurine[0]['DQM']]['type'].'</li>';
     echo '<li>Mouvement : '.$dataFigurine[0]['mouvement'].' "/ '.round($dataFigurine[0]['mouvement'] * 1.5, 0).'" + 1D4" - Vol : '.$this->yes[$dataFigurine[0]['vol']].'
     Vol stationnaire : '.$this->yes[$dataFigurine[0]['stationnaire']].'</li>';
@@ -403,6 +403,5 @@ public function UniversFaction ($idFigurine) {
         $dataArmes = $armeDoter->readOneArmes($valeur['id_Armes']);
         $armeDoter->resumeArmeListe($dataArmes, $DC);
       }
-      echo '-- -- -- -- --';
     }
   }

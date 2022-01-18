@@ -1,6 +1,8 @@
 
 
 </section>
+</main>
+
 <footer>
   <nav>
   <ul class="flex-center upperSize">
