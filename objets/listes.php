@@ -54,6 +54,8 @@ class Listes {
         <button type="submit" name="button">Effacer</button>
         </form>
           <a class="lienBoutton" href="index.php?idNav='.$this->AL.'&idListe='.$value['idListe'].'">Affecter</a>
+          <a class="lienBoutton" href="index.php?idNav='.$this->liste.'&idListe='.$value['idListe'].'">Voir liste</a>
+
         Nom liste :'.$value['nomListe'].' Univers :'.$value['nomUnivers'].' Faction '.$value['nomFaction'].' Liste partager : '.$share.'
         </li>';
     }
