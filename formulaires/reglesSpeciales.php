@@ -7,7 +7,7 @@ include 'stockageData/typeRules.php';
   <form class="formulaire" action="CUD/Create/regleSpecial.php" method="post">
     <label for="nom">Nom de la règle spéciale</label>
     <input id="nom" type="text" name="nomRules">
-    <label for="description">Description rules</label>
+    <label for="description">Description régle spéciale</label>
     <textarea id="description" name="descriptionRules" rows="8" cols="80">
     </textarea>
     <label for="mod">Modificateur</label>

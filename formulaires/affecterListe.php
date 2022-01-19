@@ -31,7 +31,7 @@ foreach ($dataIdF as $key => $value) {
     <label for=numbre>Nombre</label>
     <input id="number" type="number" name="nbr" min="0" max="12">
     <input type="hidden" name="idNav" value="'.$idNav.'">
-  <button type="submit" name="button">Ajouter à la liste</button>
+  <button type="submit" name="button">Add '.$value['nomFigurine'].'</button>
   </form>';
   $figurine->ficheFigurineCompleteListe ($value['id_Figurine']);
 }
@@ -45,7 +45,7 @@ foreach ($listeVehicule as $key => $value) {
     <label for=numbre>Nombre</label>
     <input id="number" type="number" name="nbr" min="0" max="12">
     <input type="hidden" name="idNav" value="'.$idNav.'">
-  <button type="submit" name="button">Ajouter à la liste</button>
+  <button type="submit" name="button">Add '.$value['nomVehicule'].'</button>
   </form>';
   $dataVehicule = $vehicule->readVehicule($value['idVehicule']);
   $vehicule->ficheListe($dataVehicule);
@@ -55,13 +55,17 @@ foreach ($listeVehicule as $key => $value) {
     $armesVehicule = new Armes($_SESSION['idUser'], $idNav);
     $armesVehicule->ficheArmeListe ($valeur['id_Arme'], $DC);
   }
-echo '-- -- -- -- -- -- --';
 }
  ?>
 </article>
+
 <article class="affecterListe">
-     <h3 class="sousTitre">Composition de la liste</h3>
-     <a class="lienBoutton" href="index.php?idNav=74&idListe=<?=$idListe?>">Voir liste à imprimer</a>
+       <a class="lienBoutton" href="index.php?idNav=<?php $dotationListe->versListe(); ?>&idListe=<?=$idListe?>">Voir liste à imprimer</a>
+        <?php $dotationListe->updatePartage ($idListe); ?>
+  <h4 class="sousTitre">Composition de la liste</h4>
+
+
+
      Prix total de la liste : <?php $valeurListe = $dotationListe->sommeListe($idListe); if($valeurListe == 0) { echo 'Pas encore d\'éléments dans cette liste.';} else { echo round($valeurListe, 0).' points';}?><br />
      Point de commandement : <?php $pc = $dotationListe->pointCommandement($idListe);echo round($pc,0); if($pc > 1.5) { echo ' points';} else { echo ' point';} ?>
      <?php $dotationListe->resumeListe($idListe);?>

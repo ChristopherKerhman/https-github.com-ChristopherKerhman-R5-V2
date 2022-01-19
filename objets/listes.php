@@ -26,7 +26,10 @@ class Listes {
       //Affichage fiche Véhicule sans modification
       $this->navFV = 70;
       //Aller vers fiche d'armée :
-      $this->liste = 74;
+      $this->liste = 76;
+  }
+  public function versListe() {
+    echo $this->liste;
   }
   public function readListesUser ($ok, $fixer) {
     $triListe = "SELECT `idListe`, `id_Univers`, `id_Faction`, `nomListe`, `nomUnivers`, `nomFaction`, `listeArmee`.`partager`
@@ -63,9 +66,10 @@ class Listes {
   }
   public function triFigurineListe ($idListe) {
     // Recherche de l'idFaction de la liste et stokage
-    $listeIdFaction = "SELECT  `id_Figurine`
+    $listeIdFaction = "SELECT  `id_Figurine`, `nomFigurine`
     FROM `listeArmee`
     INNER JOIN `AffecterFigurineUF` ON `AffecterFigurineUF`.`id_Faction` = `listeArmee`.`id_Faction`
+    INNER JOIN `figurines` ON `idFigurine` = `id_Figurine`
     WHERE `idListe` = :idListe";
     $param = [['prep'=>':idListe', 'variable'=>$idListe]];
     $readlisteIdFigurine = new readDB($listeIdFaction, $param);
@@ -181,5 +185,29 @@ class Listes {
     $getVehicule = new readDB($sqlVehicule, $param);
     $dataVehicule = $getVehicule->read();
     return $dataVehicule;
+  }
+  public function updatePartage ($idListe) {
+    $param = [['prep'=> ':id_Liste', 'variable'=>$idListe]];
+    $partage = "SELECT `partager`, `nomListe` FROM `listeArmee` WHERE `idListe` = :id_Liste";
+    $readPartage = new readDB($partage, $param);
+    $dataPartage = $readPartage->read();
+    echo '<form action="CUD/Update/liste.php" method="post">
+          <label for="nom">Nom liste</label>
+          <input type="text" name="nomListe" value="'.$dataPartage[0]['nomListe'].'" />
+           <label for="share">Partage de la liste</label>
+           <select name="partager">';
+           if ($dataPartage[0]['partager'] > 0) {
+             echo '<option value="0">Non</option>
+             <option value="1" selected>Oui</option>';
+
+           } else {
+              echo '<option value="0" selected>Non</option>
+              <option value="1">Oui</option>';
+           }
+    echo  '</select>
+          <input type="hidden" name="idListe" value="'.$idListe.'" />
+          <input type="hidden" name="idNav" value="'.$this->idNav.'" />
+          <button type="submit" name="button">Modifier</button>
+         </form>';
   }
 }

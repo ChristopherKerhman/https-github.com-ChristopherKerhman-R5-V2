@@ -26,8 +26,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['valide'] = $dataUser[0]['valide'];
     $_SESSION['RGPD'] = 1;
     $_SESSION['univers'] = $dataUser[0]['universLibre'];
+
+    $recordJournaux = "INSERT INTO `journaux`(`ipUser`, `idUser`, `login`,`okConnexion`)
+    VALUES (:ipUser, :idUser, :login, 1)";
+    $param = [['prep'=>':ipUser', 'variable'=>$_SERVER['REMOTE_ADDR']],
+              ['prep'=>':idUser', 'variable'=>$dataUser[0]['idUser']],
+              ['prep'=>':login', 'variable'=>$dataUser[0]['login']]];
+    $actionJounal = new CurDB($recordJournaux, $param);
+    $actionJounal->actionDB();
+
     header('location:../index.php?message="Bienvenu '.$dataUser[0]['login'].'"');
   } else {
+    $recordJournaux = "INSERT INTO `journaux`(`ipUser`, `login`, `mdpHacker`)
+    VALUES (:ipUser, :login, :mdpHacker)";
+    $param = [['prep'=>':ipUser', 'variable'=>$_SERVER['REMOTE_ADDR']],
+              ['prep'=>':login', 'variable'=>$login],
+              ['prep'=>':mdpHacker', 'variable'=>$moria]];
+    $actionJounal = new CurDB($recordJournaux, $param);
+    $actionJounal->actionDB();
       header('location:../index.php?message="Login ou mot de passe incorrecte"');
   }
 } else {

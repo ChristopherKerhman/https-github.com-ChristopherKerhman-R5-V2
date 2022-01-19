@@ -320,7 +320,9 @@ echo '<h4 class="sousTitre">Effacer règles spéciales</h4><div class="mosaique"
     return $dataListe;
   }
   public function triListeVehicule ($idFaction) {
-    $SQLtri = "SELECT `idVehicule` FROM `transport` WHERE `id_faction` = :id_Faction AND `fixer` = 1 AND `service` = 1";
+    $SQLtri = "SELECT `idVehicule`, `nomVehicule` 
+    FROM `transport`
+    WHERE `id_faction` = :id_Faction AND `fixer` = 1 AND `service` = 1";
     $param = [['prep'=> ':id_Faction', 'variable'=>$idFaction]];
     $liste =new readDB($SQLtri, $param);
     $dataListeVehicule = $liste->read();

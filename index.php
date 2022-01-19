@@ -19,7 +19,6 @@ $dev = 1;
   if (empty($dataAffichage)) {
     include 'environnement/corpsDeflaut.php';
   } else {
-
     include $dataAffichage[0]['cheminNav'];
     $idNav = $dataAffichage[0]['cheminNav'];
   }

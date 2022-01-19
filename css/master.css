@@ -23,7 +23,9 @@ Sous Titre alternatif:
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Quantico&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200&family=Keania+One&family=Major+Mono+Display&display=swap');
  /*Element generaux*/
-
+html {
+  scroll-behavior: auto;
+}
 body {
 
   background-image: repeating-linear-gradient(0deg, hsl(87,0%,5%) 0px, rgb(41, 41, 41) 1px,transparent 0px, transparent 30px),repeating-linear-gradient(90deg, rgb(41, 41, 41) 0px, rgb(41, 41, 41) 1px,
@@ -38,7 +40,7 @@ body {
 article {
   background-color:hsl(87,0%,5%, 75%);
   border: 1px solid white;
-  border-radius: 0px 00px 50px 0px;
+  border-radius: 0px 0px 50px 0px;
   margin-top: 0.5em;
   padding: 0.5em;
   text-align: justify;
@@ -195,7 +197,6 @@ section {
    flex-direction: column;
    justify-content: center;
    align-content: center;
-
  }
  /*Titre + Presentation générale*/
  .titre {
@@ -307,6 +308,25 @@ section {
   font-size: 0.7em;
 }
  /* formulaires*/
+/*Galerie*/
+.images {
+  cursor: pointer;
+  border: 3px solid #EDE7D1ff;
+  border-radius: 0px 0px 50px 0px;
+}
+/*Galerie*/
+/*Table*/
+table, td {
+  align-content: center;
+  text-align: center;
+  border: 1px solid #EDE7D1ff;
+}
+td {
+  padding: 0.5em;
+  border-radius: none;
+}
+/*Table*/
+
  /*Flex box*/
  .mosaique {
   padding: 20px 0px 20px 0px;
@@ -346,11 +366,12 @@ section {
 
  }
  .flex-ligne {
-   margin: 1em 1em 1em 1em;;
+  margin: 1em 1em 1em 1em;;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: center;
+  border: none;
  }
 .flex-presentation {
      margin: 1em 1em 1em 1em;
