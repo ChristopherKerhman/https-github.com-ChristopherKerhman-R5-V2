@@ -28,11 +28,9 @@ class Armes {
     }
     echo '</ul>';
   }
-
-
   public function listeArmes ($fixer) {
     // Paramètre pour fixer, 0 -> Non fixer, 1 -> fixer
-    $SQL = "SELECT `idArmes`, `id_Univers`, `nomUnivers`, `nomFaction`, `nom`, `typeArme`  FROM `armes`
+    $SQL = "SELECT `idArmes`, `id_Univers`, `nomUnivers`, `nomFaction`, `nom`, `typeArme`, `prix`  FROM `armes`
     INNER JOIN `univers` ON `id_Univers` = `idUnivers`
       INNER JOIN `factions` ON `id_Faction` = `idFaction`
     WHERE `armes`.`idCreateur` = :idUser AND `fixer` = $fixer AND `armes`.`valide` = 1 ORDER BY `nomUnivers`, `nomFaction`, `nom`";
@@ -46,25 +44,28 @@ class Armes {
           <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
           <input type="hidden" name="idNav" value="'.$this->idNav.'">
           <button type="submit" name="button">Mettre hors service</button>
-        </form>';}
-        echo 'Univers '.$key['nomUnivers'].' Faction '.$key['nomFaction'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']].'
-          <form action="CUD/Update/fixer.php" method="post">
-            <input type="hidden" name="fixer" value="'.$fixer.'">
-            <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
-            <input type="hidden" name="idNav" value="'.$this->idNav.'">';
-            if ($fixer == 1) {
-            echo '<a class="lienBoutton" href="index.php?idNav='.$this->adressFicheFixer.'&idArmes='.$key['idArmes'].'">Fiche</a>
-          ';
-          } else {
-            echo '<button type="submit" name="button">Fixer</button>
-            <form action="CUD/Delette/armes.php" method="post">
-              <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
-              <input type="hidden" name="idNav" value="'.$this->idNav.'">
-              <button type="submit" name="button">Effacer</button>
-            </form>
-            <a class="lienBoutton" href="index.php?idNav='.$this->adressFicheFixer.'&idArmes='.$key['idArmes'].'">Fiche</a>';
+        </form>
+        <a class="lienBoutton" href="index.php?idNav='.$this->adressFicheFixer.'&idArmes='.$key['idArmes'].'">Fiche</a>';
+      } else {
+      echo '
+      <form action="CUD/Update/fixer.php" method="post">
+        <input type="hidden" name="fixer" value="'.$fixer.'">
+        <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
+        <input type="hidden" name="idNav" value="'.$this->idNav.'">
+        <button type="submit" name="button">Fixer</button>
+        </form>
+      <form action="CUD/Delette/armes.php" method="post">
+        <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
+        <input type="hidden" name="idNav" value="'.$this->idNav.'">
+        <button type="submit" name="button">Effacer</button>
+      </form>
+      <a class="lienBoutton" href="index.php?idNav='.$this->adressFicheFixer.'&idArmes='.$key['idArmes'].'">Fiche</a>';
+    }
+        echo 'Univers '.$key['nomUnivers'].' Faction '.$key['nomFaction'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']];
+          if ($fixer == 1) {
+            echo ' / Coef ='.round($key['prix'],3);
           }
-        echo '</form></li>';
+        echo'</li>';
       }
     }
     public function sansFactions() {

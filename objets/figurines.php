@@ -335,27 +335,16 @@ public function UniversFaction ($idFigurine) {
           }
       echo '</div>';
     }
-    public function listeFigOk() {
-      $triOk = "SELECT `idFigurine`, `nomFigurine`, `typeFigurine`, `nomFaction`, `nomUnivers`
-      FROM `figurines`
-      INNER JOIN `AffecterFigurineUF` ON `id_Figurine` = `idFigurine`
-      INNER JOIN `factions` ON `idFaction` = `AffecterFigurineUF`.`id_Faction`
-      INNER JOIN `univers` ON `univers`.`idUnivers` = `AffecterFigurineUF`.`id_Univers`
-      WHERE `id_User` = :idUser AND `liste` = 1
-      ORDER BY `id_Faction`,`nomFigurine`";
-      $prep = [['prep'=>'idUser', 'variable'=>$this->idUser]];
-
-      $liste = new readDB ($triOk, $prep);
-      $dataListe = $liste->read();
+    public function listeFigOk($dataListe) {
       echo '<h3 class="sousTitre">Liste des figurines près pour le combat</h3><ul>';
       foreach ($dataListe as $key) {
-        echo '<li>'.$key['nomUnivers'].' '.$key['nomFaction'].'
-        '.$key['nomFigurine'].' '.$this->typeFigurine[$key['typeFigurine']]['type'].'
-          <a class="lienBoutton" href="index.php?idNav='.$this->navI.'&idFigurine='.$key['idFigurine'].'">Fiche</a></li>';
+        echo '<li><a class="lienBoutton" href="index.php?idNav='.$this->navI.'&idFigurine='.$key['idFigurine'].'">Fiche</a>
+        '.$key['nomUnivers'].' '.$key['nomFaction'].'
+        '.$key['nomFigurine'].' '.$this->typeFigurine[$key['typeFigurine']]['type'].' Prix '.round($key['prixFinal'], 0).' points</li>';
       }
       echo '</ul>';
     }
-    public function ficheFigurineCompleteListe ($idFigurine) {
+    public function ficheFigurineCompleteListe($idFigurine) {
       // Element de la fiche de la figurine :
       $fiche = "SELECT `idFigurine`, `id_User`, `nomFigurine`, `description`, `typeFigurine`, `tailleFigurine`, `DQM`, `DC`,
       `svg`, `pdv`, `mouvement`, `valide`, `partager`, `figurineFixer`, `figurineAffecter`, `prix`, `prixFinal`, `vol`, `stationnaire`
@@ -381,7 +370,7 @@ public function UniversFaction ($idFigurine) {
       $dotation = $listeDotation->read();
     // Affichage du profil de la figurines :
     echo '<ul class="ficheFigurine">';
-    echo '<li>'.$dataFigurine[0]['nomFigurine'].' - Prix unitaire : '.round($dataFigurine[0]['prixFinal'], 0).' points - Type : '.$this->typeFigurine[$dataFigurine[0]['typeFigurine']]['type'].' -
+    echo '<li>Type : '.$this->typeFigurine[$dataFigurine[0]['typeFigurine']]['type'].' / '.$dataFigurine[0]['nomFigurine'].' - Prix unitaire : '.round($dataFigurine[0]['prixFinal'], 0).' points  -
     Taille : '.$this->tailleFigurine[$dataFigurine[0]['tailleFigurine']]['taille'].' - DQM : '.$this->dice[$dataFigurine[0]['DQM']]['type'].'</li>';
     echo '<li>Mouvement : '.$dataFigurine[0]['mouvement'].' "/ '.round($dataFigurine[0]['mouvement'] * 1.5, 0).'" + 1D4" - Vol : '.$this->yes[$dataFigurine[0]['vol']].'
     Vol stationnaire : '.$this->yes[$dataFigurine[0]['stationnaire']].'</li>';

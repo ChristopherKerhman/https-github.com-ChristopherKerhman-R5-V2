@@ -7,7 +7,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
   $idNav = filter($_POST['idNav']);
   $id = filter($_POST['id']);
   $prepare = [['prep'=> ':id', 'variable' => $id],['prep'=> ':idUser', 'variable' => $_SESSION['idUser']]];
-  $requetteSQL = "DELETE FROM `transport` WHERE `idVehicule` = :id AND `idUser` = :idUser";
+  $requetteSQL = "DELETE FROM `transport` WHERE `idVehicule` = :id AND `idUser` = :idUser;
+                  DELETE FROM `compositionListe` WHERE `id_Vehicule` = :id";
   $action = new CurDB($requetteSQL, $prepare);
   $action->actionDB();
   header('location:../../index.php?idNav='.$idNav.'&message=Véhicule effacé.');

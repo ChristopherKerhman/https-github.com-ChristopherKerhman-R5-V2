@@ -29,11 +29,11 @@ foreach ($dataIdF as $key => $value) {
     <input type="hidden" name="id_Liste" value="'.$idListe.'">
     <input type="hidden" name="id_Figurine" value="'.$value['id_Figurine'].'">
     <label for=numbre>Nombre</label>
-    <input id="number" type="number" name="nbr" min="0" max="12">
+    <input id="number" type="number" name="nbr" min="0" max="12" value="1">
     <input type="hidden" name="idNav" value="'.$idNav.'">
   <button type="submit" name="button">Add '.$value['nomFigurine'].'</button>
   </form>';
-  $figurine->ficheFigurineCompleteListe ($value['id_Figurine']);
+  $figurine->ficheFigurineCompleteListe($value['id_Figurine']);
 }
  ?>
 <h4>Les véhicules disponibles</h4>
@@ -43,7 +43,7 @@ foreach ($listeVehicule as $key => $value) {
         <input type="hidden" name="id_Liste" value="'.$idListe.'">
     <input type="hidden" name="id_Vehicule" value="'.$value['idVehicule'].'">
     <label for=numbre>Nombre</label>
-    <input id="number" type="number" name="nbr" min="0" max="12">
+    <input id="number" type="number" name="nbr" min="0" max="12" value="1">
     <input type="hidden" name="idNav" value="'.$idNav.'">
   <button type="submit" name="button">Add '.$value['nomVehicule'].'</button>
   </form>';

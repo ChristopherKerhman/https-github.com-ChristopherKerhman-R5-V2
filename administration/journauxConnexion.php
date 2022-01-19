@@ -27,10 +27,6 @@ $nbrArticle = $dataNbrC[0]['nbrConnexion'];
 $pages = ceil($nbrArticle/$parPage);
 // Calcul du premier article dans la page.
 $premier = ($currentPage * $parPage) - $parPage;
-/*$requetteSQL = "SELECT `idConnexion`, `ipUser`, `journaux`.`idUser`, `journaux`.`login`, `mdpHacker`, `journaux`.`dateHeure`, `okConnexion`, `valide`
-FROM `journaux`
-INNER JOIN `users` ON `journaux`.`idUser` = `users`.`idUser`
-ORDER BY `idConnexion` DESC LIMIT {$premier}, {$parPage}";*/
 $requetteSQL = "SELECT *
 FROM `journaux`
 ORDER BY `idConnexion` DESC LIMIT {$premier}, {$parPage}";

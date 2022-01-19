@@ -64,13 +64,14 @@ class Listes {
     }
     echo '</ul>';
   }
-  public function triFigurineListe ($idListe) {
+  public function triFigurineListe($idListe) {
     // Recherche de l'idFaction de la liste et stokage
-    $listeIdFaction = "SELECT  `id_Figurine`, `nomFigurine`
+    $listeIdFaction = "SELECT  `id_Figurine`, `nomFigurine`, `typeFigurine`
     FROM `listeArmee`
     INNER JOIN `AffecterFigurineUF` ON `AffecterFigurineUF`.`id_Faction` = `listeArmee`.`id_Faction`
     INNER JOIN `figurines` ON `idFigurine` = `id_Figurine`
-    WHERE `idListe` = :idListe";
+    WHERE `idListe` = :idListe
+    ORDER BY `typeFigurine` DESC";
     $param = [['prep'=>':idListe', 'variable'=>$idListe]];
     $readlisteIdFigurine = new readDB($listeIdFaction, $param);
     $dataIdFigurine = $readlisteIdFigurine->read();
@@ -170,7 +171,8 @@ class Listes {
     $sqlFigurine = "SELECT `nomFigurine`,`nbr`, `prixTotal`, `idComposition`, `id_Figurine`
     FROM `compositionListe`
     INNER JOIN `figurines` ON `idFigurine` = `id_Figurine`
-    WHERE `id_Liste` = :id_Liste";
+    WHERE `id_Liste` = :id_Liste
+    ORDER BY `typeFigurine` DESC";
     $getFigurine = new readDB($sqlFigurine, $param);
     $dataFigurine = $getFigurine->read();
     return $dataFigurine;
@@ -181,7 +183,8 @@ class Listes {
     $sqlVehicule = "SELECT  `nomVehicule`, `nbr`, `prixTotal`, `idComposition`, `id_Vehicule`
     FROM `compositionListe`
     INNER JOIN `transport` ON `idVehicule` = `id_Vehicule`
-    WHERE `id_Liste` = :id_Liste";
+    WHERE `id_Liste` = :id_Liste
+    ORDER BY `roleVehicule` DESC";
     $getVehicule = new readDB($sqlVehicule, $param);
     $dataVehicule = $getVehicule->read();
     return $dataVehicule;
