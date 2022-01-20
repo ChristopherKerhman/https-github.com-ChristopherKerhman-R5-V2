@@ -5,28 +5,28 @@ class Vehicules {
   public function __construct($idUser, $idNav) {
     $this->idUser = $idUser;
     $this->idNav = $idNav;
-    $this->typeVehicule = [['type'=>'Civile', 'valeur'=>1], ['type'=>'Militaire', 'valeur'=>2]];
+    $this->typeVehicule = [['type'=>'Civile', 'valeur'=>0.5], ['type'=>'Militaire', 'valeur'=>2]];
     $this->roleVehicule = [['role'=>'transport', 'valeur'=>1, 'PC'=>0.05],
                           ['role'=>'Soutient tactique', 'valeur'=>2, 'PC'=>1],
-                          ['role'=>'Attaque rapide', 'valeur'=>2.5, 'PC'=>0.5],
+                          ['role'=>'Attaque rapide', 'valeur'=>3, 'PC'=>0.5],
                           ['role'=>'Véhicule de commandement', 'valeur'=>5, 'PC'=>2],
-                          ['role'=>'Artillerie', 'valeur'=>2, 'PC'=>0.05]];
-    $this->dice =[['type' => 'D6', 'valeur' => 2],
-                  ['type' => 'D8', 'valeur' => 4],
-                  ['type' => 'D10', 'valeur' => 6],
-                  ['type' => 'D12', 'valeur' => 8]];
-    $this->tailleVehicule = [ ['taille' => 'Petit', 'valeur' => 1],
-                              ['taille' => 'Standard', 'valeur' => 2],
-                              ['taille' => 'Grand', 'valeur' => 4],
-                              ['taille' => 'Géant', 'valeur' => 8]];
+                          ['role'=>'Artillerie', 'valeur'=>1, 'PC'=>0.05]];
+    $this->dice =[['type' => 'D6', 'valeur' => 1],
+                  ['type' => 'D8', 'valeur' => 2],
+                  ['type' => 'D10', 'valeur' => 3],
+                  ['type' => 'D12', 'valeur' => 4]];
+    $this->tailleVehicule = [ ['taille' => 'Petit', 'valeur' => 0.75],
+                              ['taille' => 'Standard', 'valeur' => 0.5],
+                              ['taille' => 'Grand', 'valeur' => 0.45],
+                              ['taille' => 'Géant', 'valeur' => 0.4]];
     $this->pds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
     $this->equipage = [['nbre'=>0, 'valeur'=>0],
-                      ['nbre'=> 1, 'valeur'=>1],
-                      ['nbre'=> 2, 'valeur'=>2],
-                      ['nbre'=> 3, 'valeur'=>3],
-                      ['nbre'=> 4, 'valeur'=>4],
-                      ['nbre'=> 5, 'valeur'=>6],
-                      ['nbre'=> 6, 'valeur'=>8]];
+                      ['nbre'=> 1, 'valeur'=>0.5],
+                      ['nbre'=> 2, 'valeur'=>1],
+                      ['nbre'=> 3, 'valeur'=>1.5],
+                      ['nbre'=> 4, 'valeur'=>2],
+                      ['nbre'=> 5, 'valeur'=>3],
+                      ['nbre'=> 6, 'valeur'=>4]];
     $this->passager = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     $this->svgVehicule = [['armure' => 'Aucune', 'valeur' => 0.1],
                           ['armure' => '6+', 'valeur' => 0.12],
@@ -320,7 +320,7 @@ echo '<h4 class="sousTitre">Effacer règles spéciales</h4><div class="mosaique"
     return $dataListe;
   }
   public function triListeVehicule ($idFaction) {
-    $SQLtri = "SELECT `idVehicule`, `nomVehicule` 
+    $SQLtri = "SELECT `idVehicule`, `nomVehicule`
     FROM `transport`
     WHERE `id_faction` = :id_Faction AND `fixer` = 1 AND `service` = 1";
     $param = [['prep'=> ':id_Faction', 'variable'=>$idFaction]];

@@ -382,7 +382,7 @@ public function UniversFaction ($idFigurine) {
     if (!empty($dataRules)) {
       echo '<li>Règles spécial '.$dataFigurine[0]['nomFigurine'].' : ';
       foreach ($dataRules as $key) {
-        echo $key['nomRules'].'  ';
+        echo $key['nomRules'].' . ';
       }
       echo '</li>';
     }

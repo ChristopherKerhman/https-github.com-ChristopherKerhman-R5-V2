@@ -1,7 +1,7 @@
 <?php
 session_start();
 $titre = "R5";
-$sousTitre = "Le jeu d'escarmouches multi-vers";
+$sousTitre = "Le jeu d'escarmouches multivers";
 function filter($data) {
   $data = trim($data);
   $data = stripslashes($data);

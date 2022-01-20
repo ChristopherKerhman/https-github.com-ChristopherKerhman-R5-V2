@@ -27,6 +27,8 @@ class Listes {
       $this->navFV = 70;
       //Aller vers fiche d'armée :
       $this->liste = 76;
+      // Aller vers liste public :
+      $this->publicListe = 78;
   }
   public function versListe() {
     echo $this->liste;
@@ -212,5 +214,17 @@ class Listes {
           <input type="hidden" name="idNav" value="'.$this->idNav.'" />
           <button type="submit" name="button">Modifier</button>
          </form>';
+  }
+  public function listePublique($data) {
+    echo '<ul>';
+    foreach ($data as $key => $value) {
+      $prixListe = new Listes(0, $this->idNav);
+      $prix = $prixListe->sommeListe($value['idListe']);
+      echo '<li>
+      <a class="lienBoutton" href="index.php?idNav='.$this->publicListe.'&idListe='.$value['idListe'].'">Voir liste</a>
+      '.$value['nomUnivers'].' - '.$value['nomFaction'].' - '.$value['nomListe'].' '.round($prix, 0).' points / Créateur '.$value['login'].'
+      </li>';
+    }
+    echo '</ul>';
   }
 }

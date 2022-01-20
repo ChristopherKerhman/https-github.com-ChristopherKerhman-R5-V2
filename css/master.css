@@ -78,6 +78,9 @@ article {
  ul {
   list-style: none;
  }
+ .listesPublique {
+   list-style: none;
+ }
  li {
    padding: 0.2em;
  }

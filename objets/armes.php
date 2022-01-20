@@ -172,7 +172,7 @@ class Armes {
         }
       echo '<li>Coefficient : '.round($puissanceArme, 3).'</li></ul>';
     }
-    public function ficheArmeListe ($idArmes, $puissanceArme) {
+    public function ficheArmeListe($idArmes, $puissanceArme) {
       $SQL = "SELECT `idArmes`, `id_Univers`, `id_Faction`, `nom`, `description`, `typeArme`, `puissance`, `maxRange`,
       `surPuissance`, `sort`, `assaut`, `couverture`, `cadenceTir`, `lourd`, `puissanceExplosif`, `gabarit`, `fixer`, `prix`, `nomUnivers`,
       `nomFaction`
@@ -191,11 +191,11 @@ class Armes {
       echo
       '<ul class="ficheFigurine">
         <li>'.$dataArme[0]['nom'].' Type d\'arme : '.$this->typeArme[$dataArme[0]['typeArme']].'</li>
-        <li>Puissance '.$dataArme[0]['puissance'].'D'.$plus;
+        <li>Puissance '.$dataArme[0]['puissance'].'D'.$plus.' ';
         if($dataArme[0]['typeArme'] != 0) {
-          echo 'Portée tactique : '.$dataArme[0]['maxRange'].' pouces Arme lourde : '.$this->yes[$dataArme[0]['lourd']].' - Arme d\'assaut : '.$this->yes[$dataArme[0]['assaut']].'';
+          echo 'Portée tactique : '.$dataArme[0]['maxRange'].'" Arme lourde : '.$this->yes[$dataArme[0]['lourd']].' - Arme d\'assaut : '.$this->yes[$dataArme[0]['assaut']].'';
           if ($dataArme[0]['couverture'] != 0) {
-            echo 'Couverture : '.$this->yes[$dataArme[0]['couverture']].' - Cadence de tir : '.$dataArme[0]['cadenceTir'].' par tour ';
+            echo ' - Couverture : '.$this->yes[$dataArme[0]['couverture']].' - Cadence de tir : '.$dataArme[0]['cadenceTir'].' par tour ';
           }
         }
         if ($dataArme[0]['puissanceExplosif'] != 0) {
@@ -215,7 +215,7 @@ class Armes {
         if (!empty($dataRules)) {
           echo '<strong>Règles spéciales : ';
           foreach ($dataRules as $key) {
-            echo $key['nomRules'].' ';
+            echo $key['nomRules'].' . ';
           }
           echo '</strong>';
         }
@@ -232,7 +232,7 @@ class Armes {
       if (!empty($dataRules)) {
         echo '<strong>Règles spéciales : ';
         foreach ($dataRules as $key) {
-          echo $key['nomRules'].' ';
+          echo $key['nomRules'].' . ';
         }
         echo '</strong>';
       }
@@ -425,7 +425,7 @@ class Armes {
         if (!empty($ListeRules[0]['nomRules'])) {
           echo '<li class="RSFiche">Régles spéciales '.$key['nom'].' : ';
           foreach ($ListeRules as $key) {
-            echo '<strong id="listeFiche">'.$key['nomRules'].'</strong>';
+            echo '<strong id="listeFiche">'.$key['nomRules'].'</strong> . ';
           }
           echo '</li>';
         }
