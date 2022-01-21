@@ -5,8 +5,18 @@
 
 <footer>
   <nav>
+    <?php
+      // Menu dynamique bas
+      $triLien = "SELECT `idNav`, `nomLien`, `cheminNav` FROM `nav` WHERE `centrale` = 7 AND `valide` = 1";
+      $param = [];
+      $lienBas = new readDB($triLien, $param);
+      $dataLienBas = $lienBas->read();
+
+     ?>
   <ul class="flex-center upperSize">
-    <li><a href="contact.php">Formulaire de contact</a></li>
+    <?php foreach ($dataLienBas as $key) {
+      echo '<li><a href="index.php?idNav='.$key['idNav'].'">'.$key['nomLien'].'</a></li>';
+    } ?>
     <li><a href="https://blog.ludis-r5.fr">Le blog de ludis R5</a></li>
     <li> <a href="https://aidedejeu.ludis-r5.fr">Aide de jeu en ligne</a></li>
   </ul>

@@ -1,5 +1,5 @@
 <?php
 if ($_SESSION['role'] < 2) {
-  header('location:https://www.google.com/');
+  header('location:https://blog.ludis-r5.fr/');
 }
  ?>

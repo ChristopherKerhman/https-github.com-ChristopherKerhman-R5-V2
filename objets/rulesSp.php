@@ -15,7 +15,7 @@ class Rules {
     <div class="mosaique">';
         foreach ($data as $key) {
           echo '
-          <form class="item" action="CUD/Create/affectationRegSep.php" method="post">
+          <form action="CUD/Create/affectationRegSep.php" method="post">
             <input type="hidden" name="id" value="'.$id.'">
             <input type="hidden" name="type" value="'.$type.'">
             <input type="hidden" name="idRules" value="'.$key['idRules'].'">
@@ -25,5 +25,4 @@ class Rules {
     }
     echo '</div>';
   }
-
 }
