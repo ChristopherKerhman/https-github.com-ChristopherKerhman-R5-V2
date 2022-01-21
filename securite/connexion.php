@@ -28,7 +28,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['univers'] = $dataUser[0]['universLibre'];
 
     $recordJournaux = "INSERT INTO `journaux`(`ipUser`, `idUser`, `login`,`okConnexion`)
-    VALUES (:ipUser, :idUser, :login, 1)";
+    VALUES (:ipUser, :idUser, :login, 1);
+    UPDATE `users` SET `token`= 0 WHERE `idUser` = :idUser";
     $param = [['prep'=>':ipUser', 'variable'=>$_SERVER['REMOTE_ADDR']],
               ['prep'=>':idUser', 'variable'=>$dataUser[0]['idUser']],
               ['prep'=>':login', 'variable'=>$dataUser[0]['login']]];
