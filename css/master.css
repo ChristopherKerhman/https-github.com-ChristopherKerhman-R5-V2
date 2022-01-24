@@ -27,7 +27,6 @@ html {
   scroll-behavior: auto;
 }
 body {
-
   background-image: repeating-linear-gradient(0deg, hsl(87,0%,5%) 0px, rgb(41, 41, 41) 1px,transparent 0px, transparent 30px),repeating-linear-gradient(90deg, rgb(41, 41, 41) 0px, rgb(41, 41, 41) 1px,
   transparent 0px, transparent 30px),linear-gradient(90deg, hsl(87,0%,5%),hsl(87,0%,5%));12px),
   linear-gradient(90deg, rgb(42,0,0),rgb(42,0,0));
@@ -125,7 +124,7 @@ box-shadow: inset 0px 0px 5px 0px red;
    border-radius: 5px;
    transition: background-color 1s, color 1s;
    -webkit-box-shadow: inset 0px 0px 5px 0px red;
-box-shadow: inset 0px 0px 5px 0px red;
+   box-shadow: inset 0px 0px 5px 0px red;
  }
  #clone {
    background-color: Black;
@@ -538,3 +537,38 @@ td {
     border-radius: 0px 0px 10px 0px;
   }
 }
+/*Modal Magic règles spéciales*/
+.dialogue {
+  opacity: 0.95;
+  width: 95%;
+  max-width: 50vh;
+  min-width: 20vh;
+  padding: 30px;
+  font-family: 'Quantico', sans-serif;
+  font-size: 0.9em;
+  background-color: #1C1B20ff;
+  color: #aaa;
+  border-radius: 5px;
+  position: fixed;
+  top: 20%;
+  left: 35%;
+  order: 0;
+  border: 2px solid rgba(237, 231, 209, 1);
+  border-radius: 0px 0px 30px 0px;
+  text-align: justify;
+}
+#top {
+  position: absolute;
+  top: 0;
+  max-width: 80%;
+  color: red;
+  font-size: 1em;
+}
+#placeButton {
+  position: absolute;
+  top: 20px;
+  right: 0;
+ cursor: pointer;
+}
+
+/*Modal Magic règles spéciales*/

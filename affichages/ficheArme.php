@@ -1,6 +1,7 @@
 <?php
 include 'securite/securiterUtilisateur.php';
 require 'objets/armes.php';
+// A mettre en commentaire ?
 require 'objets/rulesSp.php';
 $idArmes = filter($_GET['idArmes']);
 $ficheArmes = new Armes ($_SESSION['idUser'], $idNav);
