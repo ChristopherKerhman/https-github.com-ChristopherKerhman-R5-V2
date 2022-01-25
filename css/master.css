@@ -122,7 +122,7 @@ box-shadow: inset 0px 0px 5px 0px red;
    margin-top: 0.5em;
    transition: color 0.5s;
    border-radius: 5px;
-   transition: background-color 1s, color 1s;
+     transition: background-color 1s;
    -webkit-box-shadow: inset 0px 0px 5px 0px red;
    box-shadow: inset 0px 0px 5px 0px red;
  }
@@ -168,15 +168,14 @@ box-shadow: inset 0px 0px 5px 0px #28FF00;
    padding: 3px 10px 3px 10px;
    transition: color 0.5s;
    border-radius: 5px;
-   transition: background-color 1s;
-   transition: color 0.5s;
+      transition: background-color 1s;
    -webkit-box-shadow: inset 0px 0px 5px 0px blue;
    box-shadow: inset 0px 0px 5px 0px blue;
  }
  .lienBoutton:hover {
    background-color: blue;
-   color:#F6FBFFff;
-   transition: background-color 3s;
+   color:red;
+      transition: background-color 1s;
  }
  .lienRS {
    text-align: center;
@@ -194,14 +193,14 @@ box-shadow: inset 0px 0px 5px 0px #28FF00;
    transition: color 0.5s;
    border-radius: 5px;
    transition: background-color 1s;
-   transition: color 0.5s;
    -webkit-box-shadow: inset 0px 0px 5px 0px blue;
    box-shadow: inset 0px 0px 5px 0px blue;
+    cursor: pointer;
  }
  .lienRS:hover {
-   background-color: blue;
+   background-color: red;
    color:#F6FBFFff;
-   transition: background-color 3s;
+    transition: background-color 1s;
  }
 
  label {
@@ -241,6 +240,9 @@ section {
    text-align: center;
    font-family: 'Quantico', sans-serif;
    margin-left: 1em;
+ }
+ .red{
+   color:red;
  }
 
  .titreArticle {
@@ -325,10 +327,12 @@ section {
   align-items: center;
   justify-content: left;
   flex-wrap: nowrap;
+  padding-left: 15px;
 }
 .line button {
   margin-right: 0.5em;
   margin-left: 0.5em;
+  cursor: pointer;
 }
 .buttonDescription {
   font-size: 0.7em;
@@ -456,6 +460,87 @@ td {
   border: none;
 }
  /*Liste Blanche*/
+ /*Modal Magic règles spéciales*/
+ .dialogue {
+   opacity: 1;
+   width: 95%;
+   max-width: 50vh;
+   min-width: 20vh;
+   padding: 30px;
+   font-family: 'Quantico', sans-serif;
+   font-size: 0.9em;
+   background-color: #1C1B20ff;
+   color: #aaa;
+   border-radius: 5px;
+   position: fixed;
+   top: 5%;
+   left: 5%;
+   order: 0;
+   border: 2px solid rgba(237, 231, 209, 1);
+   border-radius: 0px 0px 30px 0px;
+   text-align: justify;
+ }
+ .dialogueADJ {
+   opacity: 1;
+width: 95%;
+max-width: 47vh;
+min-width: 40vh;
+padding: 30px;
+font-family: 'Quantico', sans-serif;
+font-size: 0.9em;
+background-color: #1C1B20ff;
+color: #aaa;
+border-radius: 5px;
+position: fixed;
+top: 0%;
+left: 0%;
+order: 0;
+border: 2px solid rgba(237, 231, 209, 1);
+border-radius: 0px 0px 30px 0px;
+text-align: justify;
+font-size: 0.5em;
+ }
+ #affichageOrdre {
+   opacity: 1;
+   width: 50%;
+   padding: 30px;
+   font-family: 'Quantico', sans-serif;
+   font-size: 0.9em;
+   background-color: #1C1B20ff;
+   color: #aaa;
+   border-radius: 5px;
+   position: fixed;
+   top: 2.5%;
+   left: 5%;
+   order: 0;
+   border: 2px solid rgba(237, 231, 209, 1);
+   border-radius: 0px 0px 30px 0px;
+   text-align: justify;
+   transition: opacity 0.2s;
+ }
+ #top {
+   position: absolute;
+   top: -20px;
+   max-width: 80%;
+   color: red;
+   font-size: 1em;
+ }
+ #placeButton {
+   position: absolute;
+   top: 0px;
+   right: 0;
+  cursor: pointer;
+ }
+ .ordre_simple {
+ border: 5px  groove;
+ margin: auto;
+ margin-left: auto;
+ margin-right: auto;
+ cursor: pointer;
+ }
+
+ /*Modal Magic règles spéciales*/
+
  /* mobile */
  @media (min-width: 800px ), (orientation: landscape) {
    .flex-center {
@@ -536,39 +621,19 @@ td {
     max-width: 330px;
     border-radius: 0px 0px 10px 0px;
   }
+  .dialogue {
+    left: 0%;
+    max-width: 15em;
+    min-width: 5em;
+    overflow-y : auto;
+    border-radius: 0 0 10px 0;
+  }
+   .mosaique {
+     display: flex;
+     flex-direction: column;
+   }
+   .dialogueADJ {
+     top: 1%;
+     left: 2%;
+   }
 }
-/*Modal Magic règles spéciales*/
-.dialogue {
-  opacity: 0.95;
-  width: 95%;
-  max-width: 50vh;
-  min-width: 20vh;
-  padding: 30px;
-  font-family: 'Quantico', sans-serif;
-  font-size: 0.9em;
-  background-color: #1C1B20ff;
-  color: #aaa;
-  border-radius: 5px;
-  position: fixed;
-  top: 20%;
-  left: 35%;
-  order: 0;
-  border: 2px solid rgba(237, 231, 209, 1);
-  border-radius: 0px 0px 30px 0px;
-  text-align: justify;
-}
-#top {
-  position: absolute;
-  top: 0;
-  max-width: 80%;
-  color: red;
-  font-size: 1em;
-}
-#placeButton {
-  position: absolute;
-  top: 20px;
-  right: 0;
- cursor: pointer;
-}
-
-/*Modal Magic règles spéciales*/

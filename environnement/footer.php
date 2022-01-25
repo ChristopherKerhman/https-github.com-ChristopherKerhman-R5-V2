@@ -18,7 +18,6 @@
       echo '<li><a href="index.php?idNav='.$key['idNav'].'">'.$key['nomLien'].'</a></li>';
     } ?>
     <li><a href="https://blog.ludis-r5.fr">Le blog de ludis R5</a></li>
-    <li> <a href="https://aidedejeu.ludis-r5.fr">Aide de jeu en ligne</a></li>
   </ul>
   </nav>
 <?php

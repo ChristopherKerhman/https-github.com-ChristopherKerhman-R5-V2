@@ -13,15 +13,15 @@ $dataRulesVehicules = json_encode($dataRulesVehicules);
 <div id="RS">
     <!--Debut Présentation en fenêtre-->
 <div class="dialogue" v-if="cleW" class="overlay">
-  <h3  id="top">{{titre}}</strong></h3>
-  <h4>Type de règle spéciales: {{type}}</h4>
+  <h3 id="top">{{titre}}</strong></h3>
   <button id="placeButton" type="button" name="button" v-on:click="cleW = false">X</button>
+    <h4 id="">{{type}}</h4>
   <p>{{texteRS}}</p>
 </div>
   <!--Fin Présentation en fenêtre-->
   <h3 class="sousTitre">Les règles spéciales Armes</h3>
   <div class="mosaique">
-    <a class="lienRS" class="item" v-for="Wap in regleW" v-bind:key="Wap" v-on:click="action(Wap)">{{Wap.nomRules}}</a>
+    <a class="lienRS" v-for="Wap in regleW" v-bind:key="Wap" v-on:click="action(Wap)">{{Wap.nomRules}}</a>
   </div>
 
   <h3 class="sousTitre">Les règles spéciales Figurines</h3>
@@ -34,39 +34,4 @@ $dataRulesVehicules = json_encode($dataRulesVehicules);
   </div>
 </div>
 <!--Traitement des éléments des règles spéciale-->
-<script>
-const RS = Vue.createApp({
-  data () {
-    return {
-      cleW: false,
-      regleW: <?php echo $dataRulesArmes; ?>,
-      regleF: <?php echo $dataRulesFigurines; ?>,
-      regleV: <?php echo $dataRulesVehicules; ?>,
-      titre: '',
-      type: '',
-      texteRS: '',
-      typeRSp: ['Armes', 'Figurines', 'Véhicules'],
-    }
-  },
-  methods: {
-    action($id) {
-      // Fonction pour retirer les artefact lier à l'encodage JSON
-      function sanitize ($data) {
-        for (let i = 0; i < $data.length; i++) {
-          $data = $data.replace('&quot;', ' ')
-        }
-        return $data
-      }
-      // stockage des données dans les variables pour affichage dans le DOM
-        this.titre = $id['nomRules']
-        this.titre = sanitize (this.titre)
-        this.type = this.typeRSp[$id['typeRules']]
-        this.type = sanitize (this.type)
-        this.texteRS = $id['descriptionRules']
-        this.texteRS = sanitize (this.texteRS)
-        this.cleW = true
-    }
-  }
-})
-  RS.mount('#RS')
-</script>
+<?php include 'javascript/regleSpeciales.php'; ?>
