@@ -91,12 +91,22 @@ class Figurines {
       <input type="hidden" name="idNav" value="'.$this->idNav.'">
       <button type="submit" name="button">Affecter</button></form>
       <a class="lienBoutton" href="index.php?idNav='.$this->navG.'&idFigurine='.$key['idFigurine'].'">Fiche</a>
-      <a class="lienBoutton" href="index.php?idNav='.$this->navF.'&idFigurine='.$key['idFigurine'].'">Modifier</a>
+      <a class="lienBoutton" href="index.php?idNav='.$this->navF.'&idFigurine='.$key['idFigurine'].'">Modifier '.$key['nomFigurine'].'</a>
       <form action="CUD/Delette/figurine.php" method="post">
         <input type="hidden" name="idNav" value="'.$this->idNav.'">
         <input type="hidden" name="idFigurine" value="'.$key['idFigurine'].'">
         <button type="submit" name="button">Effacer</button>
-      </form></li>';
+      </form></li>
+      <li class="line">
+      Modifier nom ? '.$key['nomFigurine'].'
+      <form action="CUD/Update/nomFigurine.php" method="post">
+      <label for="name">Nom figurine</label>
+      <input id="name" type="text" name="nomFigurine" value="'.$key['nomFigurine'].'" />
+      <input type="hidden" name="idFigurine" value="'.$key['idFigurine'].'">
+      <input type="hidden" name="idNav" value="'.$this->idNav.'">
+      <button type="submit" name="button">Modifier nom</button>
+      </form>
+      </li>';
     }
     echo '</ul>';
   }

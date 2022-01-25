@@ -88,6 +88,18 @@ class Armes {
         $listeFaction = $action->read();
         echo
         '<li class="line">
+        <form action="CUD/Create/cloneArmes.php" method="post">
+          <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
+          <input type="hidden" name="idNav" value="'.$this->idNav.'">
+          <button id="clone" type="submit" name="button">Cloner</button>
+        </form>
+        <form action="CUD/Update/nomArmes.php" method="post">
+          <label for="nom">Nom arme</label>
+          <input type="text" name="nom" value="'.$key['nom'].'" />
+          <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
+          <input type="hidden" name="idNav" value="'.$this->idNav.'">
+          <button class="lienBoutton" type="submit" name="button">Modifier</button>
+        </form>
           '.$key['nomUnivers'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']].' Coef : '.round($prixArme, 3).'
           <form action="CUD/Update/armeFaction.php" method="post">
           <label for="faction">Factions</label>

@@ -1,7 +1,7 @@
 <?php
 include 'environnement/header.php';
 // $Dev = 1 affichage des chemins / $dev = 0 chemin non affiché.
-$dev = 0;
+$dev = 1;
   if (isset($_GET['idNav'])) {
     $idNav = filter($_GET['idNav']);
     $requetteSQL = "SELECT  `cheminNav`

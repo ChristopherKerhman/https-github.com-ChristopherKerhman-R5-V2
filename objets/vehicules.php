@@ -102,7 +102,15 @@ class Vehicules {
       <input type="hidden" name="idNav" value="'.$this->idNav.'">
       <input type="hidden" name="id" value="'.$value['idVehicule'].'">
       <button type="submit" name="button">Effacer</button>
-    </form></li>';
+    </form></li>
+    <li>
+    <form action="CUD/Update/nomVehicule.php" method="post">
+    <label for="nomVehicule">Nom Véhicule</label>
+    <input type="text" name="nomVehicule" value="'.$value['nomVehicule'].'" />
+    <input type="hidden" name="idVehicule" value="'.$value['idVehicule'].'">
+    <input type="hidden" name="idNav" value="'.$this->idNav.'">
+    <button type="submit" name="button">Modifier le nom</button>
+    </li>';
       }
     echo '</ul>';
   }
