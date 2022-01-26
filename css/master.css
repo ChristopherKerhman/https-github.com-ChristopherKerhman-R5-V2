@@ -255,10 +255,16 @@ section {
    text-align: center;
    font-family: 'Quantico', sans-serif;
  }
- .articleContexte {
+ .articleContexte, .articleLore {
    text-align: justify;
+   padding: 0.5em;
+   font-family: 'Assistant', sans-serif;
  }
- .articleContexte::first-letter {
+ .articleLore strong {
+   font-weight: bold;
+   font-size: 1.5em;
+ }
+ .articleContexte::first-letter, .articleLore::first-letter {
    font-size: 1.2em;
  }
  .gras {
@@ -538,8 +544,10 @@ font-size: 0.5em;
  margin-right: auto;
  cursor: pointer;
  }
-
  /*Modal Magic règles spéciales*/
+ /* Liste pagination */
+
+ /* Liste pagination */
 
  /* mobile */
  @media (min-width: 800px ), (orientation: landscape) {

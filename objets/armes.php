@@ -201,9 +201,9 @@ class Armes {
         $plus = '';
       }
       echo
-      '<ul class="ficheFigurine">
-        <li>'.$dataArme[0]['nom'].' Type d\'arme : '.$this->typeArme[$dataArme[0]['typeArme']].'</li>
-        <li>Puissance '.$dataArme[0]['puissance'].'D'.$plus.' ';
+      '<ul class="resume">
+        <li>'.$dataArme[0]['nom'].' | Type d\'arme : '.$this->typeArme[$dataArme[0]['typeArme']].' |
+        Puissance '.$dataArme[0]['puissance'].'D'.$plus.' ';
         if($dataArme[0]['typeArme'] != 0) {
           echo 'Portée tactique : '.$dataArme[0]['maxRange'].'" Arme lourde : '.$this->yes[$dataArme[0]['lourd']].' - Arme d\'assaut : '.$this->yes[$dataArme[0]['assaut']].'';
           if ($dataArme[0]['couverture'] != 0) {

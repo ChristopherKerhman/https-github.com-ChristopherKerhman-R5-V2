@@ -6,10 +6,10 @@ require 'objets/figurines.php';
 require 'objets/vehicules.php';
 require 'objets/armes.php';
 $idListe = filter($_GET['idListe']);
-$liste = new Listes($_SESSION['idUser'], $idNav);
+$liste = new Listes(0, $idNav);
 $nameListe = $liste->nameListe($idListe);
 $factionListe = $liste->factionListe($idListe);
-$UFListe = new Factions($_SESSION['idUser'], $idNav);
+$UFListe = new Factions(0, $idNav);
 $dataUFliste = $UFListe->nomFactionEtUnivers($factionListe);
 $figurine = $liste->detailListeFigurine($idListe);
 $vehicule = $liste->detailListeVehicule($idListe);
@@ -24,26 +24,28 @@ $vehicule = $liste->detailListeVehicule($idListe);
       foreach ($figurine as $key => $value) {
         echo '<p class="ficheFigurine">';
             echo '<br />Nombre : '.$value['nbr'].'- '.round($value['prixTotal'], 0).' Points';
-            $ficheFigurine = new Figurines($_SESSION['idUser'], $idNav);
+            $ficheFigurine = new Figurines(0, $idNav);
             $ficheFigurine->ficheFigurineCompleteListe ($value['id_Figurine']);
         echo '</p>';
       }
-     ?>
-<h5>Véhicules</h5>
-<?php
+
+if(!empty($vehicule)) {
+echo '<h5>Véhicules</h5>';
 foreach ($vehicule as $key => $value) {
     echo '<p class="ficheFigurine">';
     echo '<br />Nombre : '.$value['nbr'].'- '.round($value['prixTotal'], 0).' Points';
-    $machine = new Vehicules ($_SESSION['idUser'], $idNav);
+    $machine = new Vehicules (0, $idNav);
     $dataVehicule = $machine->readVehicule($value['id_Vehicule']);
     $machine->ficheListe($dataVehicule);
     $dataArmes = $machine->dotationArme($value['id_Vehicule']);
     $DC = $dataVehicule[0]['DC'];
     foreach ($dataArmes as $cle => $valeur) {
-      $armesVehicule = new Armes($_SESSION['idUser'], $idNav);
+      $armesVehicule = new Armes(0, $idNav);
       $armesVehicule->ficheArmeListe($valeur['id_Arme'], $DC);
     }
 }
+}
+
  ?>
 
  </article>

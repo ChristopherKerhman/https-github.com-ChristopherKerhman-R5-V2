@@ -73,15 +73,25 @@
 
 <div class="dialogueADJ" v-if="menu[5]['param']" class="overlay">
   <h3 class="sousTitre">{{menu[5]['data']}}</h4>
-  <ul class="listBox">
+  <ul>
     <li>Réactivé une unité qui a le status "tête baissée".</li>
     <li>Relancer un jet de dé jugé raté.</li>
     <li>Gagner automatiquement l'initiative pour le tour</li>
-  <h5 class="sous_titre_3">Utilisation des pions de commandement pour les officiers suppérieurs</h5>
-    <li>Rendre "invisible" son unité le temps d'un tour si celle-ci est derrière un couvert lourd.</li>
-    <li>Un officier supérieur peut réclamer en échange d'un pion commandement d'une support tactique extérieur sous forme d'un tir d'artillerie (gros gabarit / puissance D8) une fois par partie à l'emplacement de son choix (déterminer en secret par le joueur).</li>
-    <li>Un officier suppérieur peut récupérer un pion commandement dépensé une fois par partie.</li>
-    <li>Utilisation des pions commandment par les Mages & Sorcier : 1 pion commandement par niveau de sort magique lancé.</li>
+  <li><h4>Officier</h4></li>
+  <ul>
+    <li>Rendre invisible durant un tour son unité (formé de 1 à 12 figurines espacé entre elle de 2 pouces maximum). L’unité « invisible » ne pourra pas être prise pour cible par des tirs durant le reste du tour. </li>
+    <li>Dépense 1 pions de commandement pour retirer immédiatement un statut « tête baissée » à son unité.</li>
+    <li>Réclamer un tir d’artillerie en support tactique, une fois par partie. L’emplacement est décider durant le tour secrétement par le joueur et noter (les coordonnées x et y sur la carte exprimer en pouces). Le tour suivant, l’artillerie se déclenche, sur un 4+ sur 1D10, l’impact à lieu à l’endroit prévus. En cas d’échec, le tir va dévier de 1d6 pouces et 1 dé de dispersion. Le gabarit d’explosion est grand avec une puissance de D8 et perce armure.*</li>
+  </ul>
+  <li>
+    <h4>Officier suppérieur</h4>
+  </li>
+  <ul>
+    <li>En plus de tous ce que fait un officier</li>
+      <li>Pour 2 pions de commandement, il peuvent réclamer un tir d’artillerie une fois par partie selon les mêmes modalité que l’officier.*</li>
+        <li>Ils peuvent retirer sans être dans une unité, un statut « tête baissée » à n’importe qu’elle unité sur la zone de combat.</li>
+        <li>Ils peuvent une fois par partie générer un pion de commandement supplémentaire sur un 3+ sur 1D6.</li>
+  </ul>
   </ul>
   <button id="placeButton" type="button" name="button" v-on:click="menu[5]['param'] = false">X</button>
 </div>

@@ -6,17 +6,17 @@ class Lore {
     $this->yes = ['Non', 'Oui'];
   }
   public function readLore() {
-    $SQL = "SELECT `idLore`, `titreLore`, `texteLore`, `lore`.`valide`, `lore`.`partager`, `nomUnivers`
+    $SQL = "SELECT `idLore`, `titreLore`, `texteLore`, `lore`.`valide`, `lore`.`partager`, `nomUnivers`, `login`
     FROM `lore`
+    INNER JOIN `users` ON `idCreateur` = `idUser`
     INNER JOIN `univers` ON `univers`.`idUnivers` = `lore`.`idUnivers`
     WHERE `idLore` = :idLore";
     $prepare = [['prep' => ':idLore', 'variable'=> $this->idLore]];
     $readLore = new readDB($SQL, $prepare);
     $article = $readLore->read();
     echo '<h4 class="sousTitre">'.$article[0]['titreLore'].' - Univers '.$article[0]['nomUnivers'].'</h4>
-          <p class="articleContexte">'.$article[0]['texteLore'].'</p>
-          <p class="gras">Artcile valide : '.$this->yes[$article[0]['valide']].'</p>
-          <p class="gras">Article partager : '.$this->yes[$article[0]['partager']].'</p>';
+          <p class="articleLore">'.$article[0]['texteLore'].'
+          <br /><br /><strong>Par l\'auteur '.$article[0]['login'].'</strong></p>';
   }
   public function modLore($data) {
     $SQL = "SELECT `idLore`, `titreLore`, `texteLore`, `lore`.`valide`, `lore`.`partager`, `nomUnivers`

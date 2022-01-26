@@ -27,9 +27,9 @@ $vehicule = $liste->detailListeVehicule($idListe);
             $ficheFigurine->ficheFigurineCompleteListe ($value['id_Figurine']);
         echo '</p>';
       }
-     ?>
-<h5>Véhicules</h5>
-<?php
+
+if(!empty($vehicule)) {
+echo '<h5>Véhicules</h5>';
 foreach ($vehicule as $key => $value) {
     echo '<p class="ficheFigurine">';
     echo '<br />Nombre : '.$value['nbr'].'- '.round($value['prixTotal'], 0).' Points';
@@ -43,6 +43,8 @@ foreach ($vehicule as $key => $value) {
       $armesVehicule->ficheArmeListe($valeur['id_Arme'], $DC);
     }
 }
+}
+
  ?>
 
  </article>
