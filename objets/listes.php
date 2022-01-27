@@ -72,7 +72,7 @@ class Listes {
     FROM `listeArmee`
     INNER JOIN `AffecterFigurineUF` ON `AffecterFigurineUF`.`id_Faction` = `listeArmee`.`id_Faction`
     INNER JOIN `figurines` ON `idFigurine` = `id_Figurine`
-    WHERE `idListe` = :idListe
+    WHERE `idListe` = :idListe AND `figurines`.`figurineFixer` = 1
     ORDER BY `typeFigurine` DESC";
     $param = [['prep'=>':idListe', 'variable'=>$idListe]];
     $readlisteIdFigurine = new readDB($listeIdFaction, $param);

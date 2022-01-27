@@ -30,5 +30,5 @@ $dataTraiter = affichageData($requetteSQL, $param);
 //print_r($dataTraiter);
 $listeFigurines->listeAdministrationFigurine($dataTraiter, $currentPage);
 //$ListeArmes->listeAdministrationArmes($dataTraiter, $currentPage);
-navPagination($pages, $idNav);
+navPagination($currentPage, $idNav);
 ?>

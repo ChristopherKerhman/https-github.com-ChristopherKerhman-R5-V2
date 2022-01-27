@@ -25,7 +25,7 @@ INNER JOIN `AffecterFigurineUF` ON `id_Figurine` = `idFigurine`
 INNER JOIN `factions` ON `idFaction` = `AffecterFigurineUF`.`id_Faction`
 INNER JOIN `univers` ON `univers`.`idUnivers` = `AffecterFigurineUF`.`id_Univers`
 WHERE `id_User` = :idUser AND `figurineFixer` = 1
-ORDER BY `nomUnivers`, `nomFaction`
+ORDER BY `nomUnivers`, `nomFaction`, `prixFinal`
 DESC LIMIT {$premier}, {$parPage}";
 $traitement = new readDB($triFigurine, $param);
 $dataTraiter = $traitement->read();

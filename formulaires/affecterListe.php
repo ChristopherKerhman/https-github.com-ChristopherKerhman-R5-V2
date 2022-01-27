@@ -10,6 +10,7 @@ $dotationListe = new Listes($_SESSION['idUser'], $idNav);
 $nameListe = $dotationListe->nameListe($idListe);
 // Tri des figurines et création de l'objet figurine
 $dataIdF = $dotationListe->triFigurineListe($idListe);
+//print_r($dataIdF);
 $figurine = new Figurines($_SESSION['idUser'], $idNav);
 // Tri des vehicule
 // Selection de l'idFaction de la liste :

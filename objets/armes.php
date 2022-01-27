@@ -281,6 +281,11 @@ class Armes {
       $SQLrules = "SELECT SUM(`tauxRules`) AS `taux` FROM `armesRules` WHERE `id_Armes` = :idArmes";
       $readRules = new readDB($SQLrules, $parametre);
       $tauxRules = $readRules->read();
+      //Nombre de règles spéciales
+      $SQLnbrRules = "SELECT COUNT(`idAffectation`) AS `nbr` FROM `armesRules` WHERE `id_Armes` = :idArmes";
+      $nbr = new readDB($SQLnbrRules, $parametre);
+      $nbrRules = $nbr->read();
+      $nbr = $nbrRules[0]['nbr'];
       // Formule de calcul de la valeur de l'arme :
       $puissance = $dataArmes[0]['typeArme'] + 1;
       $puissance = (($dataArmes[0]['puissance'] +1) * 2) + $puissance;
@@ -309,7 +314,7 @@ class Armes {
       } else {
         $taux = $tauxRules[0]['taux'];
         $puissance;
-        return (($puissance * $taux)/50);
+        return (($puissance * ($taux-$nbr+1))/50);
       }
     }
     public function readArmes ($idFaction) {
@@ -353,19 +358,19 @@ class Armes {
             $sort = '';
         }
         if ($key['couverture'] == 1) {
-          $couverture = '| Couverture :'.$this->yes[$key['couverture']].'| Cadence de tir :'.$key['cadenceTir'].' tir/tour |';
+          $couverture = '| Couverture :'.$this->yes[$key['couverture']].'| Cadence de tir :'.$key['cadenceTir'].' tir/tour';
         } else {
           $couverture = '';
         }
         if ($key['typeArme'] == 0) {
-          echo '<li>* '.$key['nom'].' | Type :'.$this->typeArme[$key['typeArme']].' | Puissance '.$key['puissance'].$this->dice[$DC].$SP.$sort.'</li>';
+          echo '<li> '.$key['nom'].' | Type :'.$this->typeArme[$key['typeArme']].' | Puissance '.$key['puissance'].$this->dice[$DC].$SP.$sort.'</li>';
         }
         if($key['typeArme'] == 1) {
-          echo '<li>* '.$key['nom'].' | Type :'.$this->typeArme[$key['typeArme']].' | '.$key['puissance'].$this->dice[$DC].$SP.' |
+          echo '<li>'.$key['nom'].' | Type :'.$this->typeArme[$key['typeArme']].' | '.$key['puissance'].$this->dice[$DC].$SP.' |
            '.$range.$sort.' | Assaut : '.$this->yes[$key['assaut']].$couverture.' | Arme lourde : '.$this->yes[$key['lourd']].'</li>';
         }
         if($key['typeArme'] == 2) {
-        echo '<li>* '.$key['nom'].' | Type :'.$this->typeArme[$key['typeArme']].' | '.$key['puissance'].$this->dice[$DC].$SP.' |
+        echo '<li>'.$key['nom'].' | Type :'.$this->typeArme[$key['typeArme']].' | '.$key['puissance'].$this->dice[$DC].$SP.' |
          '.$range.$sort.' | Assaut : '.$this->yes[$key['assaut']].$couverture.' | Arme lourde : '.$this->yes[$key['lourd']].' | Type de gabarit : '.$this->gabarit[$key['gabarit']].'
          | Puissance explosif '.$this->dice[$key['puissanceExplosif']].'</li>';
        }
@@ -507,6 +512,27 @@ class Armes {
                   <button type="submit" name="button">Effacer</button>
                 </form>
             </td>
+        </tr>';
+      }
+      echo '</table>';
+  }
+  public function listeArmesPagination($data, $pages) {
+    echo '<table>
+      <caption>Table des armes fixées page : '.$pages.'</caption>
+      <tr>
+        <th>Univers</th>
+        <th>Faction</th>
+        <th>Nom</th>
+        <th>Coef</th>
+        <th>Fiche</th>
+      </tr>';
+      foreach ($data as $key => $value) {
+    echo '<tr>
+          <td>'.$value['nomUnivers'].'</td>
+          <td>'.$value['nomFaction'].'</td>
+          <td>'.$value['nom'].'</td>
+          <td>'.round($value['prix'], 3).'</td>
+          <td><a class="lienBoutton" href="index.php?idNav='.$this->adressFicheFixer.'&idArmes='.$value['idArmes'].'">Fiche</a></td>
         </tr>';
       }
       echo '</table>';
