@@ -336,5 +336,69 @@ echo '<h4 class="sousTitre">Effacer règles spéciales</h4><div class="mosaique"
     $dataListeVehicule = $liste->read();
     return   $dataListeVehicule;
   }
+  public function listeAdministrationVehicules($data, $page) {
+    echo '<table>
+      <caption>Table des véhicule page : '.$page.'</caption>
+      <tr>
+        <th>Id</th>
+        <th>Createur</th>
+        <th>Univers</th>
+        <th>Faction</th>
+        <th>Nom</th>
+        <th>Prix</th>
+        <th>Fixer</th>
+        <th>Valide</th>
+        <th>modifier Valide</th>
+        <th>Fiche</th>
+        <th>Effacer</th>
+      </tr>';
+      foreach ($data as $key => $value) {
+        //`idVehicule`, `nomVehicule`, `transport`.`valide`,
+        //`fixer`, `prixVehicule`, `transport`.`idUser`, `nomUnivers`, `nomFaction`, `login`
+    echo '<tr>
+          <td>'.$value['idVehicule'].'</td>
+          <td>'.$value['login'].'</td>
+          <td>'.$value['nomUnivers'].'</td>
+          <td>'.$value['nomFaction'].'</td>
+          <td>'.$value['nomVehicule'].'</td>
+          <td>'.round($value['prixVehicule']).'</td>
+          <td>'.$this->yes[$value['fixer']].'</td>
+          <td>'.$this->yes[$value['valide']].'</td>
+          <td><form action="administration/valideVehicule.php" method="post">
+            <label>Valide ?</label>
+            <select name="valide">';
+            for ($i=0; $i <count($this->yes) ; $i++) {
+              if($value['valide'] == $i) {
+                echo '<option value="'.$i.'" selected>
+                '.$this->yes[$i].'
+                </option>';
+              } else {
+                echo '<option value="'.$i.'">
+                '.$this->yes[$i].'
+                </option>';
+              }
+            }
+        echo'</select>
+              <input type="hidden" name="idNav" value="'.$this->idNav.'">
+              <input type="hidden" name="idVehicule" value="'.$value['idVehicule'].'">
+              <button type="submit" name="button">Modifier</button>
+            </form></td>
+          <td><a class="lienBoutton" href="index.php?idNav='.  $this->navFVsite.'&idVehicule='.$value['idVehicule'].'">Fiche</a></td>
+          <td>';
+          if ($value['valide']== 0) {
+            echo'<form action="administration/delVehicule.php" method="post">
+                <input type="hidden" name="idNav" value="'.$this->idNav.'">
+                <input type="hidden" name="idVehicule" value="'.$value['idVehicule'].'">
+                <button type="submit" name="button">Effacer</button>
+              </form>';
+
+          } else {
+            echo 'Figurine valide';
+          }
+            echo '</td>';
+        echo '</tr>';
+      }
+      echo '</table>';
+  }
 }
  ?>
