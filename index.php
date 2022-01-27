@@ -1,5 +1,7 @@
 <?php
 include 'environnement/header.php';
+// Blocage pour débloquer, mettre l'élément ligne 4 en commentaire.
+//$_GET['idNav'] = 0;
 // $Dev = 1 affichage des chemins / $dev = 0 chemin non affiché.
 $dev = 0;
   if (isset($_GET['idNav'])) {

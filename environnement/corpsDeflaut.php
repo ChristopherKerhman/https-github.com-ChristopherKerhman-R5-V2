@@ -1,4 +1,4 @@
-<h3 class="titreArticle">Le projet R5</h3>
+<h3 class="titreArticle">Le projet R5 V2</h3>
 <p class="articleContexte">
   Bienvenus sur la version 2 du site de R5. Celle-ci se concentre sur l'essentiel de la création de listes d'armées. J'espère que cette version vous plaira.<br /><br />
   Le projet <strong>R5</strong> propose un système de jeu générique. Vous allez pouvoir avec le système <strong>R5</strong> créer n’importe quel contexte de jeu de figurine de
