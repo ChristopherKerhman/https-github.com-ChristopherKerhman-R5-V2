@@ -126,6 +126,14 @@ box-shadow: inset 0px 0px 5px 0px red;
    -webkit-box-shadow: inset 0px 0px 5px 0px red;
    box-shadow: inset 0px 0px 5px 0px red;
  }
+table {
+  margin: auto;
+  margin-bottom: 1em;
+}
+caption {
+  font-size: 1.5em;
+  font-family: 'Quantico', sans-serif;
+}
  #clone {
    background-color: Black;
    color:red;

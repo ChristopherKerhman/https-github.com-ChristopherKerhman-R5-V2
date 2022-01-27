@@ -474,8 +474,42 @@ class Armes {
   }
     echo '</div>';
     }
-
-
   }
+  public function listeAdministrationArmes ($data, $page) {
+    echo '<table>
+      <caption>Table des armes page : '.$page.'</caption>
+      <tr>
+        <th>Id</th>
+        <th>Createur</th>
+        <th>Univers</th>
+        <th>Faction</th>
+        <th>Nom</th>
+        <th>Prix</th>
+        <th>Fixer</th>
+        <th>Valide</th>
+        <th>Fiche</th>
+        <th>Effacer</th>
+      </tr>';
+      foreach ($data as $key => $value) {
+    echo '<tr>
+          <td>'.$value['idArmes'].'</td>
+          <td>'.$value['login'].'</td>
+          <td>'.$value['nomUnivers'].'</td>
+          <td>'.$value['nomFaction'].'</td>
+          <td>'.$value['nom'].'</td>
+          <td>'.$value['prix'].'</td>
+          <td>'.$this->yes[$value['fixer']].'</td>
+          <td>'.$this->yes[$value['valide']].'</td>
+          <td><a class="lienBoutton" href="index.php?idNav='.$this->adressFicheFixer.'&idArmes='.$value['idArmes'].'">Fiche</a></td>
+          <td><form action="administration/armes.php" method="post">
+                  <input type="hidden" name="idArmes" value="'.$value['idArmes'].'">
+                  <input type="hidden" name="idNav" value="'.$this->idNav.'">
+                  <button type="submit" name="button">Effacer</button>
+                </form>
+            </td>
+        </tr>';
+      }
+      echo '</table>';
+  }
+
 }
-//<li>'.$dataArme[0][''].'</li>
