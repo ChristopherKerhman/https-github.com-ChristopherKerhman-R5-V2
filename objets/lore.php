@@ -45,20 +45,7 @@ class Lore {
           '.$this->yes[$i].'</option>';
         }
       }
-      echo'</select>
-      <label for="valide">Valider texte</label>
-      <select id="valide" name="valide">';
-      for ($i=0; $i <count($this->yes) ; $i++) {
-        if($article[0]['valide'] == $i) {
-          echo '<option value="'.$i.'" selected>
-          '.$this->yes[$i].'</option>';
-        } else {
-          echo '<option value="'.$i.'">
-          '.$this->yes[$i].'</option>';
-        }
-      }
-  echo'</select>
-      <input type="hidden" name="idLore" value="'.$article[0]['idLore'].'">
+      echo'<input type="hidden" name="idLore" value="'.$article[0]['idLore'].'">
       <input type="hidden" name="idNav" value="'.$data.'">
     <button type="submit" name="button">Modifier</button>
     </form>
