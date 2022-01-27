@@ -24,12 +24,8 @@ FROM `armes`
 INNER JOIN `users` ON `idUser` = `idCreateur`
 INNER JOIN `univers` ON `idUnivers` = `id_Univers`
 INNER JOIN `factions` ON `idFaction` = `id_Faction`
-WHERE `armes`.`valide` = :valide
 ORDER BY `nomUnivers`, `nomFaction`, `armes`.`nom`
 LIMIT '.$premier.', '.$parPage.'';
-/*$traitement = new readDB($requetteSQL, $param);
-$dataTraiter = $traitement->read();*/
-$param = [['prep'=>':valide', 'variable'=>1]];
 $dataTraiter = affichageData($requetteSQL, $param);
 $ListeArmes->listeAdministrationArmes($dataTraiter, $currentPage);
 navPagination($pages, $idNav);
