@@ -10,7 +10,9 @@ $parPage = 10;
 // Déclaration de paramètre vide :
 $param = [];
 // Recherche du nombre de listes partagées
-$requetteSQL = "SELECT COUNT(`idListe`) AS `nbrListe` FROM `listeArmee` WHERE `valide` = 1  AND `partager` = 1";
+$requetteSQL = "SELECT COUNT(`idListe`) AS `nbrListe` FROM `listeArmee`
+INNER JOIN `users` ON `listeArmee`.`idUser` = `users`.`idUser`
+WHERE `listeArmee`.`valide` = 1  AND `partager` = 1 AND `users`.`valide` = 1";
 $nrbC = new readDB($requetteSQL, $param);
 $dataNbrC = $nrbC->read();
 $nbrArticle = $dataNbrC[0]['nbrListe'];
@@ -24,7 +26,7 @@ FROM `listeArmee`
 INNER JOIN `univers` ON `id_Univers` = `idUnivers`
 INNER JOIN `factions` ON `id_Faction` = `idFaction`
 INNER JOIN `users` ON `listeArmee`.`idUser` = `users`.`idUser`
-WHERE `listeArmee`.`partager` = 1 AND `listeArmee`.`valide` = 1
+WHERE `listeArmee`.`partager` = 1 AND `listeArmee`.`valide` = 1 AND `users`.`valide` = 1
 ORDER BY `nomUnivers`, `nomFaction` DESC LIMIT {$premier}, {$parPage}";
 $traitement = new readDB($triListe, $param);
 $dataTraiter = $traitement->read();

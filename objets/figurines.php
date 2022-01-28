@@ -382,8 +382,11 @@ public function UniversFaction ($idFigurine) {
     echo '<ul class="ficheFigurine">';
     echo '<li>Type : '.$this->typeFigurine[$dataFigurine[0]['typeFigurine']]['type'].' / '.$dataFigurine[0]['nomFigurine'].' - Prix unitaire : '.round($dataFigurine[0]['prixFinal'], 0).' points  -
     Taille : '.$this->tailleFigurine[$dataFigurine[0]['tailleFigurine']]['taille'].' - DQM : '.$this->dice[$dataFigurine[0]['DQM']]['type'].'</li>';
-    echo '<li>Mouvement : '.$dataFigurine[0]['mouvement'].' "/ '.round($dataFigurine[0]['mouvement'] * 1.5, 0).'" + 1D4" - Vol : '.$this->yes[$dataFigurine[0]['vol']].'
-    Vol stationnaire : '.$this->yes[$dataFigurine[0]['stationnaire']].'</li>';
+    echo '<li>Mouvement : '.$dataFigurine[0]['mouvement'].' "/ '.round($dataFigurine[0]['mouvement'] * 1.5, 0).'" + 1D4"';
+    if ($dataFigurine[0]['vol'] == 1) {
+        echo'- Vol : '.$this->yes[$dataFigurine[0]['vol']].' Vol stationnaire : '.$this->yes[$dataFigurine[0]['stationnaire']];
+    }
+    echo '</li>';
     echo '<li>Armure : '.$this->svg[$dataFigurine[0]['svg']]['armure'].' - Point de vie : '.$this->pointDeVie[$dataFigurine[0]['pdv']].'</li>';
     if($dataFigurine[0]['prixFinal'] > 0) {
     }

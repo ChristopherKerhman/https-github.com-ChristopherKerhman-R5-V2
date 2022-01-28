@@ -2,15 +2,8 @@
 include 'securite/securiterUtilisateur.php';
 require 'objets/listes.php';
 require 'objets/figurines.php';
+include 'administration/functionPagination.php';
 // Création de la liste des univers + faction associé
-$triFU = "SELECT `idFaction`, `factions`.`idUnivers`, `nomFaction`, `nomUnivers`
-FROM `factions`
-INNER JOIN `univers` ON `univers`.`idUnivers` = `factions`.`idUnivers`
-WHERE `idCreateur` = :idUser
-ORDER BY `nomUnivers`";
-$param = [['prep'=> ':idUser', 'variable'=> $_SESSION['idUser']]];
-$liste = new readDB($triFU, $param);
-$dataListeFU = $liste->read();
  ?>
  <h3 class="sousTitre">Création d'une nouvelle liste</h3>
 <form class="formulaire" action="CUD/Create/liste.php" method="post">
@@ -34,6 +27,34 @@ foreach ($dataListeFU as $index => $valeur) {
 </form>
 <?php
 $listeNouvelle = new Listes($_SESSION['idUser'], $idNav);
-$dataListeUser = $listeNouvelle->readListesUser(1, 0);
-$listeNouvelle->affichageListe($dataListeUser);
+// Paramètre de pagination
+if(isset($_GET['page']) && (!empty($_GET['page']))) {
+  $currentPage = filter($_GET['page']);
+} else {
+$currentPage = 1;
+}
+$parPage = 10;
+// Déclaration de paramètre vide :
+$param = [['prep'=>'idUser', 'variable'=>$_SESSION['idUser']]];
+// Recherche du nombre total de liste
+$requetteSQL = "SELECT COUNT(`idListe`) AS `nbr` FROM `listeArmee` WHERE `valide` = 1 AND `idUser` = :idUser";
+$pages = parametrePagination ($parPage, $requetteSQL, $param );
+// Calcul du premier article dans la page.
+$premier = ($currentPage * $parPage) - $parPage;
+$requetteSQL = 'SELECT `idListe`, `id_Univers`, `id_Faction`, `nomListe`, `listeArmee`.`partager`, `nomUnivers`, `nomFaction`
+FROM `listeArmee`
+INNER JOIN `univers` ON `idUnivers` = `id_Univers`
+INNER JOIN `factions` ON `idFaction` = `id_Faction`
+WHERE `listeArmee`.`valide` = 1 AND `idUser` = :idUser
+ORDER BY `nomUnivers`, `nomFaction`, `nomListe`
+LIMIT '.$premier.', '.$parPage.'';
+$dataTraiter = affichageData($requetteSQL, $param);
+
+if(empty($dataTraiter)) {
+    echo '<h4 class="sousTitre">Pas encore de liste</h4>';
+} else {
+  echo 'Page : '.$currentPage;
+$listeNouvelle->affichageListe($dataTraiter);
+}
+navPagination($pages, $idNav);
  ?>

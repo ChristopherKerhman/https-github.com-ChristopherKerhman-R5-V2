@@ -10,7 +10,9 @@ require 'objets/ficheUser.php';
 $affichage = new ficheUser ($dataUser);
 ?>
 <h4 class="sousTitre">Profil de <?=$dataUser[0]['login']?></h4>
+
 <div class="flex-ligne">
+
   <?php $affichage->fiche(); ?>
   <?php $affichage->modUserFiche(); ?>
   <?php
@@ -18,4 +20,6 @@ $affichage = new ficheUser ($dataUser);
       $affichage->mailSecurite($idUser);
     }
    ?>
+
 </div>
+   <a class="lienBoutton" href="index.php?idNav=93">Voir la RGPD & CGU</a>

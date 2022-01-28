@@ -85,7 +85,8 @@ class Vehicules {
       <input type="hidden" name="idVehicule" value="'.$value['idVehicule'].'">
       <button id="clone" type="submit" name="button">Cloner</button>
     </form>
-   <strong class="gras">'.$value['nomVehicule'].' / '.round($prix,0).' points</strong> <form action="CUD/Update/affectationVehicule.php" method="post">
+   <strong class="gras">'.$value['nomVehicule'].' / '.round($prix,0).' points</strong>
+   <form action="CUD/Update/affectationVehicule.php" method="post">
     <select name="FU">
     ';
       foreach ($dataListeFU as $index => $valeur) {
@@ -96,13 +97,15 @@ class Vehicules {
     <input type="hidden" name="idNav" value="'.$this->idNav.'">
     <button type="submit" name="button">Affecter</button>
     </form>
+
     <a class="lienBoutton" href="index.php?idNav='.$this->navFV.'&idVehicule='.$value['idVehicule'].'">Fiche</a>
     <a class="lienBoutton" href="index.php?idNav='.$this->navMV.'&idVehicule='.$value['idVehicule'].'">Modifier</a>
     <form action="CUD/Delette/vehicule.php" method="post">
       <input type="hidden" name="idNav" value="'.$this->idNav.'">
       <input type="hidden" name="id" value="'.$value['idVehicule'].'">
       <button type="submit" name="button">Effacer</button>
-    </form></li>
+    </form>
+    </li>
     <li>
     <form action="CUD/Update/nomVehicule.php" method="post">
     <label for="nomVehicule">Nom Véhicule</label>
@@ -110,6 +113,7 @@ class Vehicules {
     <input type="hidden" name="idVehicule" value="'.$value['idVehicule'].'">
     <input type="hidden" name="idNav" value="'.$this->idNav.'">
     <button type="submit" name="button">Modifier le nom</button>
+    </form>
     </li>';
       }
     echo '</ul>';
@@ -234,10 +238,30 @@ class Vehicules {
     '.$this->roleVehicule[$data[0]['roleVehicule']]['role'].' - Taille : '.$this->tailleVehicule[$data[0]['tailleVehicule']]['taille'].'</li>';
     echo '<li>Equipage : '.$this->equipage[$data[0]['equipage']]['nbre'].' - Passager : '.$this->passager[$data[0]['passage']].'</li>';
   $mouv = $data[0]['deplacement'];
-    echo '<li>Mouvement : '.$mouv.' " / '.round($mouv * 2).' " + 1d6 " Vol : '.$this->yes[$data[0]['vol']].' / Vol stationnaire : '.$this->yes[$data[0]['stationnaire']].'</li>';
+    echo '<li>Mouvement : '.$mouv.' " / '.round($mouv * 2).' " + 1d6 "';
+    if($data[0]['vol'] == 1) {
+      echo' | Vol : '.$this->yes[$data[0]['vol']].' | Vol stationnaire : '.$this->yes[$data[0]['stationnaire']];
+    }
+    echo '</li>';
     echo '<li>Dé de Qualité Martial : '.$this->dice[$data[0]['DQM']]['type'].' / Dé de combat : '.$this->dice[$data[0]['DC']]['type'].'</li>';
     echo '<li>Point de structure : '.$this->pds[$data[0]['pds']].' / Sauvegarde : '.$this->svgVehicule[$data[0]['svgVehicule']]['armure'].'</li>';
-    echo '</ul>';
+
+    $triRS = "SELECT `id_Rules`, `nomRules`
+    FROM `vehiculeRules`
+    INNER JOIN `rules` ON `id_Rules` = `idrules`
+    WHERE `id_Vehicule` = :idVehicule";
+    $param = [['prep'=>'idVehicule', 'variable'=>$data[0]['idVehicule']]];
+    $RS = new readDB($triRS, $param);
+    $dataRS = $RS->read();
+    if(!empty($RS)){
+      echo '<li>Règles spéciales '.$data[0]['nomVehicule'].' : ';
+      foreach ($dataRS as $key => $value) {
+        echo $value['nomRules'].'. ';
+      }
+      echo '</li>';
+    }
+        echo '</ul>';
+
   }
   public function UniversFaction($idVehicule) {
     $sql = "SELECT `nomFaction`, `nomUnivers`, `id_faction`
@@ -399,6 +423,21 @@ echo '<h4 class="sousTitre">Effacer règles spéciales</h4><div class="mosaique"
         echo '</tr>';
       }
       echo '</table>';
+  }
+  public function vehicule ($data, $page) {
+    echo '<h3 class="sousTitre">Les véhicules disponible : '.$page.'</h3>';
+    echo '<ul>';
+    foreach ($data as $key => $value) {
+      echo '<li><a class="lienBoutton" href="index.php?idNav='.$this->navFVsite.'&idVehicule='.$value['idVehicule'].'">Fiche</a>
+            '.$value['nomUnivers'].' '.$value['nomFaction'].'
+            | Nom : '.$value['nomVehicule'].'
+            | Type : '.$this->typeVehicule[$value['typeVehicule']]['type'].'
+            | Role : '.$this->roleVehicule[$value['roleVehicule']]['role'].'
+            | Prix : '.round($value['prixVehicule'], 0).' points
+
+            </li>';
+    }
+    echo '</ul>';
   }
 }
  ?>

@@ -47,6 +47,8 @@ class Listes {
   public function affichageListe($data) {
     echo '<ul>';
     foreach ($data as $key => $value) {
+      $somme = new Listes(0,0);
+      $prixListe = $somme->sommeListe($value['idListe']);
       if ($value['partager'] > 0) {
         $share = 'Oui';
       } else {
@@ -61,7 +63,8 @@ class Listes {
           <a class="lienBoutton" href="index.php?idNav='.$this->AL.'&idListe='.$value['idListe'].'">Affecter</a>
           <a class="lienBoutton" href="index.php?idNav='.$this->liste.'&idListe='.$value['idListe'].'">Voir liste</a>
 
-        Nom liste :'.$value['nomListe'].' Univers :'.$value['nomUnivers'].' Faction '.$value['nomFaction'].' Liste partager : '.$share.'
+        Nom liste :'.$value['nomListe'].' | Univers :'.$value['nomUnivers'].' Faction '.$value['nomFaction'].' | Liste partager : '.$share.'
+        | Prix : '.round($prixListe, 0).' points
         </li>';
     }
     echo '</ul>';

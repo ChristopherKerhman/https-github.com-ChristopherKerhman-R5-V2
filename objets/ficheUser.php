@@ -27,6 +27,7 @@ class FicheUser {
     <li>Prenom : '.$this->prenom.'</li>
     <li>Login : '.$this->login.'</li>
     <li>valide : '.$this->yes[$this->valide].'</li>
+    <li>CGU accepté : '.$this->yes[$this->valide].'</li>
     <li>Role : '.$this->roles[$this->role].'</li>
     <li>Mail de sécurité : '.$this->mail.'</li>
     <li>Univers restant à créer : '.$this->universLibre.'</li>
@@ -67,6 +68,11 @@ class FicheUser {
             <input id="prenom"  type="text" name="prenom" value="'.$this->prenom.'">
             <label for="login">Login</label>
             <input id="login"  type="text" name="login" value="'.$this->login.'">
+            <label for="CGU">Supprimer mon compte ?</label>
+            <select name="valide">
+            <option value="1" selected>Non</option>
+            <option value="0">Oui</option>
+            </select>
             <input type="hidden" name="idUser" value="'.$this->idUser.'" />
             <button  type="submit" name="button">Modifier fiche</button>
       </form>';

@@ -10,8 +10,8 @@
   }
   $parPage = 10;
   // Déclaration de paramètre vide :
-  $param = [];
-  $requetteSQL = "SELECT COUNT(`idArmes`) AS `nbr` FROM `armes` WHERE `fixer` = 1";
+  $param = [['prep'=>':idUser', 'variable'=>$_SESSION['idUser']]];
+  $requetteSQL = "SELECT COUNT(`idArmes`) AS `nbr` FROM `armes` WHERE `fixer` = 1 AND `armes`.`idCreateur` = :idUser";
   $pages = parametrePagination ($parPage, $requetteSQL, $param );
   // Calcul du premier article dans la page.
   $premier = ($currentPage * $parPage) - $parPage;
@@ -19,12 +19,17 @@
   FROM `armes`
   INNER JOIN `univers` ON `idUnivers` = `id_Univers`
   INNER JOIN `factions` ON `idFaction` = `id_Faction`
-   WHERE `fixer` = 1
+   WHERE `fixer` = 1 AND `armes`.`idCreateur` = :idUser
   ORDER BY `nomUnivers`, `nomFaction`, `armes`.`nom`
   LIMIT '.$premier.', '.$parPage.'';
   $dataTraiter = affichageData($requetteSQL, $param);
-
+  if(empty($dataTraiter)) {
+      echo '<h4 class="sousTitre">Pas encore d\'armes fixées</h4>';
+  } else {
 $listeArmes->listeArmesPagination($dataTraiter, $currentPage);
+  }
+
+
 navPagination($pages, $idNav);
 
  ?>

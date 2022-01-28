@@ -39,13 +39,15 @@ include '../fonctionsDB.php';
           ['prep'=> ':role', 'variable' => $role],
           ['prep'=> ':universLibre', 'variable' => $univers]];
       } else {
+          $valide = filter($_POST['valide']);
         $requetteSQL = "UPDATE `users`
-        SET `nom`= :nom,`prenom`= :prenom,`login`= :login
+        SET `nom`= :nom,`prenom`= :prenom,`login`= :login,`valide`= :valide
         WHERE `idUser`= :idUser";
         $parametreUser = [
           ['prep'=> ':idUser', 'variable' => $idUser],
           ['prep'=> ':nom', 'variable' => $nom],
           ['prep'=> ':prenom', 'variable' => $prenom],
+          ['prep'=> ':valide', 'variable' => $valide],
           ['prep'=> ':login', 'variable' => $login]];
       }
       $updateUser = new CurDB($requetteSQL, $parametreUser);

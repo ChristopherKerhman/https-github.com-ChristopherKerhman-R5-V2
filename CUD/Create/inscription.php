@@ -4,8 +4,12 @@ require '../../objets/cud.php';
 require '../../objets/readDB.php';
 include '../fonctionsDB.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (filter($_POST['CGU'])) {
+    $stop = 1;
+  } else {
+    $stop = 0;
+  }
 // Controle Formulaire en amont
-$stop = 1;
 $dataForm = [filter($_POST['nom']), filter($_POST['prenom']), filter($_POST['login']), filter($_POST['mdp'])];
   for ($i=0; $i < count($dataForm) ; $i++) {
     if (empty($dataForm[$i])) {
@@ -37,8 +41,10 @@ if ($stop == 1) {
   header('location:../../index.php?message=Login déjà utilisé.');
   }
   } else {
-    header('location:../../index.php?message=Il y a comme un lézard numérique');
+    header('location:../../index.php?message= Acceptation des CGU abscente ou champs vide.');
 }
+} else {
+  header('location:../../index.php?message= Erreur de traitement.');
 }
 
  ?>

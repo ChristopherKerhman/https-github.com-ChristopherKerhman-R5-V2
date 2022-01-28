@@ -16,7 +16,7 @@ $dataUnivers = $readUnivers->read();
     }
       ?>
   </select>
-  <label for="share">Partager cette faction</label>
+  <label for="share">Partager</label>
   <select class="inputFormulaire" name="partager">
       <option value="0" selected>Non</option>
       <option value="1">Oui</option>

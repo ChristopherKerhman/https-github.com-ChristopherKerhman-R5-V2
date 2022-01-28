@@ -39,7 +39,7 @@ $vehicule = $liste->detailListeVehicule($idListe);
             echo '<p class="ficheFigurine">';
                 echo '<br />Nombre : '.$value['nbr'].'- '.round($value['prixTotal'], 0).' Points';
                 $ficheFigurine = new Figurines(0, $idNav);
-                $ficheFigurine->ficheFigurineCompleteListe ($value['id_Figurine']);
+                $ficheFigurine->ficheFigurineCompleteListe($value['id_Figurine']);
             echo '</p>';
           }
 

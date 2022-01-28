@@ -9,7 +9,8 @@ $parPage = 10;
 $param = [];
 $requetteSQL = "SELECT COUNT(`idLore`) AS `nbrLore`
 FROM `lore`
-WHERE  `lore`.`valide` = 1 AND `partager` = 1";
+INNER JOIN `users` ON `lore`.`idCreateur` = `users`.`idUser`
+WHERE  `lore`.`valide` = 1 AND `partager` = 1  AND `users`.`valide` = 1";
 $nrbC = new readDB($requetteSQL, $param);
 $dataNbrC = $nrbC->read();
 $nbrArticle = $dataNbrC[0]['nbrLore'];
@@ -21,7 +22,7 @@ $triListe = "SELECT `idLore`, `titreLore`,`login`, `nomUnivers`
 FROM `lore`
 INNER JOIN `users` ON `idCreateur` = `idUser`
 INNER JOIN `univers` ON `lore`.`idUnivers` = `univers`.`idUnivers`
-WHERE  `lore`.`valide` = 1 AND `lore`.`partager` = 1
+WHERE  `lore`.`valide` = 1 AND `lore`.`partager` = 1 AND `users`.`valide` = 1
 ORDER BY `nomUnivers` DESC LIMIT {$premier}, {$parPage}";
 $traitement = new readDB($triListe, $param);
 $dataTraiter = $traitement->read();
