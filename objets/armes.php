@@ -77,6 +77,16 @@ class Armes {
       $prepare = [['prep' => ':idUser', 'variable' => $this->idUser]];
       $liste = new readDB($SQL, $prepare);
       $dataListe = $liste->read();
+      echo '<table>';
+      echo '<tr>
+            <th>Cloner</th>
+            <th>Nom arme</th>
+
+            <th>Affecter</th>
+            <th>effacer</th>
+            </tr>';
+
+
       foreach ($dataListe as $key) {
         $prix = new Armes ($this->idUser, $this->idNav);
         $prixArme = $prix->valeurArmes($key['idArmes']);
@@ -86,40 +96,53 @@ class Armes {
         $pre = [['prep' => ':idUnivers', 'variable' => $key['id_Univers']]];
         $action = new readDB($requetteSQL, $pre);
         $listeFaction = $action->read();
+
         echo
-        '<li class="line">
-        <form action="CUD/Create/cloneArmes.php" method="post">
+        '<tr>
+          <td>
+          <form action="CUD/Create/cloneArmes.php" method="post">
           <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
           <input type="hidden" name="idNav" value="'.$this->idNav.'">
           <button id="clone" type="submit" name="button">Cloner</button>
-        </form>
-        <form action="CUD/Update/nomArmes.php" method="post">
-          <label for="nom">Nom arme</label>
-          <input type="text" name="nom" value="'.$key['nom'].'" />
-          <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
-          <input type="hidden" name="idNav" value="'.$this->idNav.'">
-          <button class="lienBoutton" type="submit" name="button">Modifier</button>
-        </form>
-          '.$key['nomUnivers'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']].' Coef : '.round($prixArme, 3).'
-          <form action="CUD/Update/armeFaction.php" method="post">
-          <label for="faction">Factions</label>
-            <select name="id_Faction">';
-            foreach ($listeFaction as $index) {
-              echo '<option value="'.$index['idFaction'].'">'.$index['nomFaction'].'</option>';
-            }
-          echo
-            '</select>
-            <input type="hidden" name="idArmes" value="'.$key['idArmes'].'" />
-            <input type="hidden" name="idNav" value="'.$this->idNav.'">
-            <button type="submit" name="button">Affecter</button>
           </form>
+          </td>
+          <td>
+            '.$key['nomUnivers'].' - '.$key['nom'].' - Type : '.$this->typeArme[$key['typeArme']].' Coef : '.round($prixArme, 3).'
+            <form action="CUD/Update/nomArmes.php" method="post">
+            <label for="nom">Nom arme</label>
+            <input type="text" name="nom" value="'.$key['nom'].'" />
+            <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
+            <input type="hidden" name="idNav" value="'.$this->idNav.'">
+            <button class="lienBoutton" type="submit" name="button">Modifier</button>
+            </form>
+          </td>
+          <td>
+            <form action="CUD/Update/armeFaction.php" method="post">
+            <label for="faction">Factions</label>
+              <select name="id_Faction">';
+              foreach ($listeFaction as $index) {
+                echo '<option value="'.$index['idFaction'].'">'.$index['nomFaction'].'</option>';
+              }
+            echo
+              '</select>
+              <input type="hidden" name="idArmes" value="'.$key['idArmes'].'" />
+              <input type="hidden" name="idNav" value="'.$this->idNav.'">
+              <button type="submit" name="button">Affecter</button>
+            </form>
+          </td>
+          <td>
           <form action="CUD/Delette/armes.php" method="post">
             <input type="hidden" name="idArmes" value="'.$key['idArmes'].'">
             <input type="hidden" name="idNav" value="'.$this->idNav.'">
             <button type="submit" name="button">Effacer</button>
           </form>
-          </li>';
+          </td>
+
+
+
+        </tr>';
       }
+      echo '</table>';
     }
     public function avecFactions() {
       $SQL = "SELECT `idArmes`, `nom`, `nomUnivers`, `nomFaction`, `typeArme`

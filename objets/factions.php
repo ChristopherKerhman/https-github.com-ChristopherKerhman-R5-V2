@@ -34,11 +34,6 @@ class Factions {
             <input type="hidden" name="idNav" value="'.$this->idNav.'">
             <button type="submit" name="button">Modifier</button>
           </form>
-            <form  action="CUD/Delette/factions.php" method="post">
-              <input type="hidden" name="idNav" value="'.$this->idNav.'">
-              <input type="hidden" name="idFaction" value="'.$key['idFaction'].'" />
-            <button type="submit" name="button">Effacer '.$key['nomFaction'].'</button>
-            </form>
         </li>';
       }
       echo '</ul>';

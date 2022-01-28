@@ -4,6 +4,14 @@ require 'objets/listes.php';
 require 'objets/figurines.php';
 include 'administration/functionPagination.php';
 // Création de la liste des univers + faction associé
+$triFaction = "SELECT `idFaction`,  `factions`.`idUnivers`, `nomFaction`, `nomUnivers`
+FROM `factions`
+INNER JOIN `univers` ON `univers`.`idUnivers` = `factions`.`idUnivers`
+WHERE `idCreateur` = :idUser";
+$param = [['prep'=>':idUser', 'variable'=>$_SESSION['idUser']]];
+$FactionListe = new readDB($triFaction, $param);
+$dataFU = $FactionListe->read();
+
  ?>
  <h3 class="sousTitre">Création d'une nouvelle liste</h3>
 <form class="formulaire" action="CUD/Create/liste.php" method="post">
@@ -12,7 +20,7 @@ include 'administration/functionPagination.php';
   <label for="FU">Univers et faction de votre liste ?</label>
   <select id="FU" name="FU">
 <?php
-foreach ($dataListeFU as $index => $valeur) {
+foreach ($dataFU as $index => $valeur) {
   echo '<option value="'.$valeur['idUnivers'].','.$valeur['idFaction'].'">'.$valeur['nomUnivers'].'- '.$valeur['nomFaction'].'</option>';
 }
  ?>
@@ -34,8 +42,6 @@ if(isset($_GET['page']) && (!empty($_GET['page']))) {
 $currentPage = 1;
 }
 $parPage = 10;
-// Déclaration de paramètre vide :
-$param = [['prep'=>'idUser', 'variable'=>$_SESSION['idUser']]];
 // Recherche du nombre total de liste
 $requetteSQL = "SELECT COUNT(`idListe`) AS `nbr` FROM `listeArmee` WHERE `valide` = 1 AND `idUser` = :idUser";
 $pages = parametrePagination ($parPage, $requetteSQL, $param );
