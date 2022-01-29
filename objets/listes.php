@@ -83,7 +83,7 @@ class Listes {
     return $dataIdFigurine;
   }
   public function nameListe($idListe) {
-    $getName = "SELECT `nomListe` FROM `listeArmee` WHERE  `idListe` = :id";
+    $getName = "SELECT `nomListe`, `partager` FROM `listeArmee` WHERE  `idListe` = :id";
     $param = [['prep'=> ':id', 'variable' => $idListe]];
     $name = new readDB($getName, $param);
     $nameListe = $name->read();

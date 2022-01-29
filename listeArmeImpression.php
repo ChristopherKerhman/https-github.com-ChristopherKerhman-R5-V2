@@ -1,4 +1,6 @@
 <?php
+session_start();
+$vueJSCDN = 'node_modules/vue/dist/vue.global.prod.js';
 require 'objets/factions.php';
 require 'objets/listes.php';
 require 'objets/figurines.php';
@@ -11,11 +13,16 @@ $idNav = 0;
 $idListe = filter($_GET['idListe']);
 $liste = new Listes(0, $idNav);
 $nameListe = $liste->nameListe($idListe);
+// Faire la sécurité
+if($nameListe[0]['partager'] == 0) {
+  include 'securite/securiterUtilisateur.php';
+}
 $factionListe = $liste->factionListe($idListe);
 $UFListe = new Factions(0, $idNav);
 $dataUFliste = $UFListe->nomFactionEtUnivers($factionListe);
 $figurine = $liste->detailListeFigurine($idListe);
 $vehicule = $liste->detailListeVehicule($idListe);
+$vueJSCDN = 'node_modules/vue/dist/vue.global.prod.js';
 ?>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
@@ -24,12 +31,13 @@ $vehicule = $liste->detailListeVehicule($idListe);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="boardgame, jeu d'escarmouche, figurines, 28mm">
     <link rel="stylesheet" href="css/master.css">
+        <script src="<?php echo $vueJSCDN; ?>"></script>
     <title><?=$dataUFliste[0]['nomUnivers']?> / <?=$dataUFliste[0]['nomFaction']?> - Liste <?=$nameListe[0]['nomListe']?></title>
   </head>
   <body>
-
     <section class="listeBlanche">
      <h3 class="sousTitre"><?=$dataUFliste[0]['nomUnivers']?> / <?=$dataUFliste[0]['nomFaction']?> - Liste <?=$nameListe[0]['nomListe']?> </h3>
+       <div id="BACK"><a class="lienImpression" v-on:click="backTo"><< retour </a></div>
      <article class="listeBlanche">
        Prix total de la liste : <?php $valeurListe = $liste->sommeListe($idListe); if($valeurListe == 0) { echo 'Pas encore d\'éléments dans cette liste.';} else { echo round($valeurListe, 0).' points';}?><br />
        Point de commandement : <?php $pc = $liste->pointCommandement($idListe);echo round($pc,0); if($pc > 1.5) { echo ' points';} else { echo ' point';} ?>
@@ -59,7 +67,7 @@ $vehicule = $liste->detailListeVehicule($idListe);
         }
     }
     }
-
+include 'javascript/back.php';
      ?>
 
   </body>

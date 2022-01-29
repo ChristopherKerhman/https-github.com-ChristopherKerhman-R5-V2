@@ -20,16 +20,21 @@ $dataRulesVehicules = json_encode($dataRulesVehicules);
 </div>
   <!--Fin Présentation en fenêtre-->
   <h3 class="sousTitre">Les règles spéciales Armes</h3>
+
   <div class="mosaique">
+    <a class="lienRS lienImpression" href="listeRulesImprimer.php?type=0"> >>> imprimer</a>
     <a class="lienRS" v-for="Wap in regleW" v-bind:key="Wap" v-on:click="action(Wap)">{{Wap.nomRules}}</a>
   </div>
-
+  <!--Fin Présentation en fenêtre-->
   <h3 class="sousTitre">Les règles spéciales Figurines</h3>
   <div class="mosaique">
+    <a class="lienRS lienImpression" href="listeRulesImprimer.php?type=1"> >>> imprimer</a>
     <a class="lienRS" class="item" v-for="Fig in regleF" v-bind:key="Fig" v-on:click="action(Fig)">{{Fig.nomRules}}</a>
   </div>
+    <!--Fin Présentation en fenêtre-->
   <h3 class="sousTitre">Les règles spéciales Véhicules</h3>
   <div class="mosaique">
+      <a class="lienRS lienImpression" href="listeRulesImprimer.php?type=2"> >>> imprimer</a>
     <a class="lienRS" class="item" v-for="Veh in regleV" v-bind:key="Veh" v-on:click="action(Veh)">{{Veh.nomRules}}</a>
   </div>
 </div>

@@ -7,6 +7,11 @@ require 'objets/armes.php';
 $idListe = filter($_GET['idListe']);
 $liste = new Listes(0, $idNav);
 $nameListe = $liste->nameListe($idListe);
+
+// faire la sécurité
+if($nameListe[0]['partager'] == 0) {
+  include 'securite/securiterUtilisateur.php';
+}
 $factionListe = $liste->factionListe($idListe);
 $UFListe = new Factions(0, $idNav);
 $dataUFliste = $UFListe->nomFactionEtUnivers($factionListe);
@@ -17,6 +22,7 @@ $vehicule = $liste->detailListeVehicule($idListe);
  <h3 class="sousTitre"><?=$dataUFliste[0]['nomUnivers']?> / <?=$dataUFliste[0]['nomFaction']?> - Liste <?=$nameListe[0]['nomListe']?> </h3>
   <a class="lienBoutton" href="listeArmeImpression.php?idListe=<?=$idListe?>">Vers impression de la liste</a>
  <article class="listeBlanche">
+
    Prix total de la liste : <?php $valeurListe = $liste->sommeListe($idListe); if($valeurListe == 0) { echo 'Pas encore d\'éléments dans cette liste.';} else { echo round($valeurListe, 0).' points';}?><br />
    Point de commandement : <?php $pc = $liste->pointCommandement($idListe);echo round($pc,0); if($pc > 1.5) { echo ' points';} else { echo ' point';} ?>
 <h5>Figurines</h5>

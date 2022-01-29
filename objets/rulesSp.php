@@ -9,6 +9,16 @@ class Rules {
     $listeRules = $read->read();
     return $listeRules;
   }
+  public function affichageRules($variable) {
+    echo '<ul class="SPGRID">';
+    foreach ($variable as $key => $value) {
+    echo'<li class="SPitem">';
+      echo '<strong>'.$value['nomRules'].'</strong><br />';
+      echo $value['descriptionRules'];
+    echo'</li>';
+    }
+    echo '</ul>';
+  }
   public function affectation ($data, $id, $idNav, $type) {
     echo '
     <h4 class="sousTitre">Affectation des règles spéciales</h4>
