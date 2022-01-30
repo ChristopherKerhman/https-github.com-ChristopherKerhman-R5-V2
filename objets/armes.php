@@ -12,6 +12,13 @@ class Armes {
     $this->adressFiche = 53;
     $this->adressFicheFixer = 54;
   }
+  public function securiteID ($idArmes) {
+    $SQL = "SELECT `idArmes`, `fixer` FROM `armes` WHERE `idArmes` = :id";
+    $param = [['prep'=>':id', 'variable'=> $idArmes]];
+    $verifID = new readDB($SQL, $param);
+    $dataID = $verifID->read();
+    return $dataID;
+  }
   public function listeArmesHS () {
     // On selectionne les armes HS
     $SQL = "SELECT `idArmes`, `id_Univers`, `nomUnivers`, `nomFaction`, `nom`, `typeArme`  FROM `armes`

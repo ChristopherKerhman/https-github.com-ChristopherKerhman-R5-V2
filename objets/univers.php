@@ -4,6 +4,12 @@ class Univers {
   public function __construct() {
     $this->idUser = $_SESSION['idUser'];
   }
+  public function listeUniversUser() {
+    $triUnivers = "SELECT  `nomUnivers`, `NTUnivers` FROM `univers` WHERE `idProprietaire` = :idUser ORDER BY `nomUnivers`";
+    $param = [['prep'=>':idUser', 'variable'=>$this->idUser]];
+    $liste = new readDB($triUnivers, $param);
+    return $data = $liste->read();
+  }
   public function readUniversUser() {
     $sql = "SELECT `idUnivers`, `nomUnivers`, `NTUnivers` FROM `univers` WHERE `idProprietaire` = :idUser AND `valide` = 1";
     $prepare = [['prep'=> ':idUser', 'variable' => $this->idUser]];

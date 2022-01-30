@@ -49,4 +49,14 @@ class Factions {
     $dataUF = $getUF->read();
     return $dataUF;
   }
+  public function readFactionUnivers() {
+    $triFaction = "SELECT `nomFaction`, `nomUnivers`
+    FROM `factions`
+    INNER JOIN `univers` ON `univers`.`idUnivers` = `factions`.`idUnivers`
+    WHERE `idCreateur` = :idUser AND `factions`.`valide` = 1";
+    $preparation = [['prep' => ':idUser', 'variable' => $this->idUser]];
+    $getUF = new readDB($triFaction,$preparation);
+    $dataUF = $getUF->read();
+    return $dataUF;
+  }
 }

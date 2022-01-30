@@ -162,6 +162,9 @@ box-shadow: inset 0px 0px 5px 0px #28FF00;
    font-size: 1em;
    font-weight: bolder;
  }
+ .arial {
+   font-family: 'arial';
+ }
  .lienBoutton {
    text-align: center;
    max-width: 30%;
@@ -419,9 +422,19 @@ td {
   font-family: 'Black Ops One', cursive;
   padding: 5px;
   font-weight: 200;
+  /*Pulsation Effet spéciaux*/
+  -webkit-box-shadow: 0px 0px 15px 0px #FF0000;
+  box-shadow: 0px 0px 15px 0px #FF0000;
+
 }
+
 #BACK .lienImpression {
   margin-left: 1em;
+}
+.simpleColonne {
+  display: flex;
+  flex-direction: column;
+  min-width: 50%;
 }
 
  .flex-center {
@@ -447,6 +460,10 @@ td {
   align-items: flex-end;
   justify-content: center;
   border: none;
+ }
+ .flex-menuCentrale {
+   display: flex;
+   justify-content: space-around;
  }
 .flex-presentation {
      margin: 1em 1em 1em 1em;
@@ -619,6 +636,10 @@ font-size: 0.5em;
    .lienCentrale {
      font-size: 0.95em;
    }
+    .flex-menuCentrale {
+      display: flex;
+      flex-direction: column;
+    }
    form {
      display: flex;
      flex-direction: column;
@@ -684,3 +705,24 @@ font-size: 0.5em;
      left: 2%;
    }
 }
+	@media print {
+    body {
+      margin:0 mm;
+    }
+    .lienImpression {
+      display: none;
+    }
+    .titre {
+      font-size: 1.5em;
+    }
+    .sousTitre {
+      font-size: 1.2em;
+    }
+    .listeBlanche {
+      break-after: auto;
+    }
+    .SPitem {
+      margin-bottom: 1em;
+      margin-top: 1em;
+    }
+  }

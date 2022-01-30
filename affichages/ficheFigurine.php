@@ -5,6 +5,7 @@ require 'objets/figurines.php';
 require 'objets/rulesSp.php';
   $idFigurine = filter($_GET['idFigurine']);
   $figurine = new Figurines ($_SESSION['idUser'], $idNav);
+
   $dataFiche = $figurine->readFiche($idFigurine);
   // Logique pour mettre un titre.
   if ($dataFiche[0]['figurineAffecter'] > 0) {

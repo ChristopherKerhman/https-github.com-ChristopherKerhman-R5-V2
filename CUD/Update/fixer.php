@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $action = new CurDB($requetteSQL, $prepare);
     $action->actionDB();
-    header('location:../../index.php?idNav='.$idNav.'&message=Arme fixée.');
+    header('location:../../index.php?message=Arme fixée.');
 } else {
     header('location:../../index.php?message=Erreur de traitement.');
 }

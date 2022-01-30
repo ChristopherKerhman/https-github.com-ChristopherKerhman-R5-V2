@@ -14,9 +14,14 @@ class Lore {
     $prepare = [['prep' => ':idLore', 'variable'=> $this->idLore]];
     $readLore = new readDB($SQL, $prepare);
     $article = $readLore->read();
-    echo '<h4 class="sousTitre">'.$article[0]['titreLore'].' - Univers '.$article[0]['nomUnivers'].'</h4>
-          <p class="articleLore">'.$article[0]['texteLore'].'
-          <br /><br /><strong>Par l\'auteur '.$article[0]['login'].'</strong></p>';
+    if (empty($article)) {
+      echo '<h4 class="sousTitre">Aucun article à cette référence.</h4>';
+    } else {
+      echo '<h4 class="sousTitre">'.$article[0]['titreLore'].' - Univers '.$article[0]['nomUnivers'].'</h4>
+            <p class="articleLore">'.$article[0]['texteLore'].'
+            <br /><br /><strong>Par l\'auteur '.$article[0]['login'].'</strong></p>';
+    }
+
   }
   public function modLore($data) {
     $SQL = "SELECT `idLore`, `titreLore`, `texteLore`, `lore`.`valide`, `lore`.`partager`, `nomUnivers`
