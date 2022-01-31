@@ -30,8 +30,22 @@ class Listes {
       // Aller vers liste public :
       $this->publicListe = 78;
   }
+  public function securiterListe($idListe) {
+    $getIdListe =  "SELECT `idListe` FROM `listeArmee` WHERE `idListe` = :id AND `idUser` = :idUser";
+    $param = [['prep'=>':id', 'variable'=> $idListe], ['prep'=>':idUser', 'variable'=> $this->idUser]];
+    $verifID = new readDB($getIdListe, $param);
+    $dataID = $verifID->read();
+    return $dataID;
+  }
+  public function securiterListeBasNiveau($idListe) {
+    $getIdListe =  "SELECT `idListe` FROM `listeArmee` WHERE `idListe` = :id";
+    $param = [['prep'=>':id', 'variable'=> $idListe]];
+    $verifID = new readDB($getIdListe, $param);
+    $dataID = $verifID->read();
+    return $dataID;
+  }
   public function versListe() {
-    echo $this->liste;
+    return $this->liste;
   }
   public function readListesUser ($ok, $fixer) {
     $triListe = "SELECT `idListe`, `id_Univers`, `id_Faction`, `nomListe`, `nomUnivers`, `nomFaction`, `listeArmee`.`partager`

@@ -12,6 +12,10 @@ include 'CUD/fonctionsDB.php';
 $idNav = 0;
 $idListe = filter($_GET['idListe']);
 $liste = new Listes(0, $idNav);
+$dataId = $liste->securiterListeBasNiveau($idListe);
+if (empty($dataId)) {
+  header('location:index.php');
+}
 $nameListe = $liste->nameListe($idListe);
 // Faire la sécurité
 if($nameListe[0]['partager'] == 0) {

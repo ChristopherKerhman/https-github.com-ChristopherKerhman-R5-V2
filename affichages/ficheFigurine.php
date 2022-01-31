@@ -5,19 +5,26 @@ require 'objets/figurines.php';
 require 'objets/rulesSp.php';
   $idFigurine = filter($_GET['idFigurine']);
   $figurine = new Figurines ($_SESSION['idUser'], $idNav);
+  $dataID = $figurine->securiterIDFigurine($idFigurine);
 
-  $dataFiche = $figurine->readFiche($idFigurine);
-  // Logique pour mettre un titre.
-  if ($dataFiche[0]['figurineAffecter'] > 0) {
-  $figurine->UniversFaction($dataFiche[0]['idFigurine']);
-} else {
-  echo '<h3 class="sousTitre">Pas encore d\'univers</h3>';
-}
-  $figurine->ficheFigurine($dataFiche, $idNav);
-  $figurine->spRules($idFigurine);
-  $figurine->DelSpecialRules($idFigurine, $idNav);
-  $liste = new Rules();
-  $type = 1;
-  $dataRS = $liste->readRules($type);
-  $liste->affectation($dataRS, $idFigurine, $idNav, $type);
+
+  if (!empty($dataID)) {
+    $dataFiche = $figurine->readFiche($idFigurine);
+    // Logique pour mettre un titre.
+    if ($dataFiche[0]['figurineAffecter'] > 0) {
+    $figurine->UniversFaction($dataFiche[0]['idFigurine']);
+  } else {
+    echo '<h3 class="sousTitre">Pas encore d\'univers</h3>';
+  }
+    $figurine->ficheFigurine($dataFiche, $idNav);
+    $figurine->spRules($idFigurine);
+    $figurine->DelSpecialRules($idFigurine, $idNav);
+    $liste = new Rules();
+    $type = 1;
+    $dataRS = $liste->readRules($type);
+    $liste->affectation($dataRS, $idFigurine, $idNav, $type);
+  } else {
+    echo '<h3 class="sousTitre">Pas de données</h3>';
+  }
+
 ?>

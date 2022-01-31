@@ -13,8 +13,8 @@ class Armes {
     $this->adressFicheFixer = 54;
   }
   public function securiteID ($idArmes) {
-    $SQL = "SELECT `idArmes`, `fixer` FROM `armes` WHERE `idArmes` = :id";
-    $param = [['prep'=>':id', 'variable'=> $idArmes]];
+    $SQL = "SELECT `idArmes`, `fixer` FROM `armes` WHERE `idArmes` = :id AND `idCreateur` = :idUser";
+    $param = [['prep'=>':id', 'variable'=> $idArmes], ['prep'=>':idUser', 'variable'=> $this->idUser]];
     $verifID = new readDB($SQL, $param);
     $dataID = $verifID->read();
     return $dataID;

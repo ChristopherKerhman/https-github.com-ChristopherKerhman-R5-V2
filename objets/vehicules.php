@@ -58,6 +58,13 @@ class Vehicules {
     $dataVehicule = $readVehicule->read();
     return $dataVehicule;
   }
+  public function securiteID ($idVehicule) {
+    $SQL = "SELECT `idVehicule` FROM `transport` WHERE `idVehicule` = :id AND `idUser` = :idUser";
+    $param = [['prep'=>':id', 'variable'=> $idVehicule], ['prep'=>':idUser', 'variable'=> $this->idUser]];
+    $verifID = new readDB($SQL, $param);
+    $dataID = $verifID->read();
+    return $dataID;
+  }
 
   public function attribution() {
     // Liste des univers et des faction associé.

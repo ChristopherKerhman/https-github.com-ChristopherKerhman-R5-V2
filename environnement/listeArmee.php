@@ -7,6 +7,10 @@ require 'objets/vehicules.php';
 require 'objets/armes.php';
 $idListe = filter($_GET['idListe']);
 $liste = new Listes(0, $idNav);
+$dataId = $liste->securiterListeBasNiveau($idListe);
+if (empty($dataId)) {
+  header('location:index.php');
+}
 $nameListe = $liste->nameListe($idListe);
 $factionListe = $liste->factionListe($idListe);
 $UFListe = new Factions(0, $idNav);

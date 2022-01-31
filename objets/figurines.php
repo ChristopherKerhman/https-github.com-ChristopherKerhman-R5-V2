@@ -42,6 +42,14 @@ class Figurines {
     // Vers affichafe fiche figurine bonne pour le service
     $this->navI = 63;
   }
+public function securiterIDFigurine ($idFigurine) {
+  $getIdFigurine =  "SELECT `idFigurine` FROM `figurines` WHERE `idFigurine` = :id AND `id_User` = :idUser";
+  $param = [['prep'=>':id', 'variable'=> $idFigurine], ['prep'=>':idUser', 'variable'=> $this->idUser]];
+  $verifID = new readDB($getIdFigurine, $param);
+  $dataID = $verifID->read();
+  return $dataID;
+}
+
   public function ListeNouvelleFigurine ($param, $param1) {
     if($param1 >0) {
       $selectListeNF = "SELECT `idFigurine`, `nomFigurine`
