@@ -29,10 +29,12 @@ $dataID = $figurine->securiterIDFigurine($idFigurine);
       $doter->resumeArme($dataArme, $DC);
     }
     $dotationFigurine = $arme->readArmes($tri[0]['id_Faction']);
+    if ($dataFiche[0]['prixFinal'] == 0) {
     $figurine->delArmeAffecter($idFigurine, $idNav);
     $arme->mosaiqueArmes($dotationFigurine, $idFigurine, $idNav, 0);
     echo '<h3 class="sousTitre">Armes disponibles</h3>';
     $arme->resumeArme($dotationFigurine, $DC);
+  }
 
   } else {
       echo '<h3 class="sousTitre">Pas de données</h3>';

@@ -44,6 +44,7 @@ $idNav = $dataNav[0]['idNav'];
   </div>
   <nav>
     <ul class="flex-center">
+      <li><a href="bibliotheque/R5-V2-2022.zip">Obtenir R5</a></li>
       <li><div id="BACK"><a v-on:click="backTo"><<</a></div></li>
       <?php
         foreach ($dataNav as $key) {

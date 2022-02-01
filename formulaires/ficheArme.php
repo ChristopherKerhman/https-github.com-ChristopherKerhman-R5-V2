@@ -21,10 +21,12 @@ if(empty($securiterID)) {
   $ficheArmes->specialRulesFicheArmes($idArmes);
   $puissanceArme = $ficheArmes->valeurArmes($idArmes);
   echo '<br />';
-  $ficheArmes->DelSpecialRules($idArmes, $idNav);
-  $liste = new Rules();
-  $type = 0;
-  $dataRS = $liste->readRules($type);
-  $liste->affectation($dataRS, $idArmes, $idNav, $type);
+  if ($securiterID[0]['fixer'] == 0) {
+    $ficheArmes->DelSpecialRules($idArmes, $idNav);
+    $liste = new Rules();
+    $type = 0;
+    $dataRS = $liste->readRules($type);
+    $liste->affectation($dataRS, $idArmes, $idNav, $type);
+  }
 }
  ?>

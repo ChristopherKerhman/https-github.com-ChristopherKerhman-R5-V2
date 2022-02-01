@@ -18,11 +18,13 @@ require 'objets/rulesSp.php';
   }
     $figurine->ficheFigurine($dataFiche, $idNav);
     $figurine->spRules($idFigurine);
+    if ($dataFiche[0]['figurineFixer'] == 0) {
     $figurine->DelSpecialRules($idFigurine, $idNav);
     $liste = new Rules();
     $type = 1;
     $dataRS = $liste->readRules($type);
     $liste->affectation($dataRS, $idFigurine, $idNav, $type);
+  }
   } else {
     echo '<h3 class="sousTitre">Pas de données</h3>';
   }

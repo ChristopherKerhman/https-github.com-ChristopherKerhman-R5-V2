@@ -1,8 +1,5 @@
-
-
 </section>
 </main>
-
 <footer>
   <nav>
     <?php
@@ -11,14 +8,13 @@
       $param = [];
       $lienBas = new readDB($triLien, $param);
       $dataLienBas = $lienBas->read();
-
      ?>
   <ul class="flex-center upperSize">
     <?php foreach ($dataLienBas as $key) {
       echo '<li><a href="index.php?idNav='.$key['idNav'].'">'.$key['nomLien'].'</a></li>';
     } ?>
     <li><a href="https://blog.ludis-r5.fr">Le blog de ludis R5</a></li>
-    <li><a href="bibliotheque/R5-V2-2022.zip">Obtenir R5</a></li>
+  
   </ul>
   </nav>
 <?php

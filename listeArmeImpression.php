@@ -49,7 +49,7 @@ $vueJSCDN = 'node_modules/vue/dist/vue.global.prod.js';
         <?php
           foreach ($figurine as $key => $value) {
             echo '<p class="ficheFigurine">';
-                echo '<br />Nombre : '.$value['nbr'].'- '.round($value['prixTotal'], 0).' Points';
+                echo '<br /><strong>Nombre : '.$value['nbr'].'</strong> | Prix : '.round($value['prixTotal'], 0).' Points';
                 $ficheFigurine = new Figurines(0, $idNav);
                 $ficheFigurine->ficheFigurineCompleteListe($value['id_Figurine']);
             echo '</p>';
