@@ -15,7 +15,7 @@ if(isset($_GET['page']) && (!empty($_GET['page']))) {
 } else {
 $currentPage = 1;
 }
-$parPage = 25;
+$parPage = 10;
 // Déclaration de paramètre vide :
 $param = [];
 // Recherche des connexions aux sites
@@ -35,6 +35,10 @@ $dataTraiter = $traitement->read();
 $yes = ['Non', 'Oui'];
 //print_r($dataTraiter);
  ?>
+ <form action="CUD/Delette/journeaux.php" method="post">
+   <input type="hidden" name="idNav" value="<?=$idNav?>">
+<button type="submit" name="button">Vider Journeaux</button>
+ </form>
     <table>
       <caption>
         Journaux de connexion des utilisateurs et des visiteurs.
@@ -43,9 +47,10 @@ $yes = ['Non', 'Oui'];
      <th>IdConnexion</th>
      <th>Id User</th>
      <th>login</th>
-     <th>IP de connexion</th>
+     <th>Fiche</th>
      <th>Mot de passe hacker</th>
-     <th>Connexion réussit</th>
+     <th>IP de connexion</th>
+    <th>Connexion réussit</th>
      <th>date et heure de connexion</th>
    </tr>
    <?php
