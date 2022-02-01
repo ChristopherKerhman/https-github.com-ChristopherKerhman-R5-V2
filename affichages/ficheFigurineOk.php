@@ -5,7 +5,7 @@ require 'objets/figurines.php';
 require 'objets/armes.php';
 $oneFigurine = new Figurines ($_SESSION['idUser'], $idNav);
 $dataID = $oneFigurine->securiterIDFigurine($idFigurine);
-if (!empty($dataID)) {
+if ((!empty($dataID)) || $_SESSION['role'] > 1) {
 $dataFigurine = $oneFigurine->readFiche($idFigurine);
 $oneFigurine->UniversFaction($idFigurine);
 $oneFigurine->ficheSimple($dataFigurine);
@@ -18,6 +18,7 @@ foreach ($dotationArme as $key) {
   $doter->resumeArme($dataArme, $DC);
 }
 }  else {
-    echo '<h3 class="sousTitre">Pas de données</h3>';
-}
+echo '<h3 class="sousTitre">Pas de données</h3>';
+  }
+
  ?>

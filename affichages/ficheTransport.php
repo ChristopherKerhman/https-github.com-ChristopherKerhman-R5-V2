@@ -6,7 +6,7 @@ require 'objets/rulesSp.php';
 $idVehicule = filter($_GET['idVehicule']);
 $ficheVehicule = new Vehicules($_SESSION['idUser'], $idNav);
 $dataID = $ficheVehicule->securiteID ($idVehicule);
-if (!empty($dataID)) {
+if ((!empty($dataID)) || ($_SESSION['role'] > 1)) {
 $dataVehicule = $ficheVehicule->readVehicule($idVehicule);
 $DC = $dataVehicule[0]['DC'];
 if ($dataVehicule[0]['id_univers']>0) {
