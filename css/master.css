@@ -388,6 +388,7 @@ td {
   background: -moz-linear-gradient(270deg, hsla(207, 100%, 98%, 0.8) 70%, hsla(47, 44%, 87%, 1) 100%);
   background: -webkit-linear-gradient(270deg, hsla(207, 100%, 98%, 0.8) 70%, hsla(47, 44%, 87%, 1) 100%);
  }
+
  .item {
   min-height: 2vh;
   min-width: 15vh;
@@ -404,6 +405,12 @@ td {
   grid-template-columns: repeat(auto-fit, 50vh);
   grid-gap: 5px;
   justify-content: center;
+}
+.Galeritem {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .SPitem {
   min-height: 2vh;
