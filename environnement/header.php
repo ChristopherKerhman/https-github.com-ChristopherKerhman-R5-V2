@@ -25,6 +25,7 @@ if (!isset($_SESSION['role'])) {
 $readNav = new readDB($requetteSQL, $prepare);
 $dataNav = $readNav->read();
 $idNav = $dataNav[0]['idNav'];
+//header('Content-Type: text/html');
 ?>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
