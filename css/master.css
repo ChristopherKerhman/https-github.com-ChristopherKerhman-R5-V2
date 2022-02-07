@@ -68,7 +68,25 @@ article {
  nav a:hover {
   background-color: #75511Fff;
    color:#F6FBFFff;
-   transition: background-color 1s;
+   transition: background-color 0.5s;
+ }
+ #r5 {
+   height: auto;
+   color: #75511Fff;
+   font-family: 'Quantico', sans-serif;
+   font-size: auto;
+   text-decoration: none;
+   background-color: #969BCEff;
+   color: #F6FBFFff;
+   border: #1C1B20ff solid 2px;
+   border-radius: 5px;
+   padding: 0px 10px 0px 10px;
+   transition: background-color 0.5s;
+ }
+ #r5:hover {
+   background-color: #75511Fff;
+    color:#F6FBFFff;
+    transition: background-color 0.5s;
  }
  nav ul {
    font-size: 2.5em;
@@ -112,7 +130,7 @@ article {
    transition: background-color 1s;
    transition: color 0.5s;
    -webkit-box-shadow: inset 0px 0px 5px 0px red;
-box-shadow: inset 0px 0px 5px 0px red;
+   box-shadow: inset 0px 0px 5px 0px red;
  }
  button:hover {
    background-color: red;
@@ -144,7 +162,7 @@ caption {
    transition: background-color 1s, color 1s;
    transition: color 0.5s;
    -webkit-box-shadow: inset 0px 0px 5px 0px #28FF00;
-box-shadow: inset 0px 0px 5px 0px #28FF00;
+   box-shadow: inset 0px 0px 5px 0px #28FF00;
  }
  #clone:hover {
    background-color: #28FF00;
@@ -737,8 +755,23 @@ font-size: 0.5em;
     .listeBlanche {
       break-after: auto;
     }
+    .SPGRID {
+      padding: 20px 0px 20px 0px;
+      border-radius: 5px;
+      max-width:100%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, 50vh);
+      grid-gap: 5px;
+      justify-content: center;
+    }
     .SPitem {
-      margin-bottom: 1em;
-      margin-top: 1em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: black;
+      padding: 15px;
+      border: 1px solid black;
+      font-size: 0.5em;
+      /*justify-content: center;*/
     }
   }

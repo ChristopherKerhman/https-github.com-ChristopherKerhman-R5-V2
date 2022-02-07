@@ -45,11 +45,13 @@ $idNav = $dataNav[0]['idNav'];
   </div>
   <nav>
     <ul class="flex-center">
-      <li><a href="bibliotheque/R5-V2-2022.zip">Obtenir R5</a></li>
       <li><div id="BACK"><a v-on:click="backTo"><<</a></div></li>
       <?php
         foreach ($dataNav as $key) {
           echo '<li><a href="index.php?idNav='.$key['idNav'].'">'.$key['nomLien'].'</a></li>';
+        }
+        if(!isset($_SESSION['role'])) {
+          echo '<li><a id="r5" href="bibliotheque/R5-V2-2022.zip">Obtenir R5</a></li>';
         }
        ?>
     </ul>

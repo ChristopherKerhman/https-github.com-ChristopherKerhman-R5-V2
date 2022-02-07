@@ -5,6 +5,12 @@ function filter($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
+function filterTexte($data) {
+  $data = trim($data);
+  $data = stripslashes($data);
+  return $data;
+}
+
 function haschage($data) {
   $option = ['cost' => 10];
   $data = password_hash($data, PASSWORD_BCRYPT, $option);
