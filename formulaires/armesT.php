@@ -73,7 +73,7 @@ include 'stockageData/yes.php';
          ?>
       </select>
       <label for="cadence">Cadence de tir max (si arme de couverture)</label>
-      <input type="number" name="cadenceTir" min="1" max="12" value="1">
+      <input type="number" name="cadenceTir" min="2" max="12" value="2">
       <label for="lourd">Arme lourde</label>
       <select id="lourd" name="lourd">
         <?php
