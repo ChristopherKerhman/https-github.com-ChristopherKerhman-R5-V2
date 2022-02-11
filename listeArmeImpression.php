@@ -69,6 +69,7 @@ $vueJSCDN = 'node_modules/vue/dist/vue.global.prod.js';
           $armesVehicule = new Armes(0, $idNav);
           $armesVehicule->ficheArmeListe($valeur['id_Arme'], $DC);
         }
+        echo '</p>';
     }
     }
 include 'javascript/back.php';

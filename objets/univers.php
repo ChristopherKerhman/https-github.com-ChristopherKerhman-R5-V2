@@ -37,6 +37,6 @@ class Univers {
             echo '<li><a class="lienBoutton" href="index.php?idNav=44&idLore='.$cle['idLore'].'">'.$cle['nomUnivers'].' - '.$cle['titreLore'].'</a></li>';
           }
     }
-
   }
+
 }

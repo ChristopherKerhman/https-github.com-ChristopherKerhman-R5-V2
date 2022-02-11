@@ -24,4 +24,9 @@ class LienCentrale {
      echo '<li><a class="lienCentrale" href="index.php?idNav='.$key['idNav'].'">'.$key['nomLien'].'</a></li>';
    }
  }
+ public function affichageLienPartageUnivers($data, $idUnivers) {
+   foreach ($data as $key) {
+     echo '<li><a class="lienCentrale" href="index.php?idNav='.$key['idNav'].'&idUnivers='.$idUnivers.'">'.$key['nomLien'].'</a></li>';
+   }
+ }
 }

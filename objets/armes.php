@@ -175,6 +175,64 @@ class Armes {
         </li>';
       }
     }
+    public function fichePublic ($idArmes, $puissanceArme) {
+
+      $SQL ="SELECT `idArmes`, `id_Univers`, `id_Faction`, `armes`.`idCreateur`, `nom`, `description`,
+      `typeArme`, `puissance`, `maxRange`, `surPuissance`, `sort`, `assaut`, `couverture`, `cadenceTir`,
+      `lourd`, `puissanceExplosif`, `gabarit`, `fixer`, `armes`.`valide`, `prix`, `nomFaction`, `typeArme`, `nomUnivers`, `nomFaction`
+      FROM `armes`
+      INNER JOIN `univers` ON `id_Univers` = `idUnivers`
+      INNER JOIN `factions` ON `id_Faction` = `idFaction`
+      WHERE `idArmes`=:idArmes AND `armes`.`valide` = 1 AND `id_Faction` = `idFaction`";
+      $prepare = [['prep' => ':idArmes', 'variable' => $idArmes]];
+      $fiche = new readDB($SQL, $prepare);
+      $dataArme = $fiche->read();
+    if($dataArme == []) {
+    } else {
+      if($dataArme[0]['surPuissance'] == 1) {
+        $plus = '++';
+      } else {
+        $plus = '';
+      }
+      echo
+      '<ul>
+        <li><strong>Fiche n°AF-'.rand(0,$dataArme[0]['idArmes']+10000).'</strong></li>
+        <li>Faction de l\'arme : '.$dataArme[0]['nomFaction'].'</li>
+        <li>Fiche : '.$dataArme[0]['nom'].'</li>
+        <li>'.$dataArme[0]['description'].'</li>
+        <li>Type d\'arme : '.$this->typeArme[$dataArme[0]['typeArme']].'</li>
+        <li>Puissance '.$dataArme[0]['puissance'].'D'.$plus.'</li>';
+        if($dataArme[0]['typeArme'] != 0) {
+          echo '<li>Portée tactique : '.$dataArme[0]['maxRange'].' pouces ou '.round($dataArme[0]['maxRange']*2.54, 0).' cm</li>
+          <li>Arme lourde : '.$this->yes[$dataArme[0]['lourd']].' - Arme d\'assaut : '.$this->yes[$dataArme[0]['assaut']].'</li>';
+          if ($dataArme[0]['couverture'] != 0) {
+            echo '<li>Couverture : '.$this->yes[$dataArme[0]['couverture']].' - Cadence de tir : '.$dataArme[0]['cadenceTir'].' par tour </li>';
+          } else {
+
+          }
+        }
+        if ($dataArme[0]['puissanceExplosif'] != 0) {
+          echo '<li>Puissance : '.$this->dice[$dataArme[0]['puissanceExplosif']].' - Gabarit : '.$this->gabarit[$dataArme[0]['gabarit']].'</li>';
+        }
+        if ($dataArme[0]['sort'] > 0) {
+          echo'<li>Sort '.$this->yes[$dataArme[0]['sort']].'</li>';
+        }
+      echo '<li>Coefficient : '.round($puissanceArme, 3).'</li></ul>';
+      $SQL = "SELECT `id_Rules`, `nomRules`
+      FROM `armesRules`
+      INNER JOIN `rules` ON `idRules` = `id_Rules`
+      WHERE `id_Armes` = :idArmes";
+      $listeRules = new readDB($SQL, $prepare);
+      $dataRules = $listeRules->read();
+      if (!empty($dataRules)) {
+        echo 'Règles spéciales : ';
+        foreach ($dataRules as $key) {
+          echo $key['nomRules'].' . ';
+        }
+      }
+    }
+  }
+
     public function ficheArme ($idArmes, $puissanceArme) {
       $SQL = "SELECT `idArmes`, `id_Univers`, `id_Faction`, `nom`, `description`, `typeArme`, `puissance`, `maxRange`,
       `surPuissance`, `sort`, `assaut`, `couverture`, `cadenceTir`, `lourd`, `puissanceExplosif`, `gabarit`, `fixer`, `prix`, `nomUnivers`,
