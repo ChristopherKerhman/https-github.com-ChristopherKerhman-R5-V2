@@ -65,7 +65,7 @@ nav a {
     transition: background-color 0.5s;
  }
  nav a:hover {
-  background-color: #75511Fff;
+  background-color: #cd6e09;
    color:#F6FBFFff;
    transition: background-color 0.5s;
  }
@@ -77,7 +77,7 @@ nav a {
    font-family: 'Quantico', sans-serif;
    font-size: auto;
    text-decoration: none;
-   background-color: #969BCEff;
+   background-color: #cd6e09;
    color: #F6FBFFff;
    border: #1C1B20ff solid 2px;
    border-radius: 5px;
@@ -85,7 +85,7 @@ nav a {
    transition: background-color 0.5s;
  }
  #r5:hover {
-   background-color: #75511Fff;
+   background-color: #7b0704;
     color:#F6FBFFff;
     transition: background-color 0.5s;
  }
@@ -134,7 +134,7 @@ nav a {
    box-shadow: inset 0px 0px 5px 0px red;
  }
  button:hover {
-   background-color: red;
+   background-color: #cd6e09;
    color:#F6FBFFff;
    font-family: 'Quantico', sans-serif;
    font-size: 1em;
@@ -213,7 +213,7 @@ caption {
    height: auto;
    text-decoration: none;
    background-color: Black;
-   color:red;
+   color:#7b0704;
    font-family: 'Quantico', sans-serif;
    font-size: 1em;
    margin-top: 0.5em;
@@ -222,15 +222,15 @@ caption {
    padding: 3px 10px 3px 10px;
    transition: color 0.5s;
    border-radius: 5px;
-   transition: background-color 1s;
    -webkit-box-shadow: inset 0px 0px 5px 0px blue;
    box-shadow: inset 0px 0px 5px 0px blue;
     cursor: pointer;
+    transition: background-color 0.5s;
  }
  .lienRS:hover {
-   background-color: red;
+   background-color: #cd6e09;
    color:#F6FBFFff;
-    transition: background-color 1s;
+    transition: background-color 0.5s;
  }
 
  label {
@@ -259,7 +259,7 @@ section {
    font-family: 'Keania One', cursive;
    font-weight: lighter;
    /*color: hsla(252, 8%, 12%, 1);*/
-   color: #aaa;
+   color: #cd6e09;
    font-size: 7em;
    text-align: center;
    margin-bottom: -4em;
@@ -270,6 +270,13 @@ section {
    text-align: center;
    font-family: 'Quantico', sans-serif;
    margin-left: 1em;
+ }
+ #slogan {
+   font-size: 2.5em;
+   text-align: center;
+   font-family: 'Quantico', sans-serif;
+   margin-left: 1em;
+   color: #7b0704;
  }
  .red{
    color:red;
@@ -528,7 +535,7 @@ td {
    font-family: 'Quantico', sans-serif;
    font-size: 1.5em;
    text-decoration: none;
-   background-color: #B91B00;
+   background-color: #cd6e09;
    color: #F6FBFFff;
    border: #1C1B20ff solid 2px;
    border-radius: 5px;

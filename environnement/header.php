@@ -41,7 +41,7 @@ $idNav = $dataNav[0]['idNav'];
   <header>
     <div id="titrePrincipal">
       <h1 class="titre"><?=$titre?></h1>
-        <h2 class="sousTitre"><?=$sousTitre?></h2>
+        <h2 id="slogan"><?=$sousTitre?></h2>
   </div>
   <nav>
     <ul class="flex-center">

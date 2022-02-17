@@ -26,15 +26,15 @@ ORDER BY `nomUnivers`, `nomFaction`";
     echo '<p>Pas d\'éléments dans la base de données des armes.</p>';
   }
   echo '<ul>';
+
   //  print_r($dataId);
     $ficheFigurine = new Figurines(0, $idNav);
   foreach ($dataId as $cle => $valeur) {
     $id = $valeur['idFigurine'];
-    echo '<li><strong>'.$valeur['nomUnivers'].' - '.$valeur['nomFaction'].'</strong></li>
-    <li>';
+    echo '<li><strong>'.$valeur['nomUnivers'].' - '.$valeur['nomFaction'].'</strong></li>';
     $ficheFigurine->ficheFigurineCompleteListe($id);
-    echo '</li>';
     }
+
   echo '</ul>';
 
   } else {

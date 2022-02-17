@@ -52,21 +52,19 @@ include 'stockageData/yes.php';
       <input id="nom" type="text" name="nomUnivers" value="'.$key['nomUnivers'].'">
       <label for="partager">Partager la création ?</label>
       <select name="partager">
-        <option value="0" selected>Non</option>
-        <option value="1">Oui</option>
-      </select>
+      ';
+      if($key['partager'] > 0) {
+        echo '<option value="0">Non</option>
+        <option value="1" selected>Oui</option>';
+      } else {
+        echo '<option value="0" selected>Non</option>
+        <option value="1">Oui</option>';
+      }
+      echo'</select>
         <input type="hidden" name="idNav" value="'.$idNav.'">
         <input type="hidden" name="idUnivers" value="'.$key['idUnivers'].'">
         <input type="hidden" name="del" value="0">
       <button type="submit" name="button">Modifier</button>
-    </form>
-    <form action="CUD/Update/univers.php" method="post">
-    <input type="hidden" name="del" value="1">
-    <input type="hidden" name="nomUnivers" value="'.$key['nomUnivers'].'">
-    <input type="hidden" name="partager" value="1">
-    <input type="hidden" name="idNav" value="'.$idNav.'">
-    <input type="hidden" name="idUnivers" value="'.$key['idUnivers'].'">
-    <button type="submit" name="button">Effacer</button>
     </form>
     </li>';
   }
