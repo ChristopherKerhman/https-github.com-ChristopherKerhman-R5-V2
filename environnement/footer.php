@@ -14,8 +14,11 @@
       echo '<li><a href="index.php?idNav='.$key['idNav'].'">'.$key['nomLien'].'</a></li>';
     } ?>
     <li><a href="https://blog.ludis-r5.fr">Le blog de ludis R5</a></li>
-  
+
   </ul>
+      <p id="copyrigth">
+        Copyrigth &copy; <?=date('Y')?>
+      </p>
   </nav>
 <?php
   if((empty($_SESSION['RGPD'])) || $_SESSION['RGPD'] == 0) {
@@ -33,6 +36,7 @@
     echo 'Vous avez accepté le cookie de session de ce site.';
   }
 ?>
+
 </footer>
 <?php include 'javascript/back.php'; ?>
 </body>
