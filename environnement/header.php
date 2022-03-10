@@ -33,6 +33,7 @@ $idNav = $dataNav[0]['idNav'];
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="boardgame, jeu d'escarmouche, figurines, 28mm">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="black">
     <link rel="stylesheet" href="css/master.css">
     <script src="<?php echo $vueJSCDN; ?>"></script>
     <title><?=$titre?></title>
@@ -45,7 +46,7 @@ $idNav = $dataNav[0]['idNav'];
   </div>
   <nav>
     <ul class="flex-center">
-      <li><div id="BACK"><a v-on:click="backTo">&#8920;</a></div></li>
+
       <?php
         foreach ($dataNav as $key) {
           echo '<li><a href="index.php?idNav='.$key['idNav'].'">'.$key['nomLien'].'</a></li>';

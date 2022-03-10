@@ -38,7 +38,7 @@
 ?>
 
 </footer>
-<?php include 'javascript/back.php'; ?>
+
 </body>
 
 </html>
