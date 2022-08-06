@@ -5,8 +5,10 @@ require '../../objets/readDB.php';
 include '../fonctionsDB.php';
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
   if (filter($_POST['CGU'])) {
-    $stop = 1;
+    //Blocage des inscriptions. $stop = 1;
+    $stop = 0;
   } else {
+
     $stop = 0;
   }
 // Controle Formulaire en amont

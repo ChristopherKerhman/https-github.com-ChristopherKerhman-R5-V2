@@ -13,5 +13,3 @@ header('location:../../index.php?idNav='.$idNav.'&message=Journeaux vidé.');
 } else {
   header('location:../../index.php?message=Erreur de traitement.');
 }
-
- ?>

@@ -1,11 +1,11 @@
 <?php
 session_start();
 $vueJSCDN = 'node_modules/vue/dist/vue.global.prod.js';
-require 'objets/rulesSp.php';
-require 'objets/paramDB.php';
-require 'objets/readDB.php';
-include 'CUD/fonctionsDB.php';
-include 'stockageData/typeRules.php';
+  require 'objets/rulesSp.php';
+  require 'objets/paramDB.php';
+  require 'objets/readDB.php';
+  include 'CUD/fonctionsDB.php';
+  include 'stockageData/typeRules.php';
 $type = filter($_GET['type']);
 $reglesSpeciales = new Rules();
 $dataRulesSP = $reglesSpeciales->readRules($type);
