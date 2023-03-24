@@ -41,7 +41,6 @@ $vueJSCDN = 'node_modules/vue/dist/vue.global.prod.js';
   <body>
     <section class="listeBlanche">
      <h3 class="sousTitre"><?=$dataUFliste[0]['nomUnivers']?> / <?=$dataUFliste[0]['nomFaction']?> - Liste <?=$nameListe[0]['nomListe']?> </h3>
-       <div id="BACK"><a class="lienImpression" v-on:click="backTo"><< retour </a></div>
      <article class="listeBlanche">
        Prix total de la liste : <?php $valeurListe = $liste->sommeListe($idListe); if($valeurListe == 0) { echo 'Pas encore d\'éléments dans cette liste.';} else { echo round($valeurListe, 0).' points';}?><br />
        Point de commandement : <?php $pc = $liste->pointCommandement($idListe);echo round($pc,0); if($pc > 1.5) { echo ' points';} else { echo ' point';} ?>
@@ -72,7 +71,7 @@ $vueJSCDN = 'node_modules/vue/dist/vue.global.prod.js';
         echo '</p>';
     }
     }
-include 'javascript/back.php';
+//include 'javascript/back.php';
      ?>
 
   </body>
